@@ -1,0 +1,215 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet" />
+	<link href="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<script src="assets/js/storage.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<!--数据可视化 -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<!-- iOS meta tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<link rel="stylesheet" type="text/css" href="papaya/papaya.css?build=1455" />
+	<script type="text/javascript" src="papaya/papaya.js?build=1455"></script>
+
+
+	<title>MED-AI</title>
+	<style type="text/css">
+		button[type="submit"] {
+			color: #FFFFFF;
+			background: #0dcaf0;
+			border: none;
+			padding: 13px 0;
+			margin-top: 30px;
+			outline: none;
+			width: 15%;
+			font-size: 8px;
+			cursor: pointer;
+			letter-spacing: 2px;
+			-webkit-transition: 0.5s all;
+			-o-transition: 0.5s all;
+			-moz-transition: 0.5s all;
+			-ms-transition: 0.5s all;
+			transition: 0.5s all;
+			box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.49);
+		}
+		button[type="submit"]:hover {
+			background: #000;
+			-webkit-transition: 0.5s all;
+			-o-transition: 0.5s all;
+			-moz-transition: 0.5s all;
+			-ms-transition: 0.5s all;
+			transition: 0.5s all;
+			border-collapse: separate;
+			-webkit-box-shadow: 0px 0px rgba(255,251,251,1.00);
+			box-shadow: 0px 0px rgba(255,251,251,1.00);
+			border-style: none;
+		}
+		input[type="submit"] {
+			width: 30%;
+		}
+
+		.delete-button {
+			background-color: #35aadc; /* 指定背景颜色 */
+			color: #fff; /* 指定文字颜色 */
+			border: 1px solid #35c9dc; /* 指定边框样式 */
+			padding: 5px 10px; /* 指定内边距 */
+			/* 添加其他样式属性 */
+		}
+
+	</style>
+</head>
+
+<body>
+     <div id="page-layout"></div>
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">虚拟3D演示</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">虚拟3D演示</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<!--end breadcrumb-->
+
+				<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase">文件选择</h6>
+						<hr/>
+						<div class="card">
+							<div class="card-body">
+								<div class="border p-3 rounded">
+									<div class="mb-2">
+										<label class="form-label">请选择文件进行虚拟3D展示</label>
+										<div class="row">
+											<div class="col-10">
+												<select id="selectmx" class="single-select">
+													<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
+												</select>
+											</div>
+											<div class="col-2">
+												<button class="btn btn-outline-secondary" type="button" id="submit1">开始展示</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end switcher-->
+	 <button id="change102" hidden="hidden"></button>
+	 <script src="assets/js/jquery.min.js"></script>
+	 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js"></script>
+	 <script src="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>
+	 <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	 <script src="assets/plugins/select2/js/select2.min.js"></script>
+
+	 <script>
+		 $(document).ready(function () {
+			 $('#image-uploadify').imageuploadify();
+		 })
+	 </script>
+
+	 <script>
+		 $('#selectmx').select2({
+			 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+		 });
+	 </script>
+	 <!--app JS-->
+	 <script src="assets/js/app.js"></script>
+	 <!-- 加载边栏资源 -->
+	 <script>
+		 $(function() {
+			 $("#page-layout").load("index.html");
+		 });
+	 </script>
+
+	 <script>
+		 $(document).ready(function() {
+			 $.ajax({
+				 url: 'http://localhost:8080/treatment/queryOutFiles',
+				 type: 'GET',
+				 contentType: "application/json",
+				 beforeSend: function(xhr) {
+					 // 获取 JWT 字符串
+					 const jwtToken = storage.getToken();
+					 // 设置 "token" 键名
+					 xhr.setRequestHeader("token", jwtToken);
+				 },
+				 success: function(response) {
+					 const fileAttributes = response.data;
+					 const selectBox = $("#selectmx");
+					 fileAttributes.forEach(function(file) {
+						 const option = $("<option></option>");
+						 option.text(file.fileName + ".stl");
+						 option.val(file.fileUrl);
+						 selectBox.append(option);
+					 });
+				 },
+				 error: function() {
+					 console.log("请求失败");
+				 }
+			 });
+		 });
+	 </script>
+
+	 <script>
+		 document.getElementById("submit1").addEventListener("click", function() {
+
+			 var newTab = window.open("http://localhost:8088", "_blank");
+			 newTab.document.title = "虚拟3D演示";
+
+			 var link = document.createElement("link");
+			 link.type = "image/x-icon";
+			 link.rel = "shortcut icon";
+			 link.href = "assets/images/3D医疗图标.svg"; // 替换为自定义图标的路径
+			 newTab.document.head.appendChild(link);
+
+		 });
+	 </script>
+
+</body>
+
+</html>

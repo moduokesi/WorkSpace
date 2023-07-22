@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--favicon-->
+    <link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+    <!--plugins-->
+    <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- loader-->
+    <script src="assets/js/pace.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="assets/css/app.css" rel="stylesheet">
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <!-- Theme Style CSS -->
+    <link rel="stylesheet" href="assets/css/dark-theme.css" />
+    <link rel="stylesheet" href="assets/css/semi-dark.css" />
+    <link rel="stylesheet" href="assets/css/header-colors.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <title>MED-AI</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            overflow: hidden;
+        }
+        video {
+            margin-left: -35%;
+        }
+    </style>
+
+</head>
+<body>
+<div id="page-layout"></div>
+<!--start page wrapper -->
+<div class="page-wrapper" style="background-color: #0A081A;">
+    <div class="page-content">
+        <video autoplay loop muted width="170%" height="620px">
+            <source src="assets/images/MED-AI.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+<!--end page wrapper -->
+<!-- 加载边栏资源 -->
+<script src="assets/js/jquery.min.js"></script>
+<script>
+    $(function() {
+        $("#page-layout").load("index.html");
+    });
+</script>
+</body>
+</html>
