@@ -7,6 +7,36 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class PyUtil {
+    public static Object SegFiles(String fileName, String fileAccount) {
+        String pythonScript = "";
+        String configPath = "D:\\PycharmProject\\pythonProject_vnet\\baseline_model\\vnet\\export_model\\deploy.yaml";
+        String imageFilePath = "D:\\Workspaces\\Project\\treattest\\treatdata\\" + fileAccount + "\\outfile\\dataset\\" + fileName;
+        String saveDir = "";
+
+        // 构建命令行参数
+        ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScript, "--config", configPath, "--image_path", imageFilePath, "--save_dir", saveDir);
+        processBuilder.redirectErrorStream(true); //重定向错误流到输入流
+
+        try {
+            Process process = processBuilder.start();
+
+            // 获取输出结果
+            InputStream inputStream = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("Python脚本执行完毕，退出码：" + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void NiiToStl(String fileName, String fileAccount) {
         String pythonScript = "D:\\Workspaces\\Project\\treatpython\\nii2stl.py";
         String imageFilePath = "D:\\Workspaces\\Project\\treattest\\treatdata\\" + fileAccount + "\\outfile\\dataset\\" + fileName;

@@ -25,6 +25,9 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
 
     @Override
     public Result segOutFiles(String fileName, String fileAccount) {
+        //调用模型
+        PyUtil.SegFiles(fileName, fileAccount);
+
         QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
         //调用python脚本
         PyUtil.NiiToStl(fileName, fileAccount);
@@ -34,6 +37,7 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
         outFile.setFileName(fileName.substring(0, fileName.indexOf('.')));
         wrapper.eq("file_name", outFile.getFileName());
         wrapper.eq("file_account", fileAccount);
+
 
         // 创建目录
         File directory = new File("..\\treatdata\\" + fileAccount + "\\outfile\\");

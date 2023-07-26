@@ -482,33 +482,32 @@
 					 xhr.setRequestHeader("token", jwtToken);
 				 },
 				 success: function (res) {
+					 // 执行其他需要的操作
+					 // 指定要初始化的元素id
+					 var containerId = "papayaSeg";
 
+					 var params = [];
+					 params["kioskMode"] = true;
+					 params["allowScroll"] = false;
+					 params["showControlBar"] = true;
+
+					 params["images"] = [url + file];
+
+					 params[url + file] = {lut: "Fire"};
+
+					 // 初始化查看器，将其添加到指定的容器中
+					 papaya.Container.addViewer(containerId, params);
+
+					 // 在window.onload事件中调用startPapaya函数，确保页面加载完成后再启动Papaya
+					 window.onload = function() {
+						 papaya.Container.startPapaya();
+					 };
 				 },
 				 error: function (res) {
 					 alert("请求发送失败，请检查网络连接或服务器状态。");
 				 }
 			 });
 
-			 // 执行其他需要的操作
-			 // 指定要初始化的元素id
-			 var containerId = "papayaSeg";
-
-			 var params = [];
-			 params["kioskMode"] = true;
-			 params["allowScroll"] = false;
-			 params["showControlBar"] = true;
-
-			 params["images"] = [url + file];
-
-			 params[url + file] = {lut: "Fire"};
-
-			 // 初始化查看器，将其添加到指定的容器中
-			 papaya.Container.addViewer(containerId, params);
-
-			 // 在window.onload事件中调用startPapaya函数，确保页面加载完成后再启动Papaya
-			 window.onload = function() {
-				 papaya.Container.startPapaya();
-			 };
 		 });
 	 </script>
 
