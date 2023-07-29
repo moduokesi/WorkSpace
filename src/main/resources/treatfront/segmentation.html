@@ -463,6 +463,13 @@
 			 const url = $("#selectmx").val();
 			 const file = $("#selectmx option:selected").text();
 
+			 // 检查选中的值是否为默认的占位符值"请选择一个文件"
+			 if (url === null) {
+				 // 弹出提示框告知用户选择一个文件
+				 alert("请选择数据文件！");
+				 return;
+			 }
+
 			 // 打印选中的选项的值
 			 console.log("选中的值为：" + url);
 			 console.log("选中的文本：", file);

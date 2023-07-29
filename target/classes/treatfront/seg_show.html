@@ -340,7 +340,15 @@
 		button.click(function() {
 			// 获取选中的下拉框元素
 			const selectedOption = $("#oragan option:selected");
-			// 获取选中元素的路径
+			// 获取下拉框中的选中值
+			var selectedValue = $("#oragan").val();
+
+			// 检查选中的值是否为默认的占位符值"请选择一个文件"
+			if (selectedValue === null) {
+				// 弹出提示框告知用户选择一个文件
+				alert("请选择数据文件！");
+				return;
+			}
 
 			$.ajax({
 				url: 'http://localhost:8080/treatment/orgShow',
