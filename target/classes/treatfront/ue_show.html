@@ -197,6 +197,15 @@
 
 	 <script>
 		 document.getElementById("submit1").addEventListener("click", function() {
+			 // 获取下拉框中的选中值
+			 var selectedValue = $("#selectmx").val();
+
+			 // 检查选中的值是否为默认的占位符值"请选择一个文件"
+			 if (selectedValue === null) {
+				 // 弹出提示框告知用户选择一个文件
+				 alert("请选择数据文件！");
+				 return;
+			 }
 
 			 var newTab = window.open("http://localhost:8088", "_blank");
 			 newTab.document.title = "虚拟3D演示";
