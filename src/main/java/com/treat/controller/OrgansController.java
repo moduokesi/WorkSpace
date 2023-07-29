@@ -25,4 +25,9 @@ public class OrgansController {
     public Result orgShow(@RequestParam String fileName, HttpServletRequest request) {
         return organsService.orgShow(fileName.substring(0, fileName.indexOf(".")), JwtUtil.getUser(request.getHeader("token")).getAccount());
     }
+
+    @GetMapping("orgInfo")
+    public Result orgInfo(@RequestParam String fileName,HttpServletRequest request) {
+        return organsService.orgInfo(fileName.substring(0, fileName.indexOf(".")), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    }
 }

@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <button onClick="generate()">生成文档</button>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.37.12/docxtemplater.js"></script>
+<script src="https://unpkg.com/pizzip@3.1.4/dist/pizzip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+<script src="https://unpkg.com/pizzip@3.1.4/dist/pizzip-utils.js"></script>
+
+<!--[if IE]>
+<script
+        type="text/javascript"
+        src="https://unpkg.com/pizzip@3.1.4/dist/pizzip-utils-ie.js"
+></script>
+<![endif]-->
+<script>
+    // 加载文件函数
+    function loadFile(url, callback) {
+        PizZipUtils.getBinaryContent(url, callback);
+    }
+
+    // 窗口中的生成函数
+    window.generate = function generate() {
+        // 加载文件
+        loadFile(
+            "./tempalte/tempalte.docx",
+            function (error, content) {
+                if (error) {
+                    throw error;
+                }
+                const zip = new PizZip(content);
+                const doc = new window.docxtemplater(zip, {
+                    paragraphLoop: true,
+                    linebreaks: true,
+                });
+
+                // 渲染文档（将 {first_name} 替换为 John，{last_name} 替换为 Doe，...）
+                doc.render({
+                    first_name: "John",
+                    last_name: "Doe",
+                    phone: "0652455478",
+                    description: "New Website",
+                });
+
+                const blob = doc.getZip().generate({
+                    type: "blob",
+                    mimeType:
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    // 压缩：DEFLATE 添加了压缩步骤。
+                    // 对于 50MB 的输出文档，预计额外耗时 500ms 的 CPU 时间。
+                    compression: "DEFLATE",
+                });
+                // 使用 Data-URI 输出文档
+                saveAs(blob, "output.docx");
+            }
+        );
+    };
+</script>
+</html>
