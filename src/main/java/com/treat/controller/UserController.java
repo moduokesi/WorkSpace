@@ -1,17 +1,26 @@
 package com.treat.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.treat.dto.ChangeDTO;
 import com.treat.dto.Result;
 import com.treat.dto.UserDTO;
 import com.treat.entity.User;
 import com.treat.service.IUserService;
 import com.treat.utils.JwtUtil;
+import com.treat.utils.RedisContants;
+import com.treat.utils.UserHolder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static com.treat.utils.RedisContants.LOGIN_TOKEN_KEY;
+import static com.treat.utils.RedisContants.LOGIN_TOKEN_TTL;
 
 @RestController
 public class UserController {
@@ -19,18 +28,12 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO) {
-
-        //生成一个token
-        Map<String, String> map = new HashMap<>();
-        map.put(JwtUtil.token, JwtUtil.getJwtToken(userDTO));
-
-        if (userService.login(userDTO)) {
-            return Result.ok(map);
-        }else {
-            return Result.fail();
-        }
+        return userService.login(userDTO);
     }
 
     @PostMapping("/register")
@@ -45,18 +48,19 @@ public class UserController {
 
     @PostMapping("/change")
     public Result change(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+
         userDTO.setAccount(JwtUtil.getUser(request.getHeader("token")).getAccount());
         return userService.change(userDTO);
     }
 
     @PostMapping("/changeSec")
-    public Result changSec(@RequestBody ChangeDTO changeDTO, HttpServletRequest request) {
-        changeDTO.setUserAccount(JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result changSec(@RequestBody ChangeDTO changeDTO) {
+        changeDTO.setUserAccount(UserHolder.getUser().getAccount());
         return userService.changeSec(changeDTO);
     }
 
     @GetMapping("/personInfo")
-    public Result personInfo(HttpServletRequest request) {
-        return userService.personInfo(JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result personInfo() {
+        return userService.personInfo(UserHolder.getUser().getAccount());
     }
 }

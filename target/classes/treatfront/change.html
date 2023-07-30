@@ -219,7 +219,6 @@
 					beforeSend: function(xhr) {
 						// 获取 JWT 字符串
 						const jwtToken = storage.getToken();
-
 						// 设置 "token" 键名
 						xhr.setRequestHeader("token", jwtToken);
 					},

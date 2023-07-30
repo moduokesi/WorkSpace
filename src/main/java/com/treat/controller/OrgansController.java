@@ -5,6 +5,7 @@ import com.treat.entity.Organs;
 import com.treat.entity.OutFiles;
 import com.treat.service.IOrgansService;
 import com.treat.utils.JwtUtil;
+import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,19 @@ public class OrgansController {
     private IOrgansService organsService;
 
     @PostMapping("/separate")
-    public Result separate(@RequestBody OutFiles outFiles, HttpServletRequest request) {
-        return organsService.separate(outFiles.getFileName(), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result separate(@RequestBody OutFiles outFiles) {
+        return organsService.separate(outFiles.getFileName(), UserHolder.getUser().getAccount());
     }
 
     @GetMapping("orgShow")
-    public Result orgShow(@RequestParam String fileName, HttpServletRequest request) {
-        return organsService.orgShow(fileName.substring(0, fileName.indexOf(".")), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result orgShow(@RequestParam String fileName) {
+        return organsService.orgShow(fileName.
+                substring(0, fileName.indexOf(".")), UserHolder.getUser().getAccount());
     }
 
     @GetMapping("orgInfo")
-    public Result orgInfo(@RequestParam String fileName,HttpServletRequest request) {
-        return organsService.orgInfo(fileName.substring(0, fileName.indexOf(".")), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result orgInfo(@RequestParam String fileName) {
+        return organsService.orgInfo(fileName.
+                substring(0, fileName.indexOf(".")), UserHolder.getUser().getAccount());
     }
 }

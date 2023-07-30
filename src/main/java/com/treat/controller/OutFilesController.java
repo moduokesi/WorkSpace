@@ -5,6 +5,7 @@ import com.treat.entity.OutFiles;
 import com.treat.service.IOrgansService;
 import com.treat.service.IOutFilesService;
 import com.treat.utils.JwtUtil;
+import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,27 +24,31 @@ public class OutFilesController {
     private IOrgansService organsService;
 
     @GetMapping("queryOutFiles")
-    public Result queryOutFiles(HttpServletRequest request){
-        return outFilesService.queryOutFiles(JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result queryOutFiles(){
+        return outFilesService.queryOutFiles(UserHolder.getUser().getAccount());
     }
 
     @PostMapping("segOutFiles")
-    public Result segOutFiles(@RequestBody OutFiles outFiles, HttpServletRequest request) {
-        return outFilesService.segOutFiles(outFiles.getFileName(), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result segOutFiles(@RequestBody OutFiles outFiles) {
+        return outFilesService.segOutFiles(outFiles.getFileName(),
+                UserHolder.getUser().getAccount());
     }
 
     @PostMapping("columnShow")
-    public Result columnShow(@RequestBody OutFiles outFiles, HttpServletRequest request) {
-        return outFilesService.columnShow(outFiles.getFileName(), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result columnShow(@RequestBody OutFiles outFiles) {
+        return outFilesService.columnShow(outFiles.getFileName(),
+                UserHolder.getUser().getAccount());
     }
 
     @PostMapping("pieShow")
-    public Result pieShow(@RequestBody OutFiles outFiles, HttpServletRequest request) {
-        return outFilesService.pieShow(outFiles.getFileName(), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result pieShow(@RequestBody OutFiles outFiles) {
+        return outFilesService.pieShow(outFiles.getFileName(),
+                UserHolder.getUser().getAccount());
     }
 
     @PostMapping("barShow")
-    public Result barShow(@RequestBody OutFiles outFiles, HttpServletRequest request) {
-        return outFilesService.barShow(outFiles.getFileName(), JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result barShow(@RequestBody OutFiles outFiles) {
+        return outFilesService.barShow(outFiles.getFileName(),
+                UserHolder.getUser().getAccount());
     }
 }

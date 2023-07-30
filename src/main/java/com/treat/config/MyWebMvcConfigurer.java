@@ -34,9 +34,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
                 .addResourceLocations("file:" + property + "\\treatdata\\");
     }
 
-
-
-
     // 注册Token拦截器
     @Bean
     public TokenInterceptor tokenInterceptor(){
@@ -50,6 +47,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/forget")
                 .excludePathPatterns("/register")
+                .excludePathPatterns("/change")
                 .excludePathPatterns("/treatdata/**")
                 .excludePathPatterns("/treatfront/**");                // 针对除了用户信息管理外的所有请求
     }

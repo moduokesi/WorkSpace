@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtUtil {
     // token失效：24小时
     public static final String token = "token";
-    public static final long EXPIPE = 1000 * 60 * 60 * 2;
+    public static final long EXPIPE = 1000 * 60 * 60 * 10;
     public static final String APP_SECRET = "modox@ukc8BDbRigUDaY6pZFfWus2jZWLPHO";
 
     /**

@@ -273,7 +273,7 @@
 					contentType: "application/json",
 					success: function(res) {
 						if (res.status != 200) {
-							alert(res.msg); // 或者通过其他方式显示错误信息
+							alert(res.msg);
 						} else {
 							storage.setToken(res.data);
 							window.location.href = "personInfo.html"

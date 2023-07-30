@@ -1,5 +1,6 @@
 package com.treat.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.treat.dto.ChangeDTO;
@@ -9,26 +10,51 @@ import com.treat.entity.User;
 import com.treat.mapper.UserMapper;
 import com.treat.service.IUserService;
 import com.treat.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+import static com.treat.utils.RedisContants.LOGIN_TOKEN_KEY;
+import static com.treat.utils.RedisContants.LOGIN_TOKEN_TTL;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Resource
     private IUserService userService;
 
-    @Override
-    public Boolean login(UserDTO userDTO) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_account", userDTO.getAccount()).eq("user_pwd", userDTO.getPassword());
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
-        if (userService.getOne(wrapper) != null) {
-            return true;
-        }else {
-            return false;
+    @Override
+    public Result login(UserDTO userDTO) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_account", userDTO.getAccount())
+                .eq("user_pwd", userDTO.getPassword());
+
+        //如果未注册，即用户不存在
+        if (userService.getOne(wrapper) == null) {
+            return Result.fail();
         }
+
+        // TODO 密码设置为空
+        userDTO.setPassword("");
+        //生成一个token
+        String jwtToken = JwtUtil.getJwtToken(userDTO);
+        Map<String, String> map = new HashMap<>();
+        map.put(JwtUtil.token, jwtToken);
+
+        // 存在，将用户存入到redis中
+        String tokenKey = LOGIN_TOKEN_KEY + jwtToken;
+        stringRedisTemplate.opsForHash().putAll(tokenKey, BeanUtil.beanToMap(userDTO));
+        //设置有效期
+        stringRedisTemplate.expire(tokenKey, LOGIN_TOKEN_TTL, TimeUnit.MINUTES);
+        return Result.ok(map);
     }
 
     @Override
@@ -42,6 +68,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         UserDTO userDTO = new UserDTO();
         userDTO.setAccount(user.getUserAccount());
+
+        // 生成一个token
+        String jwtToken = JwtUtil.getJwtToken(userDTO);
+
+        // 存在，将用户存入到redis中
+        String tokenKey = LOGIN_TOKEN_KEY + jwtToken;
+        stringRedisTemplate.opsForHash().putAll(tokenKey, BeanUtil.beanToMap(userDTO));
+        //设置有效期
+        stringRedisTemplate.expire(tokenKey, LOGIN_TOKEN_TTL, TimeUnit.MINUTES);
+
         return Result.ok(JwtUtil.getJwtToken(userDTO));
     }
 

@@ -7,7 +7,7 @@ import com.treat.dto.UserDTO;
 import com.treat.entity.User;
 
 public interface IUserService extends IService<User> {
-    Boolean login(UserDTO userDTO);
+    Result login(UserDTO userDTO);
 
     Result register(User user);
 

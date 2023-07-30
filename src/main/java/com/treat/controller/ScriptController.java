@@ -4,6 +4,7 @@ import com.treat.dto.Result;
 import com.treat.entity.Script;
 import com.treat.service.IScriptService;
 import com.treat.utils.JwtUtil;
+import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,13 +18,14 @@ public class ScriptController {
     private IScriptService scriptService;
 
     @GetMapping("scriptShow")
-    public Result scriptShow(HttpServletRequest request) {
-        return scriptService.scriptShow(JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result scriptShow() {
+        return scriptService.scriptShow(UserHolder.getUser().getAccount());
     }
 
     @PostMapping("scriptUpload")
-    public Result scriptUpload(@RequestParam("file") MultipartFile[] files, HttpServletRequest request) throws IOException {
-        return scriptService.scriptUpload(files, JwtUtil.getUser(request.getHeader("token")).getAccount());
+    public Result scriptUpload(@RequestParam("file") MultipartFile[] files) throws IOException {
+        return scriptService.scriptUpload(files,
+                UserHolder.getUser().getAccount());
     }
 
     @PostMapping("scriptDelete")
