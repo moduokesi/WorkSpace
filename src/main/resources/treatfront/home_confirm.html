@@ -112,6 +112,8 @@
 			$("#page-layout").load("index.html");
 		});
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 	<script type="text/javascript">
 		$(function(){
@@ -180,7 +182,10 @@
 						if (res.status != 200) {
 							alert(res.msg); // 或者通过其他方式显示错误信息
 						} else {
-							alert("密保修改成功")
+							Swal.fire({
+								icon: 'success',
+								title: '密保修改成功'
+							})
 						}
 					},
 					error: function(res) {

@@ -249,7 +249,6 @@
 		$('.single-select').select2({
 			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
 		});
-
 	</script>
 	<!--app JS-->
 	<script src="assets/js/app.js"></script>
@@ -259,6 +258,7 @@
 			$("#page-layout").load("index.html");
 		});
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	 <script type="text/javascript">
 		 $(function() {
@@ -278,6 +278,7 @@
 						 alert(res.msg);
 					 }
 
+					 Swal.close()
 					 const fileAttributes = res.data;
 					 const selectBox = $("#selectmx");
 					 fileAttributes.forEach(function(file) {
@@ -466,13 +467,18 @@
 			 // 检查选中的值是否为默认的占位符值"请选择一个文件"
 			 if (url === null) {
 				 // 弹出提示框告知用户选择一个文件
-				 alert("请选择数据文件！");
+				 Swal.fire({
+					 icon: 'warning',
+					 title: '请选择数据文件！',
+				 })
 				 return;
 			 }
 
 			 // 打印选中的选项的值
 			 console.log("选中的值为：" + url);
 			 console.log("选中的文本：", file);
+
+			 pop()
 
 			 var data = {
 				 fileName : file
@@ -489,6 +495,12 @@
 					 xhr.setRequestHeader("token", jwtToken);
 				 },
 				 success: function (res) {
+					 Swal.close(); // 关闭弹窗
+					 Swal.fire({
+						 icon: 'success',
+						 title: '器官分割成功！'
+					 })
+
 					 // 执行其他需要的操作
 					 // 指定要初始化的元素id
 					 var containerId = "papayaSeg";
@@ -517,6 +529,27 @@
 
 		 });
 	 </script>
+
+	<script>
+		function pop() {
+			let timerInterval;
+			let isConditionMet = false; // 当满足条件时将此标志设置为 true
+
+			Swal.fire({
+				title: '正在进行器官分割!',
+				footer: '请耐心等待',
+				timerProgressBar: true,
+				didOpen: () => {
+					Swal.showLoading();
+					const b = Swal.getHtmlContainer().querySelector('b');
+
+					timerInterval = setInterval(() => {
+						b.textContent = isConditionMet ? 0 : '加载中...'; // 根据条件设置文本内容
+					}, 100);
+				},
+			});
+		}
+	</script>
 
 </body>
 
