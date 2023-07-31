@@ -7,10 +7,7 @@ import com.treat.service.IOutFilesService;
 import com.treat.utils.JwtUtil;
 import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -26,6 +23,11 @@ public class OutFilesController {
     @GetMapping("queryOutFiles")
     public Result queryOutFiles(){
         return outFilesService.queryOutFiles(UserHolder.getUser().getAccount());
+    }
+
+    @GetMapping("queryOutOne")
+    public Result queryOutOne(@RequestParam("fileName") String fileName){
+        return outFilesService.queryOutOne(fileName.substring(0, fileName.indexOf(".")), UserHolder.getUser().getAccount());
     }
 
     @PostMapping("segOutFiles")

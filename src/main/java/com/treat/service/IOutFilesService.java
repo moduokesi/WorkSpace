@@ -17,4 +17,6 @@ public interface IOutFilesService extends IService<OutFiles> {
     Result barShow(String fileName, String token);
 
     Result columnShow(String fileName, String token);
+
+    Result queryOutOne(String fileName, String account);
 }

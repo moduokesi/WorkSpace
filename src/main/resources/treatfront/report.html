@@ -302,10 +302,6 @@
 					didOpen: () => {
 						Swal.showLoading();
 						const b = Swal.getHtmlContainer().querySelector('b');
-
-						timerInterval = setInterval(() => {
-							b.textContent = isConditionMet ? 0 : '加载中...'; // 根据条件设置文本内容
-						}, 100);
 					},
 				});
 				$.ajax({

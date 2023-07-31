@@ -125,6 +125,18 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
     }
 
     @Override
+    public Result queryOutOne(String fileName, String account) {
+        QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
+        wrapper.eq("file_name", fileName).eq("file_account", account);
+
+        if (outFilesService.getOne(wrapper) == null) {
+            return Result.fail();
+        }
+
+        return Result.ok();
+    }
+
+    @Override
     public Result queryOutFiles(String account) {
         QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
         wrapper.eq("file_account", account);
