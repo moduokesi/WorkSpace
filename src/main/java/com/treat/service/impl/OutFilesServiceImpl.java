@@ -25,19 +25,24 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
 
     @Override
     public Result segOutFiles(String fileName, String fileAccount) {
-        //调用模型
-        PyUtil.SegFiles(fileName, fileAccount);
-
-        QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
-        //调用python脚本
-        PyUtil.NiiToStl(fileName, fileAccount);
 
         OutFiles outFile = new OutFiles();
         outFile.setFileAccount(fileAccount);
         outFile.setFileName(fileName.substring(0, fileName.indexOf('.')));
+
+        QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
         wrapper.eq("file_name", outFile.getFileName());
         wrapper.eq("file_account", fileAccount);
 
+        // 如果已经分割过
+        if (outFilesService.getOne(wrapper) != null) {
+            return Result.fail("该文件已进行过分割操作！");
+        }
+
+        //调用模型
+        PyUtil.SegFiles(fileName, fileAccount);
+        //调用python脚本，将结果分为stl和nii文件
+        PyUtil.NiiToStl(fileName, fileAccount);
 
         // 创建目录
         File directory = new File("..\\treatdata\\" + fileAccount + "\\outfile\\");

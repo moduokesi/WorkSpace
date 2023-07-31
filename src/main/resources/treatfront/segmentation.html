@@ -492,6 +492,13 @@
 					 xhr.setRequestHeader("token", jwtToken);
 				 },
 				 success: function (res) {
+					 if (res.status != 200) {
+						 Swal.fire({
+							 icon: 'warning',
+							 title: res.msg
+						 })
+						 return;
+					 }
 					 Swal.close(); // 关闭弹窗
 					 Swal.fire({
 						 icon: 'success',
