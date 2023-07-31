@@ -24,6 +24,11 @@
 	<title>MED-AI 登录界面</title>
 
 	<style type="text/css">
+		.form-check-input[type="checkbox"] {
+			/* 例如，设置背景颜色和边框颜色 */
+			background-color: #007bff; /* 这里使用了蓝色作为示例颜色，您可以根据需要进行更改 */
+			border-color: #007bff;
+		}
 		#h123 {
 			font-size: 4em;
 			/* color: #6ca6a3; */
@@ -183,7 +188,7 @@
 										<div class="col-md-6">
 											<div class="form-check form-switch">
 												<input class="form-check-input" type="checkbox"
-													   id="flexSwitchCheckChecked" checked >
+													   id="flexSwitchCheckChecked">
 												<label class="form-check-label"
 													   for="flexSwitchCheckChecked" >记住密码</label>
 											</div>
@@ -274,6 +279,45 @@
 		});
 	});
 
+</script>
+
+<script>
+	// 检查浏览器是否支持LocalStorage
+	if (typeof(Storage) !== "undefined") {
+		// 检查LocalStorage中是否有保存的登录凭据
+		var savedUsername = localStorage.getItem("username");
+		var savedPassword = localStorage.getItem("password");
+
+		// 如果有保存的凭据，则填充登录表单
+		if (savedUsername && savedPassword) {
+			document.getElementById("Account0").value = savedUsername;
+			document.getElementById("Password0").value = savedPassword;
+			document.getElementById("flexSwitchCheckChecked").checked = true;
+		}
+
+		// 给登录按钮添加一个事件监听器来处理登录表单的提交
+		document.getElementById("submit").addEventListener("click", function(event) {
+			event.preventDefault();
+
+			var account = document.getElementById("Account0").value;
+			var password = document.getElementById("Password0").value;
+			var rememberMe = document.getElementById("flexSwitchCheckChecked").checked;
+
+			// 如果勾选了“记住密码”，则将登录信息保存到LocalStorage中
+			if (rememberMe) {
+				localStorage.setItem("username", account);
+				localStorage.setItem("password", password);
+			} else {
+				// 如果没有勾选“记住密码”，则清除LocalStorage中保存的登录信息
+				localStorage.removeItem("username");
+				localStorage.removeItem("password");
+			}
+
+		});
+	} else {
+		// 浏览器不支持LocalStorage
+		console.error("该浏览器不支持LocalStorage。");
+	}
 </script>
 <!--app JS-->
 <script src="assets/js/app.js"></script>
