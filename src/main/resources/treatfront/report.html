@@ -188,6 +188,8 @@
 			 $("#page-layout").load("index.html");
 		 });
 	 </script>
+	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 	 <script>
 		 $(document).ready(function() {
@@ -272,7 +274,10 @@
 				var fileName = $("#selectmx option:selected").text();
 
 				if (fileName === "请选择一个文件") {
-					alert("请选择文件！")
+					Swal.fire({
+						icon: 'warning',
+						title: '请选择文件！'
+					})
 					return;
 				}
 
@@ -283,11 +288,26 @@
 				var sex = sexInput ? sexInput.value : "";
 
 				if (name === "" || age === "" || sex === "") {
-					alert("请补全相关信息！")
+					Swal.fire({
+						icon: 'warning',
+						title: '请补全相关信息！'
+					})
 					return;
 				}
 
+				Swal.fire({
+					title: '正在生成诊断报告!',
+					footer: '请耐心等待',
+					timerProgressBar: true,
+					didOpen: () => {
+						Swal.showLoading();
+						const b = Swal.getHtmlContainer().querySelector('b');
 
+						timerInterval = setInterval(() => {
+							b.textContent = isConditionMet ? 0 : '加载中...'; // 根据条件设置文本内容
+						}, 100);
+					},
+				});
 				$.ajax({
 					url: 'http://localhost:8080/treatment/orgInfo',
 					type: 'GET',
@@ -300,6 +320,11 @@
 						xhr.setRequestHeader("token", jwtToken);
 					},
 					success: function(res) {
+						Swal.close();
+						Swal.fire({
+							icon: 'success',
+							title: '报告生成完毕！'
+						})
 						var tableBody = document.getElementById('tableBody');
 						tableBody.innerText = '';
 
