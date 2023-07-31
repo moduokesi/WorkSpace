@@ -261,98 +261,96 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	 <script type="text/javascript">
-		 $(function() {
-			 $.ajax({
-				 url: 'http://localhost:8080/treatment/filesInfo',
-				 type: 'GET',
-				 data: { userAccount: localStorage.getItem('userAccount') },
-				 contentType: "application/json",
-				 beforeSend: function(xhr) {
-					 // 获取JWT字符串
-					 const jwtToken = storage.getToken();
-					 // 设置 "token" 键名
-					 xhr.setRequestHeader("token", jwtToken);
-				 },
-				 success: function(res) {
-					 if (res.status != 200) {
-						 alert(res.msg);
-					 }
-
-					 Swal.close()
-					 const fileAttributes = res.data;
-					 const selectBox = $("#selectmx");
-					 fileAttributes.forEach(function(file) {
-						 const option = $("<option></option>");
-						 option.attr('id', 'seg-' + file.fileId); // 使用 attr 方法设置 id 属性
-						 option.text(file.fileName + "." + file.fileType);
-						 //设置路径
-						 option.val(file.fileUrl.replace("\\infile\\", "\\outfile\\dataset\\"));
-						 selectBox.append(option);
-					 });
-
-					 // 获取下拉框元素
-					 var selectFile = document.querySelector("#fileSelect");
-
-					 // 根据数据生成每个选项
-					 for (var i = 0; i < res.data.length; i++) {
-						 // 创建选项元素
-						 var optionElement = document.createElement('option');
-
-						 optionElement.setAttribute('id', 'option-' + res.data[i].fileId);
-
-						 // 设置选项的值和显示文本
-						 optionElement.value = res.data[i].fileUrl;
-
-						 optionElement.textContent = res.data[i].fileName + "." + res.data[i].fileType;
-
-						 // 将选项添加到下拉框中
-						 selectFile.appendChild(optionElement);
-					 }
-
-					 var tableBody = document.getElementById('tableBody');
-
-					 // 根据数据生成每一行的内容
-					 for (var i = 0; i < res.data.length; i++) {
-						 // 创建表格行
-						 var rowElement = document.createElement('tr');
-						 rowElement.setAttribute('id', 'row-' + res.data[i].fileId);
-
-						 // 创建文件名单元格并添加数据
-						 var fileNameCell = document.createElement('td');
-						 var fileNameSpan = document.createElement('span');
-						 fileNameSpan.textContent = res.data[i].fileName;
-						 fileNameSpan.classList.add('file-name');
-						 fileNameCell.appendChild(fileNameSpan);
-						 rowElement.appendChild(fileNameCell);
-
-						 // 创建文件类型单元格并添加数据
-						 var fileTypeCell = document.createElement('td');
-						 fileTypeCell.textContent = res.data[i].fileType;
-						 rowElement.appendChild(fileTypeCell);
-
-						 // 创建文件大小单元格并添加数据
-						 var fileSizeCell = document.createElement('td');
-						 fileSizeCell.textContent = res.data[i].fileSize;
-						 rowElement.appendChild(fileSizeCell);
-
-						 // 创建操作单元格并添加按钮
-						 var actionCell = document.createElement('td');
-						 var actionButton = document.createElement('button');
-						 actionButton.textContent = '删除'; // 按钮文本
-						 actionButton.classList.add('delete-button'); // 按钮样式类
-						 actionButton.dataset.fileId = res.data[i].fileId; // 按钮自定义属性，例如文件ID
-						 actionButton.addEventListener('click', handleButtonClick); // 按钮点击事件处理程序
-						 actionCell.appendChild(actionButton);
-						 rowElement.appendChild(actionCell);
-
-						 // 将行元素添加到表格主体中
-						 tableBody.appendChild(rowElement);
-					 }
-				 },
-				 error: function(res) {
-					 // 错误处理代码
+		 $.ajax({
+			 url: 'http://localhost:8080/treatment/filesInfo',
+			 type: 'GET',
+			 data: { userAccount: localStorage.getItem('userAccount') },
+			 contentType: "application/json",
+			 beforeSend: function(xhr) {
+				 // 获取JWT字符串
+				 const jwtToken = storage.getToken();
+				 // 设置 "token" 键名
+				 xhr.setRequestHeader("token", jwtToken);
+			 },
+			 success: function(res) {
+				 if (res.status != 200) {
+					 alert(res.msg);
 				 }
-			 });
+
+				 Swal.close()
+				 const fileAttributes = res.data;
+				 const selectBox = $("#selectmx");
+				 fileAttributes.forEach(function(file) {
+					 const option = $("<option></option>");
+					 option.attr('id', 'seg-' + file.fileId); // 使用 attr 方法设置 id 属性
+					 option.text(file.fileName + "." + file.fileType);
+					 //设置路径
+					 option.val(file.fileUrl.replace("\\infile\\", "\\outfile\\dataset\\"));
+					 selectBox.append(option);
+				 });
+
+				 // 获取下拉框元素
+				 var selectFile = document.querySelector("#fileSelect");
+
+				 // 根据数据生成每个选项
+				 for (var i = 0; i < res.data.length; i++) {
+					 // 创建选项元素
+					 var optionElement = document.createElement('option');
+
+					 optionElement.setAttribute('id', 'option-' + res.data[i].fileId);
+
+					 // 设置选项的值和显示文本
+					 optionElement.value = res.data[i].fileUrl;
+
+					 optionElement.textContent = res.data[i].fileName + "." + res.data[i].fileType;
+
+					 // 将选项添加到下拉框中
+					 selectFile.appendChild(optionElement);
+				 }
+
+				 var tableBody = document.getElementById('tableBody');
+
+				 // 根据数据生成每一行的内容
+				 for (var i = 0; i < res.data.length; i++) {
+					 // 创建表格行
+					 var rowElement = document.createElement('tr');
+					 rowElement.setAttribute('id', 'row-' + res.data[i].fileId);
+
+					 // 创建文件名单元格并添加数据
+					 var fileNameCell = document.createElement('td');
+					 var fileNameSpan = document.createElement('span');
+					 fileNameSpan.textContent = res.data[i].fileName;
+					 fileNameSpan.classList.add('file-name');
+					 fileNameCell.appendChild(fileNameSpan);
+					 rowElement.appendChild(fileNameCell);
+
+					 // 创建文件类型单元格并添加数据
+					 var fileTypeCell = document.createElement('td');
+					 fileTypeCell.textContent = res.data[i].fileType;
+					 rowElement.appendChild(fileTypeCell);
+
+					 // 创建文件大小单元格并添加数据
+					 var fileSizeCell = document.createElement('td');
+					 fileSizeCell.textContent = res.data[i].fileSize;
+					 rowElement.appendChild(fileSizeCell);
+
+					 // 创建操作单元格并添加按钮
+					 var actionCell = document.createElement('td');
+					 var actionButton = document.createElement('button');
+					 actionButton.textContent = '删除'; // 按钮文本
+					 actionButton.classList.add('delete-button'); // 按钮样式类
+					 actionButton.dataset.fileId = res.data[i].fileId; // 按钮自定义属性，例如文件ID
+					 actionButton.addEventListener('click', handleButtonClick); // 按钮点击事件处理程序
+					 actionCell.appendChild(actionButton);
+					 rowElement.appendChild(actionCell);
+
+					 // 将行元素添加到表格主体中
+					 tableBody.appendChild(rowElement);
+				 }
+			 },
+			 error: function(res) {
+				 // 错误处理代码
+			 }
 		 });
 	 </script>
 
@@ -361,7 +359,6 @@
 		 function handleButtonClick(event) {
 			 var fileId = event.target.dataset.fileId;
 			 // 根据文件ID执行相应的操作
-
 			 var data = {
 				 fileId: fileId
 			 }

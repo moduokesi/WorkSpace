@@ -233,6 +233,7 @@
 			$("#page-layout").load("index.html");
 		});
 	</script>
+	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	 <script>
 		 $.ajax({
@@ -314,7 +315,10 @@
 					 var file = files[i];
 					 // 检查文件类型
 					 if (!file.name.endsWith('.py')) {
-						 alert("文件类型不符，请上传脚本文件！");
+						 Swal.fire({
+							 icon: 'warning',
+							 title: '文件类型不符\n请上传脚本文件'
+						 })
 						 continue;
 					 }
 					 formData.append('file', file);

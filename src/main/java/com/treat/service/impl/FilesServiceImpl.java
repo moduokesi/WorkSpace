@@ -1,11 +1,16 @@
 package com.treat.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.treat.dto.Result;
 import com.treat.entity.InFiles;
+import com.treat.entity.OutFiles;
 import com.treat.mapper.FilesMapper;
 import com.treat.service.IFilesService;
+import com.treat.service.IOutFilesService;
+import com.treat.utils.UserHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +22,11 @@ import java.util.List;
 
 @Service
 public class FilesServiceImpl extends ServiceImpl<FilesMapper, InFiles> implements IFilesService {
-    @Resource
+    @Autowired
     private IFilesService filesService;
+
+    @Autowired
+    private IOutFilesService outFilesService;
 
     @Override
     public Result storeFiles(MultipartFile[] files, String account) throws IOException {
@@ -92,11 +100,21 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, InFiles> implemen
 
     @Override
     public Result deletefile(String fileId) {
-        if (fileId != null && !fileId.equals("")) {
-            filesService.removeById(fileId);
-            return Result.ok();
-        } else {
+        if (fileId == null || fileId.equals("")) {
             return Result.fail("未查询到该文件！");
         }
+        String file = filesService.getById(fileId).getFileName();
+        String fileName = file.substring(0, file.indexOf("."));
+        String fileAccount = UserHolder.getUser().getAccount();
+        filesService.removeById(fileId);
+
+        QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
+        wrapper.eq("file_account", fileAccount).eq("file_name", fileName);
+
+        //如果stl文件不存在
+        outFilesService.remove(wrapper);
+
+        return Result.ok();
+
     }
 }

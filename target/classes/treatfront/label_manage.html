@@ -98,7 +98,7 @@
             $("#page-layout").load("index.html");
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript">
         $(function() {
@@ -177,7 +177,15 @@
                 const selectedOption = $("option:selected");
                 var url = selectedOption.val();
                 var file = selectedOption.text(); // 将选中的值赋给变量
-                console.log(url+file);
+
+                if (url == "请选择文件后使用下列工具") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '请选择数据文件！',
+                    })
+                    return;
+                }
+
                 // 进行URL编码
                 var encodedUrl = encodeURIComponent(url+file);
                 console.log(encodedUrl);
