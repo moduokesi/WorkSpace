@@ -296,10 +296,20 @@
 					 if (xhr.readyState === XMLHttpRequest.DONE) {
 						 if (xhr.status === 200) {
 							 // 处理请求完成后的响应
-							 console.log('文件上传成功！');
+							 Swal.fire({
+								 icon: 'success',
+								 title: '文件上传成功！',
+							 }).then((result) => {
+								 if (result.isConfirmed) {
+									 location.reload({ preserveScroll: false });
+								 }
+							 });
 							 show();
 						 } else {
-							 console.log('文件上传失败！');
+							 Swal.fire({
+								 icon: 'warning',
+								 title: '文件类型不符\n请上传脚本文件'
+							 })
 						 }
 					 }
 				 };
