@@ -104,7 +104,14 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, InFiles> implemen
             return Result.fail("未查询到该文件！");
         }
         String file = filesService.getById(fileId).getFileName();
-        String fileName = file.substring(0, file.indexOf("."));
+        String fileName = file;
+
+        //检查是否存在后缀
+        int dotIndex = file.indexOf(".");
+        if (dotIndex != -1) {
+            fileName = file.substring(0, dotIndex);
+        }
+
         String fileAccount = UserHolder.getUser().getAccount();
         filesService.removeById(fileId);
 
@@ -115,6 +122,5 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, InFiles> implemen
         outFilesService.remove(wrapper);
 
         return Result.ok();
-
     }
 }

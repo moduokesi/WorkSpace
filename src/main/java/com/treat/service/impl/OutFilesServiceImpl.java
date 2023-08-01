@@ -28,7 +28,7 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
 
         OutFiles outFile = new OutFiles();
         outFile.setFileAccount(fileAccount);
-        outFile.setFileName(fileName.substring(0, fileName.indexOf('.')));
+        outFile.setFileName(fileName.substring(0, fileName.indexOf(".")));
 
         QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
         wrapper.eq("file_name", outFile.getFileName());

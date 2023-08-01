@@ -7,20 +7,12 @@ import com.treat.dto.UserDTO;
 import com.treat.entity.User;
 import com.treat.service.IUserService;
 import com.treat.utils.JwtUtil;
-import com.treat.utils.RedisContants;
 import com.treat.utils.UserHolder;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import static com.treat.utils.RedisContants.LOGIN_TOKEN_KEY;
-import static com.treat.utils.RedisContants.LOGIN_TOKEN_TTL;
 
 @RestController
 public class UserController {

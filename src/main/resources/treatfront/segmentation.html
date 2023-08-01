@@ -293,6 +293,7 @@
 					 selectBox.append(option);
 				 });
 
+
 				 const selectBox1 = $("#outfileSelect");
 				 fileAttributes.forEach(function(file) {
 					 const option = $("<option></option>");
@@ -321,6 +322,7 @@
 					 // 将选项添加到下拉框中
 					 selectFile.appendChild(optionElement);
 				 }
+
 
 				 var tableBody = document.getElementById('tableBody');
 
@@ -527,6 +529,7 @@
 						 icon: 'success',
 						 title: '器官分割成功！'
 					 })
+
 				 },
 				 error: function (res) {
 					 alert("请求发送失败，请检查网络连接或服务器状态。");
@@ -548,8 +551,13 @@
 		$("#outfileSelect").on('change', function () {
 			// 获取下拉框元素
 			const url = $("#outfileSelect").val();
-			const file = $("#outfileSelect option:selected").text();
+			let file = $("#outfileSelect option:selected").text();
 
+			// 判断文件后缀是否为.nii
+			if (file.endsWith(".nii")) {
+				// 如果是.nii后缀，添加.gz后缀
+				file += ".gz";
+			}
 
 			$.ajax({
 				url: 'http://localhost:8080/treatment/queryOutOne',
