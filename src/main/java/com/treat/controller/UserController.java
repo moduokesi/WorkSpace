@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @RestController
 public class UserController {
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody User user) {
+    public Result register(@RequestBody User user) throws IOException {
         return userService.register(user);
     }
 

@@ -26,7 +26,7 @@ public class OrgansServiceImpl extends ServiceImpl<OrgansMapper, Organs> impleme
     private IOrgInfoService orgInfoService;
 
     @Override
-    public Result separate(String name, String account) {
+    public synchronized Result separate(String name, String account) {
         QueryWrapper<Organs> wrapper = new QueryWrapper<>();
         wrapper.eq("org_account", account);
         wrapper.eq("org_origin", name.substring(0, name.lastIndexOf(".")));

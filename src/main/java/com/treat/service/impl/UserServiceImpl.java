@@ -15,6 +15,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -59,7 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public Result register(User user) {
+    public Result register(User user) throws IOException {
         // 如果用户名重复
         if (isExists(user)) {
             return Result.fail("用户名重复，请更换用户名");
@@ -69,6 +72,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         UserDTO userDTO = new UserDTO();
         userDTO.setAccount(user.getUserAccount());
+
+        Path sourceDir = Paths.get("D:\\Workspaces\\Project\\treattest\\dataset");
+        Path targetDir = Paths.get("D:\\Workspaces\\Project\\treattest\\treatdata\\" + userDTO.getAccount() + "\\outfile\\dataset");
+
+        // 拷贝文件夹及其内容
+        Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                Path targetDirPath = targetDir.resolve(sourceDir.relativize(dir));
+                Files.createDirectories(targetDirPath);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Path targetFilePath = targetDir.resolve(sourceDir.relativize(file));
+                Files.copy(file, targetFilePath, StandardCopyOption.REPLACE_EXISTING);
+                return FileVisitResult.CONTINUE;
+            }
+        });
 
         // 生成一个token
         String jwtToken = JwtUtil.getJwtToken(userDTO);

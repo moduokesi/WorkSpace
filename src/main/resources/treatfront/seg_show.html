@@ -386,7 +386,10 @@
 				},
 				success: function (res) {
 					if (res.status != 200) {
-						alert(res.msg);
+						Swal.fire({
+							icon: 'error',
+							title: res.msg
+						})
 					} else {
 						var tableBody = document.getElementById('tableBody');
 						tableBody.innerText = '';
