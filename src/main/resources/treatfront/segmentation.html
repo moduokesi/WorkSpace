@@ -266,7 +266,7 @@
 
 	 <script type="text/javascript">
 		 $.ajax({
-			 url: 'http://localhost:8080/treatment/filesInfo',
+			 url: storage.baseURL+'/filesInfo',
 			 type: 'GET',
 			 data: { userAccount: localStorage.getItem('userAccount') },
 			 contentType: "application/json",
@@ -379,7 +379,7 @@
 				 fileId: fileId
 			 }
 			 $.ajax({
-				 url: 'http://localhost:8080/treatment/deletefile',
+				 url: storage.baseURL+'/deletefile',
 				 type: 'POST',
 				 data: JSON.stringify(data),
 				 contentType: "application/json",
@@ -506,7 +506,7 @@
 				 fileName : file
 			 }
 			 $.ajax({
-				 url: 'http://localhost:8080/treatment/segOutFiles',
+				 url: storage.baseURL+'/segOutFiles',
 				 type: 'POST',
 				 data: JSON.stringify(data),
 				 contentType: "application/json",
@@ -560,7 +560,7 @@
 			}
 
 			$.ajax({
-				url: 'http://localhost:8080/treatment/queryOutOne',
+				url: storage.baseURL+'/queryOutOne',
 				type: 'GET',
 				data: {fileName: file},
 				contentType: "application/json",

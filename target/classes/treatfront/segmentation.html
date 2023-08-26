@@ -266,7 +266,7 @@
 
 	 <script type="text/javascript">
 		 $.ajax({
-			 url: 'http://localhost:8080/treatment/filesInfo',
+			 url: storage.baseURL+'/filesInfo',
 			 type: 'GET',
 			 data: { userAccount: localStorage.getItem('userAccount') },
 			 contentType: "application/json",
@@ -292,6 +292,7 @@
 					 option.val(file.fileUrl.replace("\\infile\\", "\\outfile\\dataset\\"));
 					 selectBox.append(option);
 				 });
+
 
 				 const selectBox1 = $("#outfileSelect");
 				 fileAttributes.forEach(function(file) {
@@ -321,6 +322,7 @@
 					 // 将选项添加到下拉框中
 					 selectFile.appendChild(optionElement);
 				 }
+
 
 				 var tableBody = document.getElementById('tableBody');
 
@@ -377,7 +379,7 @@
 				 fileId: fileId
 			 }
 			 $.ajax({
-				 url: 'http://localhost:8080/treatment/deletefile',
+				 url: storage.baseURL+'/deletefile',
 				 type: 'POST',
 				 data: JSON.stringify(data),
 				 contentType: "application/json",
@@ -504,7 +506,7 @@
 				 fileName : file
 			 }
 			 $.ajax({
-				 url: 'http://localhost:8080/treatment/segOutFiles',
+				 url: storage.baseURL+'/segOutFiles',
 				 type: 'POST',
 				 data: JSON.stringify(data),
 				 contentType: "application/json",
@@ -527,6 +529,7 @@
 						 icon: 'success',
 						 title: '器官分割成功！'
 					 })
+
 				 },
 				 error: function (res) {
 					 alert("请求发送失败，请检查网络连接或服务器状态。");
@@ -548,11 +551,16 @@
 		$("#outfileSelect").on('change', function () {
 			// 获取下拉框元素
 			const url = $("#outfileSelect").val();
-			const file = $("#outfileSelect option:selected").text();
+			let file = $("#outfileSelect option:selected").text();
 
+			// 判断文件后缀是否为.nii
+			if (file.endsWith(".nii")) {
+				// 如果是.nii后缀，添加.gz后缀
+				file += ".gz";
+			}
 
 			$.ajax({
-				url: 'http://localhost:8080/treatment/queryOutOne',
+				url: storage.baseURL+'/queryOutOne',
 				type: 'GET',
 				data: {fileName: file},
 				contentType: "application/json",

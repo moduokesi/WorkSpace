@@ -237,7 +237,7 @@
 
 	 <script>
 		 $.ajax({
-			 url: 'http://localhost:8080/treatment/filesInfo',
+			 url: storage.baseURL+'/filesInfo',
 			 type: 'GET',
 			 data: { userAccount: localStorage.getItem('userAccount') },
 			 contentType: "application/json",
@@ -345,7 +345,7 @@
 
 	 <script>
 		 $.ajax({
-			 url: 'http://localhost:8080/treatment/scriptShow',
+			 url: storage.baseURL+'/scriptShow',
 			 type: 'GET',
 			 data: {userAccount : localStorage.getItem('userAccount')},
 			 contentType: "application/json",
@@ -445,7 +445,7 @@
 				 scpId: scpId
 			 }
 			 $.ajax({
-				 url: 'http://localhost:8080/treatment/scriptDelete',
+				 url: storage.baseURL+'/scriptDelete',
 				 type: 'POST',
 				 data: JSON.stringify(data),
 				 contentType: "application/json",

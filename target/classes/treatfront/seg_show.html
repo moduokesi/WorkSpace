@@ -228,7 +228,7 @@
 <script>
 	$(document).ready(function() {
 		$.ajax({
-			url: 'http://localhost:8080/treatment/queryOutFiles',
+			url: storage.baseURL+'/queryOutFiles',
 			type: 'GET',
 			contentType: "application/json",
 			beforeSend: function(xhr) {
@@ -315,7 +315,7 @@
 				fileName : selectedOption.text()
 			}
 			$.ajax({
-				url: 'http://localhost:8080/treatment/separate',
+				url: storage.baseURL+'/separate',
 				type: 'POST',
 				data: JSON.stringify(data),
 				contentType: "application/json",
@@ -374,7 +374,7 @@
 			}
 
 			$.ajax({
-				url: 'http://localhost:8080/treatment/orgShow',
+				url: storage.baseURL+'/orgShow',
 				type: 'GET',
 				data: {fileName : selectedOption.text()},
 				contentType: "application/json",
@@ -386,7 +386,10 @@
 				},
 				success: function (res) {
 					if (res.status != 200) {
-						alert(res.msg);
+						Swal.fire({
+							icon: 'error',
+							title: res.msg
+						})
 					} else {
 						var tableBody = document.getElementById('tableBody');
 						tableBody.innerText = '';

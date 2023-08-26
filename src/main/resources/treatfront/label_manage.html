@@ -103,7 +103,7 @@
     <script type="text/javascript">
         $(function() {
             $.ajax({
-                url: 'http://localhost:8080/treatment/filesInfo',
+                url: storage.baseURL+'/filesInfo',
                 type: 'GET',
                 data: { userAccount: localStorage.getItem('userAccount') },
                 contentType: "application/json",
@@ -159,8 +159,8 @@
             var iframe = document.createElement("iframe");
             iframe.classList.add("col-xl-9");
             iframe.classList.add("mx-auto");
-            iframe.style.width = '900px';   // 设置宽度为 500px
-            iframe.style.height = '600px';  // 设置高度为 300px
+            iframe.style.width = '900px';
+            iframe.style.height = '600px';
             iframe.style.border = '1px solid #000';
             iframe.style.backgroundColor = '#f2f2f2';
             iframe.style.margin = '10px';

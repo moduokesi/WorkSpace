@@ -150,7 +150,7 @@
 					password: pwd1
 				};
 				$.ajax({
-					url: 'http://localhost:8080/treatment/change',
+					url: storage.baseURL+'/change',
 					type: 'POST',
 					data: JSON.stringify(data),
 					contentType: "application/json",

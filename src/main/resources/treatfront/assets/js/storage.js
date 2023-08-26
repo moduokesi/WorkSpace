@@ -7,6 +7,10 @@ var storage = {
     },
     clear: function() {
         localStorage.removeItem("token");
-    }
+    },
+    baseURL:"http://localhost:8081/treatment"
 };
+
+
+
 

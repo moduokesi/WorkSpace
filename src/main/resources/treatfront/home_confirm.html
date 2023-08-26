@@ -167,7 +167,7 @@
 					userSecproblem: secproblem2
 				}
 				$.ajax({
-					url: 'http://localhost:8080/treatment/changeSec',
+					url: storage.baseURL+'/changeSec',
 					type: 'POST',
 					data: JSON.stringify(data),
 					contentType: "application/json",

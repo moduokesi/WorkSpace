@@ -7,9 +7,9 @@ spring:
   jackson:
     date-format: yyyy年MM月dd日HH时mm分ss秒
   redis:
-    host: 192.168.88.130
+    host: 8.130.34.229
     port: 6379
-    password: 123456
+    password: lihuicong_LHC_043930
     lettuce:
       pool:
         max-active: 8
@@ -23,7 +23,7 @@ spring:
       max-request-size: 200MB
 
 server:
-  port: 8080
+  port: 8081
   servlet:
     context-path: /treatment
 

@@ -194,7 +194,7 @@
 	 <script>
 		 $(document).ready(function() {
 			 $.ajax({
-				 url: 'http://localhost:8080/treatment/queryOutFiles',
+				 url: storage.baseURL+'/queryOutFiles',
 				 type: 'GET',
 				 contentType: "application/json",
 				 beforeSend: function(xhr) {
@@ -305,7 +305,7 @@
 					},
 				});
 				$.ajax({
-					url: 'http://localhost:8080/treatment/orgInfo',
+					url: storage.baseURL+'/orgInfo',
 					type: 'GET',
 					data: {fileName : fileName},
 					contentType: "application/json",

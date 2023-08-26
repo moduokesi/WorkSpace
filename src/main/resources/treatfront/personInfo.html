@@ -135,7 +135,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$.ajax({
-				url: 'http://localhost:8080/treatment/personInfo',
+				url: storage.baseURL+'/personInfo',
 				type: 'GET',
 				contentType: "application/json",
 				beforeSend: function(xhr) {

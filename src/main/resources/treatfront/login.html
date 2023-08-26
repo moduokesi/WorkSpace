@@ -251,8 +251,10 @@
 				account: account,
 				password: pwd
 			};
+			console.log(storage.baseURL);
+			console.log(storage.baseURL+'/login');
 			$.ajax({
-				url: 'http://localhost:8080/treatment/login',
+				url: storage.baseURL+'/login',
 				type: 'POST',
 				data: JSON.stringify(data),
 				contentType: "application/json",
