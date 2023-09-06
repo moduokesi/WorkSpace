@@ -267,7 +267,7 @@
 					userEmail: emailaddress,
 				};
 				$.ajax({
-					url: 'http://localhost:8080/treatment/register',
+					url: storage.baseURL+'/register',
 					type: 'POST',
 					data: JSON.stringify(data),
 					contentType: "application/json",

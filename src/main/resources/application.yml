@@ -4,6 +4,7 @@ spring:
     url: jdbc:mysql://localhost:3306/treatment?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
+
   jackson:
     date-format: yyyy年MM月dd日HH时mm分ss秒
   redis:
@@ -23,7 +24,7 @@ spring:
       max-request-size: 200MB
 
 server:
-  port: 8081
+  port: 8080
   servlet:
     context-path: /treatment
 
