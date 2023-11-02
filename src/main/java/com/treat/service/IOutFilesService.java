@@ -19,4 +19,6 @@ public interface IOutFilesService extends IService<OutFiles> {
     Result columnShow(String fileName, String token);
 
     Result queryOutOne(String fileName, String account);
+
+    Result segExists(String fileName, String account);
 }

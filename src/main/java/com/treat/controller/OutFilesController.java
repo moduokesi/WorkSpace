@@ -36,6 +36,12 @@ public class OutFilesController {
                 UserHolder.getUser().getAccount());
     }
 
+    @PostMapping("segExists")
+    public Result segExists(@RequestBody OutFiles outFiles) {
+        return outFilesService.segExists(outFiles.getFileName(),
+                UserHolder.getUser().getAccount());
+    }
+
     @PostMapping("columnShow")
     public Result columnShow(@RequestBody OutFiles outFiles) {
         return outFilesService.columnShow(outFiles.getFileName(),

@@ -26,6 +26,8 @@
 	<link rel="stylesheet" href="assets/css/semi-dark.css" />
 	<link rel="stylesheet" href="assets/css/header-colors.css" />
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 	<title>MED-AI</title>
 	<style type="text/css">
 .dercolor1 {
@@ -109,6 +111,24 @@
 				</div>
 
 				<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase">虚拟展示</h6>
+						<hr/>
+						<div class="card">
+							<div class="card-body">
+								<div class="border p-3 rounded">
+									<div class="mb-2">
+										<label class="form-label">请点击按钮开始虚拟3D展示</label>
+										<div class="row">
+											<div class="col-2">
+												<button class="btn btn-outline-secondary" type="button" id="submit4">开始展示</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="col-xl-9 mx-auto">
 						<h6 class="mb-0 text-uppercase">文件渲染</h6>
 						<hr/>
@@ -223,7 +243,6 @@
 		width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
 	});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 	$(document).ready(function() {
@@ -290,6 +309,20 @@
 		});
 	});
 
+</script>
+
+<script>
+	document.getElementById("submit4").addEventListener("click", function() {
+		var newTab = window.open("http://localhost:8088", "_blank");
+		newTab.document.title = "虚拟3D演示";
+
+		var link = document.createElement("link");
+		link.type = "image/x-icon";
+		link.rel = "shortcut icon";
+		link.href = "assets/images/3D医疗图标.svg"; // 替换为自定义图标的路径
+		newTab.document.head.appendChild(link);
+
+	});
 </script>
 
 <script>
@@ -508,8 +541,4 @@
 		}
 	}
 </script>
-
-
-
-
 </html>

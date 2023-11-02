@@ -24,6 +24,8 @@
 	<link rel="stylesheet" href="assets/css/semi-dark.css" />
 	<link rel="stylesheet" href="assets/css/header-colors.css" />
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 	<title>MED-AI</title>
 	<style type="text/css">
 		#btnPost {
@@ -233,7 +235,6 @@
 			$("#page-layout").load("index.html");
 		});
 	</script>
-	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	 <script>
 		 $.ajax({
@@ -291,7 +292,7 @@
 
 				 // 准备发送Ajax请求
 				 var xhr = new XMLHttpRequest();
-				 xhr.open('POST', 'http://localhost:8080/treatment/scriptUpload', true);
+				 xhr.open('POST', storage.baseURL + '/scriptUpload', true);
 				 xhr.onreadystatechange = function() {
 					 if (xhr.readyState === XMLHttpRequest.DONE) {
 						 if (xhr.status === 200) {

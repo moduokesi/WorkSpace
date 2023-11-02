@@ -29,7 +29,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
         String property = System.getProperty("user.dir");
         System.out.println(property);
-        property=property.substring(0,property.lastIndexOf("\\"));
+        property=property.substring(0, property.lastIndexOf("\\"));
         registry.addResourceHandler("/treatdata/**")
                 .addResourceLocations("file:" + property + "\\treatdata\\");
     }

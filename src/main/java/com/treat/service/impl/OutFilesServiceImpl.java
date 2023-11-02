@@ -24,7 +24,7 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
     private IOutFilesService outFilesService;
 
     @Override
-    public Result segOutFiles(String fileName, String fileAccount) {
+    public synchronized Result segOutFiles(String fileName, String fileAccount) {
 
         OutFiles outFile = new OutFiles();
         outFile.setFileAccount(fileAccount);
@@ -134,6 +134,24 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
         }
 
         return Result.ok();
+    }
+
+    @Override
+    public Result segExists(String fileName, String fileAccount) {
+        OutFiles outFile = new OutFiles();
+        outFile.setFileAccount(fileAccount);
+        outFile.setFileName(fileName.substring(0, fileName.indexOf(".")));
+
+        QueryWrapper<OutFiles> wrapper = new QueryWrapper<>();
+        wrapper.eq("file_name", outFile.getFileName());
+        wrapper.eq("file_account", fileAccount);
+
+        // 如果已经分割过
+        if (outFilesService.getOne(wrapper) != null) {
+            return Result.fail();
+        }else {
+            return Result.ok();
+        }
     }
 
     @Override

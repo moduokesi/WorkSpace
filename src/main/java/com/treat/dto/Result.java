@@ -72,5 +72,4 @@ public class Result {
         map.put("data",pageInfo.getList());
         return map;
     }
-
 }
