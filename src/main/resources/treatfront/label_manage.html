@@ -56,17 +56,25 @@
             <div class="col-xl-9 mx-auto">
                 <h6 class="mb-0 text-uppercase">文件标注与测量</h6>
                 <hr/>
-                <div class="input-group">
-                    <select class="single-select form-select" id="selectwj">
-                    </select>
-                    <button class="btn btn-outline-secondary" type="button" id="submit1">确定</i>
-                    </button>
+                <div class="card ">
+                    <div class="input-group">
+                        <select class="single-select form-select" id="selectwj">
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="submit1">确定</i>
+                        </button>
+                    </div>
+
+                    <div  id="iframeContainer" class="align-items-center">
+                        <!--                <iframe id="iframeId" frameborder="0" ></iframe>-->
+                    </div>
                 </div>
+
+
+
             </div>
 
-            <div class="col-xl-9 mx-auto" id="iframeContainer" style="justify-content: center;align-content: center">
-<!--                <iframe id="iframeId" frameborder="0" ></iframe>-->
-            </div>
+
+
 
             <div class="col-xl-9 mx-auto">
                 <h6 class="mb-0 text-uppercase">标签管理</h6>
@@ -159,11 +167,15 @@
             var iframe = document.createElement("iframe");
             iframe.classList.add("col-xl-9");
             iframe.classList.add("mx-auto");
-            iframe.style.width = '750px';
+            iframe.style.width = '800px';
             iframe.style.height = '600px';
             iframe.style.border = '1px solid #000';
             iframe.style.backgroundColor = '#f2f2f2';
             iframe.style.margin = '10px';
+            iframe.style.display='flex';
+            iframe.style.justifyContent='center';
+            iframe.style.alignContent='center';
+
             iframe.src = "cornerstoneTools/test.html";
             container.appendChild(iframe);
         })

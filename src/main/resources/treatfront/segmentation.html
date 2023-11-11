@@ -182,14 +182,14 @@
 							</div>
 						</div>
 						<h6 class="mb-0 text-uppercase">器官分割</h6>
-						<hr/>
-						<label class="form-label">选择分割前景</label>
-						<select class="single-select">
-							<option selected="selected" disabled="disabled" hidden="hidden">请选择一个前景</option>
-							<option value="United States">肺肿瘤</option>
-							<option value="United Kingdom">多器官</option>
-							<option value="Afghanistan">心脏</option>
-						</select>
+<!--						<hr/>-->
+<!--						<label class="form-label">选择分割前景</label>-->
+<!--						<select class="single-select">-->
+<!--							<option selected="selected" disabled="disabled" hidden="hidden">请选择一个前景</option>-->
+<!--							<option value="United States">肺肿瘤</option>-->
+<!--							<option value="United Kingdom">多器官</option>-->
+<!--							<option value="Afghanistan">心脏</option>-->
+<!--						</select>-->
 						<hr/>
 
 						<label class="form-label">选择模型</label>
@@ -215,10 +215,10 @@
 												<button class="btn btn-outline-secondary" type="button" id="submit1">开始分割</button>
 											</div>
 										</div>
-										<label class="form-label">请选择需要展示的分割结果</label>
-										<select id="outfileSelect" class="single-select">
-											<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
-										</select>
+<!--										<label class="form-label">请选择需要展示的分割结果</label>-->
+<!--										<select id="outfileSelect" class="single-select">-->
+<!--											<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>-->
+<!--										</select>-->
 										<div class="card-body">
 											<div id="papayaViewer"></div>
 										</div>
@@ -548,10 +548,10 @@
 		params["showControlBar"] = true;
 
 		// 绑定下拉框的change事件处理函数
-		$("#outfileSelect").on('change', function () {
+		$("#submit1").on('click', function () {
 			// 获取下拉框元素
-			const url = $("#outfileSelect").val();
-			let file = $("#outfileSelect option:selected").text();
+			const url = $("#selectmx").val();
+			let file = $("#selectmx option:selected").text();
 
 			// 判断文件后缀是否为.nii
 			if (file.endsWith(".nii")) {

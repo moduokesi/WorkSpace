@@ -8,8 +8,10 @@ var storage = {
     clear: function() {
         localStorage.removeItem("token");
     },
-    baseURL:"http://localhost:8080/treatment"
+    baseURL:'http://localhost:8080/treatment'
 };
+
+
 
 
 
