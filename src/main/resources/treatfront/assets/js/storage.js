@@ -8,10 +8,10 @@ var storage = {
     clear: function() {
         localStorage.removeItem("token");
     },
-    baseURL:'http://localhost:8080/treatment'
+    // baseURL:"https://welcomed-guiding-hippo.ngrok-free.app/treatment"
+    baseURL:"http://localhost:8080/treatment"
+
 };
-
-
 
 
 

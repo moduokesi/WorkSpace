@@ -30,11 +30,16 @@ public class FilesController {
         return filesService.storeFiles(files, UserHolder.getUser().getAccount());
     }
 
-
     @GetMapping("/filesInfo")
     public Result FileShow(HttpServletRequest request) {
         // 处理接收到的文件
         return filesService.fileshow(UserHolder.getUser().getAccount());
+    }
+
+    @GetMapping("/getInfo")
+    public Result GetInfo(@RequestParam("fileId") String fileId) {
+        // 处理接收到的文件
+        return filesService.getInfo(fileId);
     }
 
     @PostMapping("/deletefile")

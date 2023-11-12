@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="netlify-example/reset.css" />
   <link rel="stylesheet" href="netlify-example/app.css" />
   <link rel="stylesheet" href="netlify-example/icon-classes.css" />
+
   <style>
     /**
 		 * ~~ MagnifyTool:
@@ -147,7 +148,7 @@
       <!-- Our beautiful element targets -->
       <div class="cornerstone-element-wrapper">
         <div id="dataField" hidden></div>
-        <a href="#" class="save-btn" data-index="0">Save</a>
+        <a href="#" class="save-btn" data-index="0">SAVE</a>
         <div class="cornerstone-element" data-index="0" oncontextmenu="return false"></div>
 <!--        <a href="#" class="save-btn" data-index="1">Save</a>-->
 <!--        <div class="cornerstone-element" data-index="1" oncontextmenu="return false"></div>-->
@@ -157,32 +158,24 @@
 </body>
 
 <!-- include the hammer.js library for touch gestures -->
-<script src="https://unpkg.com/hammerjs@2.0.8/hammer.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="js/hammer.js"></script>
 
 <!-- include the cornerstone library -->
-<script src="https://unpkg.com/cornerstone-core@2.2.6/dist/cornerstone.js"></script>
-<script src="https://unpkg.com/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
-<script src="./dist/cornerstoneTools.js"></script>
-<script src="
-https://cdn.jsdelivr.net/npm/@cornerstonejs/nifti-image-loader@1.0.9/dist/cornerstoneNIFTIImageLoader.min.js
-"></script>
+<script src="js/cornerstone.js"></script>
+<script src="js/cornerstoneMath.js"></script>
+<script src="js/cornerstoneTools.js"></script>
+<script src="js/cornerstoneNIFTIImageLoader.min.js"></script>
 <!--<script src="./netlify-example/metaDataProvider.js"></script>-->
 <script src="./netlify-example/petctMetaDataProvider.js"></script>
 <script>
   window.cornerstoneTools ||
     document.write(
-      '<script src="https://unpkg.com/cornerstone-tools">\x3C/script>'
+      '<script src="js/cornerstoneTools.js">\x3C/script>'
     );
 </script>
 
-<!-- include special code for these examples which provides images -->
-<!--<script src="netlify-example/imageLoader.js"></script>-->
-<!--<script src="netlify-example/petctImageIdLoader.js"></script>-->
-
-<script>
-
-
-</script>
 <script>
   cornerstoneTools.init([
     {
@@ -208,7 +201,7 @@ https://cdn.jsdelivr.net/npm/@cornerstonejs/nifti-image-loader@1.0.9/dist/corner
   console.log(selectedValue); // 在控制台输出传递过来的值
 
   cornerstoneNIFTIImageLoader.external.cornerstone = cornerstone;
-  // const imageIds = ['nifti:..//td//A3.nii'];
+
   const imageIds = ['nifti:..\\'+selectedValue];
   const stack = {
     currentImageIdIndex: 0,
@@ -235,9 +228,46 @@ https://cdn.jsdelivr.net/npm/@cornerstonejs/nifti-image-loader@1.0.9/dist/corner
       `a[data-index='${index}']`
     );
     saveBtn.addEventListener('click', evt => {
-      cornerstoneTools.SaveAs(element, 'viewportImage.png');
-    });
+      const canvas = cornerstone.getEnabledElement(element).canvas;
+      const imageData = canvas.toDataURL('image/png');
 
+      // 从URL中获取参数值的函数
+      function getQueryParam(parameter) {
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        return urlParams.get(parameter);
+      }
+
+      var valueParameter = getQueryParam("value");
+
+      var data = {
+        imageData: imageData,
+        imageUrl: valueParameter
+      }
+
+      $.ajax({
+        url: storage.baseURL + '/uploadImg',
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        beforeSend: function (xhr) {
+          // 获取JWT字符串
+          const jwtToken = storage.getToken();
+          // 设置 "token" 键名
+          xhr.setRequestHeader("token", jwtToken);
+        },
+        success: function (res) {
+          if (res.status != 200) {
+            alert(res.msg)
+          }
+          cornerstoneTools.SaveAs(element, 'viewportImage.png');
+
+        },
+        error: function (res) {
+          alert("请求发送失败，请检查网络连接或服务器状态。");
+        }
+      });
+    });
     // Log measurement events
     const { EVENTS } = cornerstoneTools;
     const log = event => {
@@ -300,7 +330,6 @@ https://cdn.jsdelivr.net/npm/@cornerstonejs/nifti-image-loader@1.0.9/dist/corner
     element.addEventListener(EVENTS.MEASUREMENT_MODIFIED, log);
     element.addEventListener(EVENTS.MEASUREMENT_COMPLETED, log);
     element.addEventListener(EVENTS.MEASUREMENT_REMOVED, log);
-  });
 
   // Iterate over all tool-category links
   const toolCategoryLinks = document.querySelectorAll(
@@ -489,6 +518,8 @@ https://cdn.jsdelivr.net/npm/@cornerstonejs/nifti-image-loader@1.0.9/dist/corner
       }
     }
   );
+  });
+
 
   const convertMouseEventWhichToButtons = which => {
     switch (which) {

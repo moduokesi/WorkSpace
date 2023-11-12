@@ -30,22 +30,27 @@
 </head>
 
 <style>
-    .custom-badge {
-        background-color: #23d5ab !important; /* 自定义背景颜色 */
-        color: #fdfcfc !important; /* 自定义文本颜色 */
-        transition: background-color 0.3s; /* 添加过渡效果 */
-        cursor: pointer; /* 添加指针样式 */
-        font-size: 15px !important;
+  .custom-badge {
+    background-color: #23d5ab !important; /* 自定义背景颜色 */
+    color: #fdfcfc !important; /* 自定义文本颜色 */
+    transition: background-color 0.3s; /* 添加过渡效果 */
+    cursor: pointer; /* 添加指针样式 */
+    font-size: 15px !important;
 
-    }
+  }
 
-    .custom-badge:hover {
-        background-color: #652a04; /* 鼠标悬停时的背景颜色 */
-    }
+  .custom-badge:hover {
+    background-color: #652a04; /* 鼠标悬停时的背景颜色 */
+  }
 
-    .custom-margin {
-        margin-right: 150px; /* 根据需要调整右边距的大小 */
-    }
+  .custom-margin {
+    margin-right: 150px; /* 根据需要调整右边距的大小 */
+  }
+
+  .td-btn {
+    display:flex;
+    justify-content:space-around;
+  }
 </style>
 
 
@@ -56,143 +61,144 @@
 <!--start page wrapper -->
 <div class="page-wrapper">
 
-    <div class="page-content">
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">器官分割</div>
-            <div class="ps-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">标签配置</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-12 mx-auto">
-                <div class="row align-items-end">
-                    <h6 class="mb-0 text-uppercase col-8">标签配置列表</h6>
-                    <div class="btn-group col-4">
-                        <a href="label_make.html" class="btn btn-primary active" aria-current="page">标签列表</a>
-                        <a href="label_add.html" class="btn btn-primary">添加配置</a>
-                    </div>
-                </div>
-
-                <hr/>
-                <div class="card">
-                    <div class="card-body">
-                        <div>
-                            <table id="example" class="table table-striped table-hover table-bordered "
-                                   style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="col-1 text-center">配置名称</th>
-                                    <th class="col-9 text-center">标签</th>
-                                    <th class="col-2 text-center">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tableBody">
-                                <!-- JavaScript将动态生成的表格行插入此处 -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="textFirst" class="text-center mt-4 mb-4" style="display: none;">
-                        <!-- 使用Bootstrap类使文字居中并添加顶部间距 -->
-                        <p class="fs-1 fw-bold" style="opacity: 0.7;">暂未配置标签，请添加</p> <!-- 使用Bootstrap类设置文字颜色 -->
-                    </div>
-                </div>
-                <!--                详情模态框-->
-                <div class="modal fade" tabindex="-1" id="modalLabelDetail" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">标签配置详情</h5>
-                                <button type="button" class="btn-close" data-dismiss="modal" id="closeModal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table " id="modalTable">
-                                    <tbody id="tagDetailsBody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!--                修改按钮模态框-->
-                <div class="modal fade" tabindex="-1" id="modalLabelEdit" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropEditLabel">标签修改</h5>
-                                <button type="button" class="btn-close" data-dismiss="modal"
-                                        id="closeEditModal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="editForm">
-
-                                    <input type="hidden" class="form-control" id="editInputId">
-
-
-                                    <div class="form-group row">
-                                        <label for="editInput" class="col-form-label col-2" style="font-size: 18px;">标签名称:</label>
-                                        <div class="col-10 mt-2">
-                                            <input type="text" class="form-control" id="editInput">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group row">
-                                        <label for="editTextarea" class="col-form-label col-2 mt-2"
-                                               style="font-size: 18px;">配置简介:</label>
-                                        <div class="col-10 mt-3">
-                                            <textarea class="form-control" rows="5" id="editTextarea"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="tagContain" class="col-form-label col-2" style="font-size: 18px;">标签配置:</label>
-                                        <div class="col-10 mt-2" id="tagContain"></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="input-group">
-                                                <span class="input-group-text" id="counter">1</span>
-                                                <button id="decreaseCounter" class="btn btn-secondary" type="button">-
-                                                </button>
-                                                <button id="increaseCounter" class="btn btn-secondary" type="button">+
-                                                </button>
-                                                <input type="text" class="form-control" id="configDetails"
-                                                       placeholder="请输入标签名称">
-                                                <button id="addButton" type="button" class="btn btn-dark">新增</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3 ">
-                                        <div class="col-12 text-center">
-                                            <button type="button" class="btn btn-primary custom-margin"
-                                                    data-dismiss="modal" onclick="submitEditForm()">确定
-                                            </button>
-                                            <button type="button" class="btn btn-secondary " data-dismiss="modal">关闭
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="page-content">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+      <div class="breadcrumb-title pe-3">器官分割</div>
+      <div class="ps-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 p-0">
+            <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">标签配置</li>
+          </ol>
+        </nav>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-xl-12 mx-auto">
+        <div class="row align-items-end">
+          <h6 class="mb-0 text-uppercase col-8">标签配置列表</h6>
+          <div class="btn-group col-4">
+            <a href="label_make.html" class="btn btn-primary active" aria-current="page">标签列表</a>
+            <a href="label_add.html" class="btn btn-primary">添加配置</a>
+          </div>
+        </div>
+
+        <hr/>
+        <div class="card">
+          <div class="card-body">
+            <div>
+              <table id="example" class="table table-striped table-hover table-bordered "
+                     style="width:100%">
+                <thead>
+                <tr>
+                  <th class="col-1 text-center">配置名称</th>
+                  <th class="col-9 text-center">标签</th>
+                  <th class="col-2 text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody id="tableBody">
+                <!-- JavaScript将动态生成的表格行插入此处 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="textFirst" class="text-center mt-4 mb-4" style="display: none;">
+            <!-- 使用Bootstrap类使文字居中并添加顶部间距 -->
+            <p class="fs-1 fw-bold" style="opacity: 0.7;">暂未配置标签，请添加</p> <!-- 使用Bootstrap类设置文字颜色 -->
+          </div>
+        </div>
+        <!--                详情模态框-->
+        <div class="modal fade" tabindex="-1" id="modalLabelDetail" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">标签配置详情</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" id="closeModal"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table " id="modalTable">
+                  <tbody id="tagDetailsBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!--                修改按钮模态框-->
+        <div class="modal fade" tabindex="-1" id="modalLabelEdit" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropEditLabel">标签修改</h5>
+                <button type="button" class="btn-close" data-dismiss="modal"
+                        id="closeEditModal"></button>
+              </div>
+              <div class="modal-body">
+                <form id="editForm">
+
+                  <input type="hidden" class="form-control" id="editInputId">
+
+
+                  <div class="form-group row">
+                    <label for="editInput" class="col-form-label col-2" style="font-size: 18px;">标签名称:</label>
+                    <div class="col-10 mt-2">
+                      <input type="text" class="form-control" id="editInput">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <label for="editTextarea" class="col-form-label col-2 mt-2"
+                           style="font-size: 18px;">配置简介:</label>
+                    <div class="col-10 mt-3">
+                      <textarea class="form-control" rows="5" id="editTextarea"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="tagContain" class="col-form-label col-2" style="font-size: 18px;">标签配置:</label>
+                    <div class="col-10 mt-2" id="tagContain"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group">
+                        <span class="input-group-text" id="counter">1</span>
+                        <button id="decreaseCounter" class="btn btn-secondary" type="button">-
+                        </button>
+                        <button id="increaseCounter" class="btn btn-secondary" type="button">+
+                        </button>
+                        <input type="text" class="form-control" id="configDetails"
+                               placeholder="请输入标签名称">
+                        <button id="addButton" type="button" class="btn btn-dark">新增</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3 ">
+                    <div class="col-12 text-center">
+                      <button type="button" class="btn btn-primary custom-margin"
+                              data-dismiss="modal" onclick="submitEditForm()">确定
+                      </button>
+                      <button type="button" class="btn btn-secondary " data-dismiss="modal">关闭
+                      </button>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 <script src="assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
 <script src="assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
 <script src="assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
@@ -205,9 +211,9 @@
 
 <!-- 加载边栏资源 -->
 <script>
-    $(function () {
-        $("#page-layout").load("index.html");
-    });
+  $(function () {
+    $("#page-layout").load("index.html");
+  });
 
 
     $(document).ready(function () {
@@ -242,39 +248,54 @@
         });
     })
 
-    function renderTable(data) {
-        console.log(data.labelsList);
-        console.log("dtat.id=" + data.id);
-        var id = data.id;
-        console.log(id);
-        // console.log(data.id);
-        var tableBody = $("#tableBody");
-        var row = $("<tr>").attr("id", id);
-        row.append("<td class='align-middle text-center'>" + data.configName + "</td>");
-        row.append("<td>" + generateLabels(data.labelsList) + "</td>");
-        var actions = $("<td class='align-middle text-center'>");
-        var dataJson = JSON.stringify(data).replace(/"\"/g, "'");
-        actions.append("<button type='button' class='btn btn-primary btn-sm b1' data-toggle='modal' data-target='#modalLabelDetail' onclick='showDetails(" + dataJson + ")'>详情</button> ");
-        actions.append("<button type='button' class='btn btn-info btn-sm'  data-toggle='modal' data-target='#modalLabelEdit' onclick='editRecord(" + dataJson + ")'>修改</button> ");
-        actions.append("<button class='btn btn-danger btn-sm ' onclick='deleteRecord(\"" + id + "\")'>删除</button> ");
+  function renderTable(data) {
+      console.log(data.labelsList);
+      console.log("dtat.id=" + data.id);
+      var id = data.id;
+      console.log(id);
 
-        row.append(actions);
+      var tableBody = $("#tableBody");
+      var row = $("<tr>").attr("id", id);
 
-        tableBody.append(row);
+      // 添加表格行的第一个单元格
+      row.append("<td class='align-middle text-center'>" + data.configName + "</td>");
 
-    }
+      // 添加表格行的第二个单元格
+      row.append("<td>" + generateLabels(data.labelsList) + "</td>");
 
-    showDetails = function (data) {
-        console.log(data)
-        var tbody = document.getElementById('tagDetailsBody');
-        tbody.innerHTML = '';
-        // 创建一行并设置数据
-        var row1 = document.createElement('tr');
-        row1.innerHTML = `
+      var actions = $("<td class='align-middle text-center'>");
+
+      // 创建一个 div 来包装按钮，使用 Bootstrap 的 btn-group 类
+      var buttonsContainer = $("<div>").addClass("btn-group");
+
+      // 将按钮添加到容器中，同时在按钮之间添加一些间距（mr-2 是 Bootstrap 的右外边距类）
+      var dataJson = JSON.stringify(data).replace(/"\"/g, "'");
+      buttonsContainer.append("<button type='button' class='btn btn-primary btn-sm b1 mr-2' data-toggle='modal' data-target='#modalLabelDetail' onclick='showDetails(" + dataJson + ")'>详情</button> ");
+      buttonsContainer.append("<button type='button' class='btn btn-info btn-sm mr-2'  data-toggle='modal' data-target='#modalLabelEdit' onclick='editRecord(" + dataJson + ")'>修改</button> ");
+      buttonsContainer.append("<button class='btn btn-danger btn-sm' onclick='deleteRecord(\"" + id + "\")'>删除</button> ");
+
+      // 将按钮容器添加到 actions 单元格中
+      actions.append(buttonsContainer);
+
+      // 将 actions 单元格添加到表格行中
+      row.append(actions);
+
+      // 将表格行添加到表格体中
+      tableBody.append(row);
+  }
+
+
+  showDetails = function (data) {
+    console.log(data)
+    var tbody = document.getElementById('tagDetailsBody');
+    tbody.innerHTML = '';
+    // 创建一行并设置数据
+    var row1 = document.createElement('tr');
+    row1.innerHTML = `
                      <th scope="row" class="align-middle text-center col-md-2">配置名称</th>
                     <td>${data.configName}</td>`;
-        var row2 = document.createElement('tr');
-        row2.innerHTML = `
+    var row2 = document.createElement('tr');
+    row2.innerHTML = `
                      <th scope="row" class="align-middle text-center col-md-2">配置简介</th>
                     <td>${data.configDescription}</td>`;
         var row3 = document.createElement('tr');
@@ -494,6 +515,7 @@
                     icon: 'success',
                     showCancelButton: true,
                     confirmButtonText: '确定',
+                    cancelButtonText: '取消'
                 })
                 // 1. 获取表格元素
                 var table = document.getElementById("tagDetailsBody");

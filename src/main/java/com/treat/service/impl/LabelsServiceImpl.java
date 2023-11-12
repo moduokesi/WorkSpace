@@ -8,6 +8,7 @@ import com.treat.entity.LabelsConfig;
 import com.treat.mapper.LabelsMapper;
 import com.treat.service.ILabelsConfigService;
 import com.treat.service.ILabelsService;
+import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class LabelsServiceImpl extends ServiceImpl<LabelsMapper, Labels> impleme
         ArrayList<Labels> arrayList = new ArrayList<>();
         QueryWrapper<LabelsConfig> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("config_name",labelsDTO.getConfigName());
+        queryWrapper.eq("config_account", UserHolder.getUser().getAccount());
         LabelsConfig labelsConfig = labelsConfigService.getOne(queryWrapper);
         for(int i=0;i<labelsDTO.getLabelsList().size();i++){
             Labels labels = new Labels();
@@ -33,6 +35,7 @@ public class LabelsServiceImpl extends ServiceImpl<LabelsMapper, Labels> impleme
             arrayList.add(labels);
         }
         boolean flag = this.saveBatch(arrayList);
+
         return flag;
     }
 

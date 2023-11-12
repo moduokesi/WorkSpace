@@ -8,9 +8,9 @@ spring:
   jackson:
     date-format: yyyy年MM月dd日HH时mm分ss秒
   redis:
-    host: 8.130.34.229
+    host: 192.168.88.130
     port: 6379
-    password: lihuicong_LHC_043930
+    password: 123456
     lettuce:
       pool:
         max-active: 8

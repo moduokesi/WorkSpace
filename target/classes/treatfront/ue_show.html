@@ -38,7 +38,8 @@
 	<link rel="stylesheet" type="text/css" href="papaya/papaya.css?build=1455" />
 	<script type="text/javascript" src="papaya/papaya.js?build=1455"></script>
 
-
+	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 	<title>MED-AI</title>
 	<style type="text/css">
 		button[type="submit"] {
@@ -108,19 +109,14 @@
 
 				<div class="row">
 					<div class="col-xl-9 mx-auto">
-						<h6 class="mb-0 text-uppercase">文件选择</h6>
+						<h6 class="mb-0 text-uppercase">虚拟展示</h6>
 						<hr/>
 						<div class="card">
 							<div class="card-body">
 								<div class="border p-3 rounded">
 									<div class="mb-2">
-										<label class="form-label">请选择文件进行虚拟3D展示</label>
+										<label class="form-label">请点击按钮开始虚拟3D展示</label>
 										<div class="row">
-											<div class="col-10">
-												<select id="selectmx" class="single-select">
-													<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
-												</select>
-											</div>
 											<div class="col-2">
 												<button class="btn btn-outline-secondary" type="button" id="submit1">开始展示</button>
 											</div>
@@ -165,7 +161,6 @@
 			 $("#page-layout").load("index.html");
 		 });
 	 </script>
-	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 	 <script>
@@ -199,19 +194,6 @@
 
 	 <script>
 		 document.getElementById("submit1").addEventListener("click", function() {
-			 // 获取下拉框中的选中值
-			 var selectedValue = $("#selectmx").val();
-
-			 // 检查选中的值是否为默认的占位符值"请选择一个文件"
-			 if (selectedValue === null) {
-				 // 弹出提示框告知用户选择一个文件
-				 Swal.fire({
-					 icon: 'warning',
-					 title: '请选择数据文件！'
-				 })
-				 return;
-			 }
-
 			 var newTab = window.open("http://localhost:8088", "_blank");
 			 newTab.document.title = "虚拟3D演示";
 

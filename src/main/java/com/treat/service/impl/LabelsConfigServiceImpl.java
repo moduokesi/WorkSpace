@@ -22,7 +22,7 @@ public class LabelsConfigServiceImpl extends ServiceImpl<LabelsConfigMapper, Lab
     @Autowired
     private ILabelsService labelsService;
     @Override
-    public boolean add(LabelsDTO labelsDTO,String account) {
+    public boolean add(LabelsDTO labelsDTO, String account) {
         LabelsConfig labelsConfig = new LabelsConfig();
         if(!isExist(labelsDTO,account)){
             labelsConfig.setConfigName(labelsDTO.getConfigName());
@@ -34,7 +34,6 @@ public class LabelsConfigServiceImpl extends ServiceImpl<LabelsConfigMapper, Lab
           return false;
         }
     }
-
     @Override
     public Result queryAllLabels(String account) {
         List<LabelsDTO> labelsDTOList=new ArrayList<>();
@@ -56,7 +55,6 @@ public class LabelsConfigServiceImpl extends ServiceImpl<LabelsConfigMapper, Lab
             return Result.fail("暂无标签配置");
 
     }
-
     @Override
     public Result deleteById(String configId) {
         boolean labelsFlag = labelsService.deleteByConfigId(configId);
@@ -66,9 +64,7 @@ public class LabelsConfigServiceImpl extends ServiceImpl<LabelsConfigMapper, Lab
         }
         return Result.ok();
     }
-
-
-    public boolean isExist(LabelsDTO labelsDTO,String account){
+    public boolean isExist(LabelsDTO labelsDTO, String account){
         QueryWrapper<LabelsConfig> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("config_name",labelsDTO.getConfigName())
                 .eq("config_account",account);

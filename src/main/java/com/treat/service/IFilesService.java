@@ -15,4 +15,5 @@ public interface IFilesService extends IService<InFiles> {
 
     Result deletefile(String fileId);
 
+    Result getInfo(String fileId);
 }

@@ -1,9 +1,7 @@
 package com.treat.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class PyUtil {
@@ -186,4 +184,50 @@ public class PyUtil {
         }
         return null;
     }
+
+    public static String Diagnose(String message) {
+        String pythonScript = "D:\\Workspaces\\Project\\treatpython\\diagnose.py";
+
+        // 构建命令行参数
+        ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScript);
+        processBuilder.redirectErrorStream(true); // 重定向错误流到输入流
+
+        try {
+            Process process = processBuilder.start();
+
+            // 获取输出结果
+            OutputStream outputStream = process.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
+
+            // 将参数作为JSON字符串写入标准输入
+            String inputJson = message;
+            // 将消息文本编码为UTF-8并写入
+
+            byte[] inputBytes = inputJson.getBytes(StandardCharsets.UTF_8);
+            outputStream.write(inputBytes);
+            outputStream.close();
+
+            int exitCode = process.waitFor();
+            System.out.println("Python脚本执行完毕，退出码：" + exitCode);
+
+            InputStream inputStream = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line);
+            }
+
+            String result = output.toString();
+            System.out.println(result);
+
+            return result;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

@@ -35,6 +35,12 @@ public class OrgansServiceImpl extends ServiceImpl<OrgansMapper, Organs> impleme
         if (organsService.list(wrapper).size() > 0) {
             return Result.fail("该文件已进行过分离操作！");
         }
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+        String fileName1 = name.substring(0, name.lastIndexOf(".")) + ".nii.gz";
+        PyUtil.separateOraganStl(fileName1, account, name.substring(0, name.lastIndexOf(".")));
+        PyUtil.separateOraganNii(fileName1, account, name.substring(0, name.lastIndexOf(".")));
         // 检查目录是否存在
         if (directory.exists() && directory.isDirectory()) {
             // 获取目录下的所有文件和子目录
@@ -62,13 +68,9 @@ public class OrgansServiceImpl extends ServiceImpl<OrgansMapper, Organs> impleme
             System.out.println("指定的目录不存在或不是一个有效的目录。");
         }
 
-
-        String fileName = name.substring(0, name.lastIndexOf(".")) + ".nii.gz";
-        PyUtil.separateOraganStl(fileName, account, name.substring(0, name.lastIndexOf(".")));
-        PyUtil.separateOraganNii(fileName, account, name.substring(0, name.lastIndexOf(".")));
-
         return Result.ok();
     }
+
 
     @Override
     public Result orgShow(String origin, String account) {
@@ -82,6 +84,7 @@ public class OrgansServiceImpl extends ServiceImpl<OrgansMapper, Organs> impleme
         QueryWrapper<Organs> wrapper = new QueryWrapper<>();
         wrapper.eq("org_origin", origin);
         wrapper.eq("org_account", account);
+        wrapper.last("order by convert(org_num ,SIGNED) asc");
 
         List<Organs> list = organsService.list(wrapper);
 
@@ -97,6 +100,8 @@ public class OrgansServiceImpl extends ServiceImpl<OrgansMapper, Organs> impleme
         QueryWrapper<OrgInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("org_name", fileName);
         wrapper.eq("org_account", fileAccount);
+
+
         List<OrgInfo> list = orgInfoService.list(wrapper);
         if (!list.isEmpty()) {
             return Result.ok(list);
