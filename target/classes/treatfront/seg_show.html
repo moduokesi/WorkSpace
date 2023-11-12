@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+	<script src="assets/js/jquery.min.js"></script>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<script src="assets/js/storage.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<title>MED-AI</title>
+	<style type="text/css">
+.dercolor1 {
+    background: #FF0000!important;
+}
+.dercolor2 {
+    background: #FFFF00!important;
+}
+.dercolor3 {
+     background: #00FFFF!important;
+}
+.dercolor4 {
+    background: #00FF00!important;
+}
+		#consequence {
+    color: #FFFFFF;
+    background: #d94646e6;
+    border: none;
+    padding: 13px 0;
+    outline: none;
+    font-size: 8px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    transition: 0.5s all;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.49);
+}
+#consequence:hover {
+    background: #000;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    transition: 0.5s all;
+    border-collapse: separate;
+    -webkit-box-shadow: 0px 0px rgba(255,251,251,1.00);
+    box-shadow: 0px 0px rgba(255,251,251,1.00);
+    border-style: none;
+}
+#consequence {
+        width:20%;
+    }
+
+.show-button {
+	background-color: #ffffff; /* 指定背景颜色 */
+	color: #7f67e5; /* 指定文字颜色 */
+	border: 1px solid #0018ff; /* 指定边框样式 */
+	padding: 5px 10px; /* 指定内边距 */
+	/* 添加其他样式属性 */
+}
+	</style>
+	<script type="importmap">
+			{
+			"imports":{
+				"three": "./three/three.module.js",
+            	"three/addons/": "./three/"
+			}
+		}
+		</script>
+</head>
+
+<body>
+		<div id="page-layout"></div>
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content"><!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">器官分割展示</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">器官分割展示</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase">文件渲染</h6>
+						<hr/>
+						<div class="row g-0">
+							<div class="card" id="mochu3">
+								<div class="card-body">
+									<label class="form-label">请选择文件进行渲染</label>
+									<div class="input-group">
+										<select class="single-select form-select" id="selectmx">
+										</select>
+										<button class="btn btn-outline-secondary" type="button" id="submit1">开始渲染</i>
+										</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<table height="600" width="100%" align="center" border="1" cellspacing="0">
+										<tr>
+											<td id="td1" align="center">
+												<font size="5" >主视图：</font>
+											</td>
+											<td id="td2" align="center">
+												<font size="5" >俯视图：</font>
+											</td>
+										</tr>
+										<tr>
+											<td id="td3" align="center">
+												<font size="5">45°视角图：</font>
+											</td>
+											<td id="td4" align="center">
+												<font size="5">侧视图：</font>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<h6 class="mb-0 text-uppercase">器官分离</h6>
+						<hr/>
+						<div class="row g-0">
+							<div class="card" id="mochu2">
+								<div class="card-body">
+									<label class="form-label">请选择文件进行器官分离</label>
+									<div class="input-group">
+										<select class="single-select form-select" id="selectqg">
+										</select>
+										<button class="btn btn-outline-secondary" type="button" id="submit2">分离</i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h6 class="mb-0 text-uppercase">器官文件</h6>
+						<hr/>
+						<div class="row g-0">
+							<div class="card" id="mochu1">
+								<div class="card-body">
+									<label class="form-label">请选择模型对应的器官文件</label>
+									<div class="row">
+										<div class="col-10">
+											<select class="single-select form-select" id="oragan">
+												<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
+											</select>
+										</div>
+										<div class="col-2">
+											<button class="btn btn-outline-secondary" type="button" id="submit3">确定</i></button>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table id="example" class="table table-striped table-bordered" style="width:100%">
+											<thead>
+												<tr>
+													<th>文件名</th>
+													<th>序号</th>
+													<th>器官</th>
+													<th>展示</th>
+												</tr>
+											</thead>
+											<tbody id="tableBody">
+											<!-- JavaScript将动态生成的表格行插入此处 -->
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!--end switcher-->
+<!--	<script src="assets/js/jquery.min.js"></script>-->
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+</body>
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+<script src="td/aa-td1.js" type="module"></script>
+<script src="td/aa-td2.js" type="module"></script>
+<script src="td/aa-td3.js" type="module"></script>
+<script src="td/aa-td4.js" type="module"></script>
+<script src="td/aa-td5.js" type="module"></script>
+<!-- 加载边栏资源 -->
+<script>
+	$(function() {
+		$("#page-layout").load("index.html");
+	});
+</script>
+
+<script>
+	$('#oragan').select2({
+		width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+	});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			url: storage.baseURL+'/queryOutFiles',
+			type: 'GET',
+			contentType: "application/json",
+			beforeSend: function(xhr) {
+				// 获取 JWT 字符串
+				const jwtToken = storage.getToken();
+				// 设置 "token" 键名
+				xhr.setRequestHeader("token", jwtToken);
+			},
+			success: function(response) {
+				const fileAttributes = response.data;
+				const selectBox = $("#selectmx");
+				fileAttributes.forEach(function(file) {
+					const option = $("<option></option>");
+					option.text(file.fileName + ".stl");
+					option.val(file.fileUrl);
+					selectBox.append(option);
+				});
+
+				const selectBox2 = $("#selectqg");
+				fileAttributes.forEach(function(file) {
+					const option = $("<option></option>");
+					option.text(file.fileName + ".stl");
+					option.val(file.fileUrl);
+					selectBox2.append(option);
+				});
+
+				const selectBox3 = $("#oragan");
+				fileAttributes.forEach(function(file) {
+					const option = $("<option></option>");
+					option.text(file.fileName + ".stl");
+					option.val(file.fileName);
+					selectBox3.append(option);
+				});
+			},
+			error: function() {
+				console.log("请求失败");
+			}
+		});
+	});
+</script>
+
+
+<script>
+	$(document).ready(function() {
+		// 获取按钮元素
+		const button = $("#submit1");
+		// 绑定单击事件
+		button.click(function() {
+			// 获取选中的下拉框元素
+			const selectedOption = $("#selectmx option:selected");
+			// 获取选中元素的路径
+			var filePath = selectedOption.val() + "\\" + selectedOption.text();
+			// 调用 JavaScript 文件中的函数，将路径作为参数传递
+			console.log("filePath="+filePath);
+			loadModel1(filePath);
+			loadModel2(filePath);
+			loadModel3(filePath);
+			loadModel4(filePath);
+		});
+	});
+
+</script>
+
+<script>
+	$(document).ready(function() {
+		// 获取按钮元素
+		const button = $("#submit2");
+		// 绑定单击事件
+		button.click(function() {
+			Swal.fire({
+				title: '正在进行器官分离!',
+				footer: '请耐心等待',
+				timerProgressBar: true,
+				didOpen: () => {
+					Swal.showLoading();
+					const b = Swal.getHtmlContainer().querySelector('b');
+				},
+			});
+			// 获取选中的下拉框元素
+			const selectedOption = $("#selectqg option:selected");
+			// 获取选中元素的路径
+			var data = {
+				fileUrl : selectedOption.val(),
+				fileName : selectedOption.text()
+			}
+			$.ajax({
+				url: storage.baseURL+'/separate',
+				type: 'POST',
+				data: JSON.stringify(data),
+				contentType: "application/json",
+				beforeSend: function(xhr) {
+					// 获取JWT字符串
+					const jwtToken = storage.getToken();
+					// 设置 "token" 键名
+					xhr.setRequestHeader("token", jwtToken);
+				},
+				success: function (res) {
+					if (res.status != 200) {
+						Swal.fire({
+							icon: 'warning',
+							title: res.msg
+						})
+					} else {
+						Swal.close()
+						Swal.fire({
+							icon: 'success',
+							title: '器官分离成功！'
+						})
+					}
+				},
+				error: function (res) {
+					Swal.fire({
+						icon: 'error',
+						title: '请求发送失败，请检查网络连接或服务器状态'
+					})
+				}
+			});
+
+		});
+	});
+
+</script>
+
+<script>
+	$(document).ready(function() {
+		// 获取按钮元素
+		const button = $("#submit3");
+		// 绑定单击事件
+		button.click(function() {
+			// 获取选中的下拉框元素
+			const selectedOption = $("#oragan option:selected");
+			// 获取下拉框中的选中值
+			var selectedValue = $("#oragan").val();
+
+			// 检查选中的值是否为默认的占位符值"请选择一个文件"
+			if (selectedValue === null) {
+				// 弹出提示框告知用户选择一个文件
+				Swal.fire({
+					icon: 'warning',
+					title: '请选择数据文件！'
+				})
+				return;
+			}
+
+			$.ajax({
+				url: storage.baseURL+'/orgShow',
+				type: 'GET',
+				data: {fileName : selectedOption.text()},
+				contentType: "application/json",
+				beforeSend: function(xhr) {
+					// 获取JWT字符串
+					const jwtToken = storage.getToken();
+					// 设置 "token" 键名
+					xhr.setRequestHeader("token", jwtToken);
+				},
+				success: function (res) {
+					if (res.status != 200) {
+						Swal.fire({
+							icon: 'error',
+							title: res.msg
+						})
+					} else {
+						var tableBody = document.getElementById('tableBody');
+						tableBody.innerText = '';
+
+						// 根据数据生成每一行的内容
+						for (var i = 0; i < res.data.length; i++) {
+							// 创建表格行
+							var rowElement = document.createElement('tr');
+							var order = res.data[i].orgNum;
+							var organ = "";
+							rowElement.setAttribute('id', 'row-' + res.data[i].orgId);
+
+							// 创建文件名单元格并添加数据
+							var fileNameCell = document.createElement('td');
+							var fileNameSpan = document.createElement('span');
+							fileNameSpan.textContent = res.data[i].orgName;
+							fileNameSpan.classList.add('org-name');
+							fileNameCell.appendChild(fileNameSpan);
+							rowElement.appendChild(fileNameCell);
+
+							// 创建文件序号单元格并添加数据
+							var fileTypeCell = document.createElement('td');
+							fileTypeCell.textContent = order;
+							rowElement.appendChild(fileTypeCell);
+
+							if (order === '1') {organ = "脾脏"} else if (order === '2') {organ = "右肾"} else if (order === '3') {organ = "左肾"} else if (order === '4') {organ = "胆囊"} else if (order === '5') {organ = "食道"}else if (order === '6') {organ = "肝"} else if (order === '7') {organ = "胃"} else if (order === '8') {organ = "主动脉"} else if (order === '9') {organ = "下腔静脉"} else if (order === '10') {organ = "胰腺"} else if (order === '11') {organ = "右肾上腺"} else if (order === '12') {organ = "左肾上腺"} else if (order === '13') {organ = "十二指肠"} else if (order === '14') {organ = "膀胱"} else if (order === '15') {organ = "前列腺/子宫"}
+
+							// 创建器官单元格并添加数据
+							var fileOrganCell = document.createElement('td');
+							fileOrganCell.textContent = organ;
+							rowElement.appendChild(fileOrganCell);
+
+							// 创建操作单元格并添加按钮
+							var actionCell = document.createElement('td');
+							var actionButton = document.createElement('button');
+							actionButton.textContent = '查看三维模型'; // 按钮文本
+							actionButton.classList.add('show-button'); // 按钮样式类
+							actionButton.dataset.fileId = res.data[i].orgId; // 按钮自定义属性，例如文件ID
+
+							var param1 = res.data[i].orgNum;
+							var param2 = res.data[i].orgAccount;
+							console.log(param2)
+							var param3 = res.data[i].orgOrigin;
+							actionButton.addEventListener('click', handleButtonClick.bind(actionButton, param1, param2, param3)); // 按钮点击事件处理程序
+							actionCell.appendChild(actionButton);
+							rowElement.appendChild(actionCell);
+
+							// 将行元素添加到表格主体中
+							tableBody.appendChild(rowElement);
+						}
+					}
+				},
+				error: function (res) {
+					alert("请求发送失败，请检查网络连接或服务器状态。");
+				}
+			});
+
+		});
+	});
+
+</script>
+
+<script>
+	// 声明一个变量来存储上一次选中的按钮
+	var previousButton = null;
+	// 声明一个变量来存储当前展示单元格
+	var currentDisplayCell = null;
+
+	// 按钮点击事件处理程序
+	function handleButtonClick(param1, param2, param3, event) {
+		console.log(event);
+		console.log(param1);
+		console.log(param2);
+		console.log(param3);
+
+		var button = event.target; // 获取被点击的按钮
+
+		var parentCell = button.parentNode; // 获取按钮的父元素（单元格）
+		var row = parentCell.parentNode; // 获取按钮所在行
+		var cellIndex = parentCell.cellIndex; // 获取按钮所在列的索引
+
+		// 检查当前展示单元格是否存在
+		if (currentDisplayCell !== null) {
+			// 隐藏当前展示单元格
+			currentDisplayCell.style.display = 'none';
+
+			// 恢复上一次选中的按钮的显示和文本
+			if (previousButton !== null) {
+				previousButton.style.display = 'inline-block';
+				previousButton.textContent = "查看三维模型";
+			}
+		}
+
+		// 检查是否点击的是同一个按钮
+		if (previousButton === button) {
+			// 清空上一次选中的按钮和展示单元格
+			previousButton = null;
+			currentDisplayCell = null;
+		} else {
+			// 在按钮所在列的下一列插入单元格
+			var displayCell = row.insertCell(cellIndex + 1);
+			displayCell.style.display = 'table-cell'; // 设置展示单元格的显示样式
+
+			var fileId = button.dataset.fileId; // 获取按钮的自定义属性，例如文件ID
+			var displayCellId = 'td' + fileId; // 根据文件ID生成展示单元格的ID
+			displayCell.setAttribute('id', displayCellId); // 设置展示单元格的ID
+
+			loadModel5("..\\treatdata\\" + param2 + "\\outfile\\" + param3 + "\\organ_" + param1 + ".stl", displayCellId);
+
+			// 更新上一次选中的按钮和展示单元格
+			previousButton = button;
+			currentDisplayCell = displayCell;
+
+			// 修改按钮文本
+			button.textContent = "关闭三维视窗";
+		}
+	}
+</script>
+
+
+
+
+</html>

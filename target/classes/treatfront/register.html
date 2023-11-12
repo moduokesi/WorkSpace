@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+	<script src="assets/js/storage.js"></script>
+	<script src="assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<title>MED-AI 注册界面</title>
+	<style type="text/css">
+		#h123 {
+			font-size: 4em;
+			background: -webkit-linear-gradient(120deg, #3272FF, #A762FF, #3272FF);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+			letter-spacing: 3px;
+			text-align: center;
+			font-style: italic;
+			margin: 0vw 1vw;
+			font-family: 'Josefin Sans', sans-serif;
+		}
+		#h124{
+			font-size: 4em;
+			background: -webkit-linear-gradient(120deg, #3272FF, #A762FF, #3272FF);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+			letter-spacing: 3px;
+			text-align: center;
+			font-style: italic;
+			margin: 0vw 1vw;
+			font-family: 'Josefin Sans', sans-serif;
+		}
+	</style>
+
+	<style>
+		/*背景透明*/
+		#register{
+			background-color: rgba(43, 43, 43,0.5);
+		}
+
+		label{
+			color: white;
+			font-size: 18px;
+		}
+		/*更改input标签中placeholder属性颜色，必须加 ！important*/
+		input::-webkit-input-placeholder{
+			color: rgb(255, 255, 255) !important;
+		}
+		/*更改输入框文本颜色*/
+		input{
+			color: white !important;
+			background-color: transparent !important;
+		}
+	</style>
+	<style>
+		video {
+			object-fit: fill;
+			width: 100%;  /*背景有白边调大这个*!*/
+			position: fixed;
+			/*overflow: hidden;*/
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.box div{
+			/*width: 100%;*/
+			/*height: 700px;*/
+			/*padding-bottom: 56.25%;*/
+			/*background-color: rgb(43,43,43);*/
+			/*position: relative;*/
+		}
+	</style>
+</head>
+
+<body class="bg-login">
+
+<div class="box" >
+	<!-- autoplay 自动播放  loop循环播放  muted 声音 preload 预加载 -->
+	<video autoplay  muted="" preload loop id="v1" class="fullscreenvideo" >
+		<source src="./assets/images/background2.mp4">
+	</video>
+</div>
+	<!--wrapper-->
+	<div class="wrapper">
+		<div class="d-flex align-items-center justify-content-center my-5 my-lg-0">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
+					<div class="col mx-auto">
+<!--						图片居中-->
+						<div class="my-4 text-center" style="display: flex; justify-content: center; ">
+<!--							<h1 id="h123">3 D 医 疗 数 据</h1>-->
+<!--							<h1 id="h124">智  能  解  析  平  台</h1>-->
+							<img src="./assets/icons/title2.png" width="1000" height="220">
+						</div>
+						<div class="card" id="register" >
+<!--							<div class="card-body">-->
+								<div class="border p-4 rounded">
+									<div class="text-center">
+										<h3 style="color: white">注册</h3>
+										<p style="color: white">已经有账号了? <a href="login.html">点击登录</a>
+										</p>
+									</div>
+									<div class="login-separater text-center mb-4"> 
+										<hr/>
+									</div>
+									<div class="form-body">
+										<form class="row g-3">
+											<div class="col-sm-6">
+												<label for="Name" class="form-label">
+													<img src="assets/icons/account.png" width="15" height="15" class="icon">
+													用户名：
+												</label>
+												<input type="text" class="form-control" id="Name" placeholder="modox">
+												<div id="usernameLengthError" style="color: red;"></div> <!-- 添加的用户名长度错误提示 -->
+											</div>
+											<div class="col-sm-6">
+												<label for="Phone" class="form-label">
+													<img src="assets/icons/phone.png" width="10" height="15" class="icon">
+													手机号：
+												</label>
+												<input type="text" class="form-control" id="Phone" placeholder="请输入11位号码">
+												<div id="phoneLengthError" style="color: red;"></div> <!-- 添加的用户名长度错误提示 -->
+											</div>
+											<div class="col-12">
+												<label for="EmailAddress" class="form-label">
+													<img src="assets/icons/email.png" width="15" height="10" class="icon">
+													邮箱：
+												</label>
+												<input type="text" class="form-control" id="EmailAddress" placeholder="example@user.com">
+												<div id="emailFormatError" style="color: red;"></div> <!-- 添加的邮箱格式错误提示 -->
+											</div>
+											<div class="col-12">
+												<label for="Password1" class="form-label">
+													<img src="assets/icons/password.png" width="15" height="15" class="icon">
+													密码：
+												</label>
+												<div class="input-group" id="show_hide_password1">
+													<input type="password" class="form-control border-end-0" id="Password1" placeholder="请输入密码"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide' style="color: white"></i></a>
+												</div>
+												<div id="passwordRuleError" style="color: red;"></div>
+											</div>
+											<div class="col-12">
+												<label for="Password2" class="form-label">
+													<img src="assets/icons/confirm.png" width="15" height="15" class="icon">
+													确认密码：
+												</label>
+												<div class="input-group" id="show_hide_password2">
+													<input type="password" class="form-control border-end-0" id="Password2" placeholder="请输入密码">
+													<a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide' style="color: white"></i></a>
+												</div>
+												<div id="passwordMismatchError" style="color: red;"></div> <!-- 添加的错误提示 -->
+											</div>
+
+											<div class="col-12">
+												<div class="d-grid">
+													<button type="submit" class="btn btn-primary" id="enroll"><i class='bx bx-user'></i>注册</button>
+												</div>
+											</div>
+										</form>
+									</div>
+<!--								</div>-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--end row-->
+			</div>
+		</div>
+	</div>
+	<!--end wrapper-->
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#show_hide_password1 a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password1 input').attr("type") == "text") {
+					$('#show_hide_password1 input').attr('type', 'password');
+					$('#show_hide_password1 i').addClass("bx-hide");
+					$('#show_hide_password1 i').removeClass("bx-show");
+				} else if ($('#show_hide_password1 input').attr("type") == "password") {
+					$('#show_hide_password1 input').attr('type', 'text');
+					$('#show_hide_password1 i').removeClass("bx-hide");
+					$('#show_hide_password1 i').addClass("bx-show");
+				}
+			});
+			$("#show_hide_password2 a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password2 input').attr("type") == "text") {
+					$('#show_hide_password2 input').attr('type', 'password');
+					$('#show_hide_password2 i').addClass("bx-hide");
+					$('#show_hide_password2 i').removeClass("bx-show");
+				} else if ($('#show_hide_password2 input').attr("type") == "password") {
+					$('#show_hide_password2 input').attr('type', 'text');
+					$('#show_hide_password2 i').removeClass("bx-hide");
+					$('#show_hide_password2 i').addClass("bx-show");
+				}
+			});
+		});
+	</script>
+	<!--app JS-->
+	<script type="text/javascript">
+		$(function(){
+			// 在点击注册按钮时进行密码比较和错误提示显示
+			$('#enroll').on('click', function(e) {
+				e.preventDefault();
+				var username = $('#Name').val();
+				var phone = $('#Phone').val();
+				var emailaddress = $('#EmailAddress').val();
+				var pwd1 = $('#Password1').val();
+				var pwd2 = $('#Password2').val();
+				// 密码格式
+				var pwdRegex = /(?=.*\d).{6,}/;
+				// 邮箱格式
+				var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+				var u1 = username.length > 10 ? true : false;
+				var u2 = phone.length != 11 ? true : false;
+				var u3 = !emailRegex.test(emailaddress) ? true : false;
+				var u4 = !pwdRegex.test(pwd1) ? true : false;
+				var u5 = pwd1 !== pwd2 ? true : false;
+				if (u1) {
+					$('#usernameLengthError').text('用户名长度不能超过10个字符');
+				}else {
+					$('#usernameLengthError').text(''); // 清除错误提示信息
+				}
+				if (u2) {
+					$('#phoneLengthError').text('手机号长度应该为11位');
+				}else {
+					$('#phoneLengthError').text(''); // 清除错误提示信息
+				}
+				if (u3) {
+					$('#emailFormatError').text('邮箱格式不正确');
+				}else {
+					$('#emailFormatError').text(''); // 清除错误提示信息
+				}
+				if (u4) {
+					$('#passwordRuleError').text('密码必须包含数字和字母，且长度不少于6位');
+				} else {
+					$('#passwordRuleError').text(''); // 清除错误提示信息
+				}
+				if (u5) {
+					$('#passwordMismatchError').text('密码填写不一致');
+				}else {
+					$('#passwordMismatchError').text(''); // 清除错误提示信息
+				}
+				if (u1 || u2 || u3 || u4 || u5) {
+					return; //停止执行后续逻辑
+				}
+
+				var data = {
+					userName: username,
+					userPwd: pwd1,
+					userPhone: phone,
+					userEmail: emailaddress,
+				};
+				$.ajax({
+					url: storage.baseURL+'/register',
+					type: 'POST',
+					data: JSON.stringify(data),
+					contentType: "application/json",
+					success: function(res) {
+						if (res.status != 200) {
+							alert(res.msg);
+						} else {
+							storage.setToken(res.data);
+							window.location.href = "personInfo.html"
+						}
+					},
+					error: function(res) {
+						alert("请求发送失败，请检查网络连接或服务器状态。");
+					}
+				});
+			});
+
+		})
+	</script>
+	<script src="assets/js/app.js"></script>
+</body>
+
+</html>

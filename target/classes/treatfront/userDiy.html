@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<script src="assets/js/storage.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<title>MED-AI</title>
+	<style type="text/css">
+		#btnPost {
+			background-image: linear-gradient(to right, #007bff, #00a8ff);
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			border-radius: 5px;
+			cursor: pointer;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			transition: transform 0.3s ease-in-out;
+		}
+
+		#btnPost:hover {
+			background-image: linear-gradient(to right, #0056b3, #0086e6);
+			transform: scale(1.05);
+		}
+		.hidden {
+			display: none;
+		}
+
+		.delete-button {
+			/* 添加样式规则，例如背景颜色、边框、边距等 */
+			background-color: #5bb4b4;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+
+		.delete-button:hover {
+			/* 鼠标悬停时的样式 */
+			background-color: #3f717a;
+		}
+
+	</style>
+</head>
+
+<body>
+     <div id="page-layout"></div>
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">数据分析</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">自定义数据分析</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<!--end breadcrumb-->
+				<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase">后处理脚本分析</h6>
+						<hr/>
+						<div class="card" id="mochu">
+							<div class="card-body">
+								<!--页面内容-->
+								<label class="form-label">上传后处理脚本</label>
+								<div style="margin-top: 0vh; text-align: center; border: 2px dashed #999; padding: 20px;">
+									<p style="font-size: 24px; color: #333;">点击按钮，上传文件</p>
+									<button id='btnPost' style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 18px; border-radius: 5px; cursor: pointer;">点击上传</button>
+								</div>
+								<hr/>
+								<label class="form-label">脚本文件信息</label>
+								<div class="table-responsive">
+									<table id="example" class="table table-striped table-bordered" style="width:100%">
+										<thead>
+										<tr>
+											<th>文件名</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+										<tbody id="tableBody">
+										<!-- JavaScript将动态生成的表格行插入此处 -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase">自定义数据分析</h6>
+						<hr/>
+						<div class="card">
+							<div class="card-body">
+								<div class="border p-3 rounded">
+									<div class="mb-3">
+										<label class="form-label">请选择需要分析的文件</label>
+										<select id="fileSelect" class="single-select">
+											<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">选择器官序号</label>
+										<select class="single-select">
+											<option value="United States">1号：脾脏</option>
+											<option value="United Kingdom">2号：右肾</option>
+											<option value="Afghanistan">3号：左肾</option>
+											<option value="Aland Islands">4号：胆囊</option>
+											<option value="Albania">5号：食道</option>
+											<option value="Algeria">6号：肝</option>
+											<option value="American Samoa">7号：胃</option>
+											<option value="Andorra">8号：主动脉</option>
+											<option value="Angola">9号：下腔静脉</option>
+											<option value="Anguilla">10号：胰腺</option>
+											<option value="Antarctica">11号：右肾上腺</option>
+											<option value="Antigua and Barbuda">12号：左肾上腺</option>
+											<option value="Argentina">13号：十二指肠</option>
+											<option value="Armenia">14号：膀胱</option>
+											<option value="Aruba">15号：子宫</option>
+										</select>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label">选择输出内容</label>
+										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
+											<option value="United States" selected>直径</option>
+											<option value="United Kingdom" selected>面积</option>
+											<option value="Afghanistan" selected>体积</option>
+											<option value="Aland Islands">健康度</option>
+											<option value="Albania">病灶种类</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">选择输出图表</label>
+										<div class="input-group">
+											<select class="single-select form-select" id="selct">
+												<option selected value="1">柱形图</option>
+												<option value="2">折线图</option>
+												<option value="3">雷达图</option>
+											</select>
+											<button class="btn btn-outline-secondary" type="button" id="anachart">数据分析</i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase" id="h11" hidden="hidden">柱形图</h6>
+						<hr id="hr11" hidden="hidden">
+						<div class="card" id="chart1111" hidden="hidden">
+							<div class="card-body">
+								<div id="chart4"></div>
+							</div>
+						</div>
+						<h6 class="mb-0 text-uppercase" id="h22" hidden="hidden">折线图</h6>
+						<hr id="hr22" hidden="hidden">
+						<div class="card" id="chart2222" hidden="hidden">
+							<div class="card-body">
+								<div id="chart2"></div>
+							</div>
+						</div>
+						<h6 class="mb-0 text-uppercase" id="h33" hidden="hidden">雷达图</h6>
+						<hr id="hr33" hidden="hidden">
+						<div class="card" id="chart3333" hidden="hidden">
+							<div class="card-body">
+								<div id="chart10"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end switcher-->
+	 <script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/select2/js/select2.min.js"></script>
+	<script>
+		$('.single-select').select2({
+			theme: 'bootstrap4',
+			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+			placeholder: $(this).data('placeholder'),
+			allowClear: Boolean($(this).data('allow-clear')),
+		});
+		$('.multiple-select').select2({
+			theme: 'bootstrap4',
+			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+			placeholder: $(this).data('placeholder'),
+			allowClear: Boolean($(this).data('allow-clear')),
+		});
+	</script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+
+
+	<!-- 加载边栏资源 -->
+	<script>
+		$(function() {
+			$("#page-layout").load("index.html");
+		});
+	</script>
+	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	 <script>
+		 $.ajax({
+			 url: storage.baseURL+'/filesInfo',
+			 type: 'GET',
+			 data: { userAccount: localStorage.getItem('userAccount') },
+			 contentType: "application/json",
+			 beforeSend: function(xhr) {
+				 // 获取JWT字符串
+				 const jwtToken = storage.getToken();
+				 // 设置 "token" 键名
+				 xhr.setRequestHeader("token", jwtToken);
+			 },
+			 success: function(res) {
+				 if (res.status != 200) {
+					 alert(res.msg);
+				 }
+				 // 获取下拉框元素
+				 var selectFile = document.querySelector("#fileSelect");
+
+				 // 根据数据生成每个选项
+				 for (var i = 0; i < res.data.length; i++) {
+					 // 创建选项元素
+					 var optionElement = document.createElement('option');
+
+					 optionElement.setAttribute('id', 'option-' + res.data[i].fileId);
+
+					 // 设置选项的值和显示文本
+					 optionElement.value = res.data[i].fileUrl;
+
+					 optionElement.textContent = res.data[i].fileName + "." + res.data[i].fileType;
+
+					 // 将选项添加到下拉框中
+					 selectFile.appendChild(optionElement);
+				 }
+			 },
+			 error: function(res) {
+				 // 错误处理代码
+			 }
+		 });
+	 </script>
+	 <script>
+		 document.getElementById('btnPost').addEventListener('click', function(event) {
+			 event.preventDefault(); // 阻止表单提交的默认行为
+
+			 // 创建一个隐藏的<input type="file">元素
+			 var fileInput = document.createElement('input');
+			 fileInput.type = 'file';
+			 fileInput.style.display = 'none';
+			 fileInput.multiple = true; // 允许多选文件
+
+			 // 监听文件选择事件
+			 fileInput.addEventListener('change', function() {
+				 var files = fileInput.files; // 获取所选文件列表
+
+				 // 准备发送Ajax请求
+				 var xhr = new XMLHttpRequest();
+				 xhr.open('POST', 'http://localhost:8080/treatment/scriptUpload', true);
+				 xhr.onreadystatechange = function() {
+					 if (xhr.readyState === XMLHttpRequest.DONE) {
+						 if (xhr.status === 200) {
+							 // 处理请求完成后的响应
+							 Swal.fire({
+								 icon: 'success',
+								 title: '文件上传成功！',
+							 }).then((result) => {
+								 if (result.isConfirmed) {
+									 location.reload({ preserveScroll: false });
+								 }
+							 });
+							 show();
+						 } else {
+							 Swal.fire({
+								 icon: 'warning',
+								 title: '文件类型不符\n请上传脚本文件'
+							 })
+						 }
+					 }
+				 };
+
+				 const jwtToken = storage.getToken();
+				 xhr.setRequestHeader("token", jwtToken); // 将 YOUR_JWT_TOKEN_HERE 替换为实际的 JWT 令牌值
+
+				 // 创建一个FormData对象
+				 var formData = new FormData();
+
+				 // 遍历文件列表，添加每个文件到FormData对象
+				 for (var i = 0; i < files.length; i++) {
+					 var file = files[i];
+					 // 检查文件类型
+					 if (!file.name.endsWith('.py')) {
+						 Swal.fire({
+							 icon: 'warning',
+							 title: '文件类型不符\n请上传脚本文件'
+						 })
+						 continue;
+					 }
+					 formData.append('file', file);
+				 }
+
+				 // 发送Ajax请求
+				 xhr.send(formData);
+			 });
+
+			 // 触发文件选择对话框
+			 fileInput.click();
+		 });
+	 </script>
+
+	 <script>
+		 $.ajax({
+			 url: storage.baseURL+'/scriptShow',
+			 type: 'GET',
+			 data: {userAccount : localStorage.getItem('userAccount')},
+			 contentType: "application/json",
+			 beforeSend: function(xhr) {
+				 // 获取JWT字符串
+				 const jwtToken = storage.getToken();
+				 // 设置 "token" 键名
+				 xhr.setRequestHeader("token", jwtToken);
+			 },
+			 success: function (res) {
+				 if (res.status != 200) {
+					 alert(res.msg);
+				 } else {
+					 var tableBody = document.getElementById('tableBody');
+					 tableBody.innerText = '';
+
+					 // 根据数据生成每一行的内容
+					 for (var i = 0; i < res.data.length; i++) {
+						 // 创建表格行
+						 var rowElement = document.createElement('tr');
+						 rowElement.setAttribute('id', 'row-' + res.data[i].scpId);
+
+						 // 创建文件名单元格并添加数据
+						 var fileNameCell = document.createElement('td');
+						 var fileNameSpan = document.createElement('span');
+						 fileNameSpan.textContent = res.data[i].scpName;
+						 fileNameSpan.classList.add('scp-name');
+						 fileNameCell.appendChild(fileNameSpan);
+						 rowElement.appendChild(fileNameCell);
+
+						 // 创建操作单元格并添加按钮
+						 var actionCell = document.createElement('td');
+						 var actionButton = document.createElement('button');
+						 actionButton.textContent = '删除'; // 按钮文本
+						 actionButton.classList.add('delete-button'); // 按钮样式类
+						 actionButton.dataset.fileId = res.data[i].scpId; // 按钮自定义属性，例如文件ID
+						 actionButton.addEventListener('click', handleButtonClick); // 按钮点击事件处理程序
+						 actionCell.appendChild(actionButton);
+						 rowElement.appendChild(actionCell);
+
+						 // 将行元素添加到表格主体中
+						 tableBody.appendChild(rowElement);
+					 }
+				 }
+			 },
+			 error: function (res) {
+				 alert("请求发送失败，请检查网络连接或服务器状态。");
+			 }
+		 });
+	 </script>
+
+	 <script>
+		$(function(){
+			$("#anachart").on('click',function(){
+				var sel = $("#selct").val();
+				console.log(sel);
+				if(sel==1){
+						h666= document.getElementById('h11')
+						h666.removeAttribute('hidden');
+						hr1= document.getElementById('hr11');
+						hr1.removeAttribute('hidden');
+						seldiv1 = document.getElementById('chart1111');
+						seldiv1.removeAttribute('hidden');
+				}else if(sel==2){
+					h666= document.getElementById('h22')
+						h666.removeAttribute('hidden');
+						hr1= document.getElementById('hr22');
+						hr1.removeAttribute('hidden');
+						seldiv1 = document.getElementById('chart2222');
+						seldiv1.removeAttribute('hidden');
+				}else if(sel==3){
+					h666= document.getElementById('h33')
+						h666.removeAttribute('hidden');
+						hr1= document.getElementById('hr33');
+						hr1.removeAttribute('hidden');
+						seldiv1 = document.getElementById('chart3333');
+						seldiv1.removeAttribute('hidden');
+				}else if(sel==4){
+					h666= document.getElementById('h44')
+						h666.removeAttribute('hidden');
+						hr1= document.getElementById('hr44');
+						hr1.removeAttribute('hidden');
+						seldiv1 = document.getElementById('chart4444');
+						seldiv1.removeAttribute('hidden');
+				}
+			})
+		})
+	</script>
+
+	 <script>
+		 // 按钮点击事件处理程序
+		 function handleButtonClick(event) {
+			 var scpId = event.target.dataset.fileId;
+			 // 根据文件ID执行相应的操作
+
+			 var data = {
+				 scpId: scpId
+			 }
+			 $.ajax({
+				 url: storage.baseURL+'/scriptDelete',
+				 type: 'POST',
+				 data: JSON.stringify(data),
+				 contentType: "application/json",
+				 beforeSend: function(xhr) {
+					 // 获取JWT字符串
+					 const jwtToken = storage.getToken();
+					 // 设置 "token" 键名
+					 xhr.setRequestHeader("token", jwtToken);
+				 },
+				 success: function (res) {
+					 if (res.status != 200) {
+						 alert(res.msg)
+					 } else {
+						 // 1. 获取表格元素
+						 var table = document.getElementById("tableBody");
+						 // 2. 获取要删除的行
+						 var row = document.getElementById("row-" + scpId); // 每行的ID为 "row-scpId"
+						 row.classList.add("hidden");
+						 // 3. 从表格中移除被删除的行
+						 table.removeChild(row);
+					 }
+				 },
+				 error: function (res) {
+					 alert("请求发送失败，请检查网络连接或服务器状态。");
+				 }
+			 });
+		 }
+	 </script>
+
+	<script>
+		var optionsLine = {
+			chart: {
+				foreColor: '#000000',
+				height: 360,
+				type: 'line',
+				zoom: {
+					enabled: false
+				},
+				dropShadow: {
+					enabled: true,
+					top: 3,
+					left: 2,
+					blur: 4,
+					opacity: 0.1,
+				}
+			},
+			stroke: {
+				curve: 'smooth',
+				width: 5
+			},
+			colors: ['#2bbd68',"#1250e0"],
+			series: [{
+				name: '文件数据',
+				data: [12.4, 95.7, 201.5, 74, 14]
+			},{
+				name: '健康水平',
+				data: [13, 93, 195, 62, 9]
+			} ],
+			title: {
+				text: '折线图',
+				align: 'left',
+				style: {
+					fontSize: '14px'
+				}
+			},
+			markers: {
+				size: 4,
+				strokeWidth: 0,
+				hover: {
+					size: 7
+				}
+			},
+			tooltip: {
+				y: {
+					formatter: function (val) {
+						if((val==12.1)||(val==12)){
+							return val+'cm'
+						}else if((val==96.3)||(val==92)){
+							return val+'cm^2'
+						}else if((val==200.2)||(val==195)){
+							return val+'cm^3'
+						}else if((val==75)||(val==60)){
+							return val+'%'
+						}else{
+							return val
+						}
+					}
+				}
+			},
+			labels: ['直径', '面积', '体积', '健康度', '病灶种类'],
+			xaxis: {
+				tooltip: {
+					enabled: false
+				}
+			},
+			legend: {
+				position: 'top',
+				horizontalAlign: 'right',
+				offsetY: -20
+			}
+		}
+		var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
+		chartLine.render();
+
+		// chart 4
+		var options = {
+			series: [{
+				name: '文件数据',
+				data: [12.4, 95.7, 201.5, 74, 14]
+			}, {
+				name: '健康水平',
+				data: [13, 93, 195, 62, 9]
+			}],
+			chart: {
+				foreColor: '#181818',
+				type: 'bar',
+				height: 360
+			},
+			plotOptions: {
+				bar: {
+					horizontal: false,
+					columnWidth: '55%',
+					endingShape: 'rounded'
+				},
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				show: true,
+				width: 2,
+				colors: ['transparent']
+			},
+			title: {
+				text: '柱形图',
+				align: 'left',
+				style: {
+					fontSize: '14px'
+				}
+			},
+			colors: ["#dce051", '#3868a2'],
+			xaxis: {
+				categories: ['直径', '面积', '体积', '健康度', '病灶种类'],
+			},
+			tooltip: {
+				y: {
+					formatter: function (val) {
+						if((val==12.1)||(val==12)){
+							return val+'cm'
+						}else if((val==96.3)||(val==92)){
+							return val+'cm^2'
+						}else if((val==200.2)||(val==195)){
+							return val+'cm^3'
+						}else if((val==75)||(val==60)){
+							return val+'%'
+						}else{
+							return val
+						}
+					}
+				}
+			}
+		};
+		var chart = new ApexCharts(document.querySelector("#chart4"), options);
+		chart.render();
+
+		// chart 10
+		var options = {
+			series: [{
+				name: '文件数据',
+				data: [12.4, 95.7, 201.5, 74, 14]
+			}, {
+				name: '健康水平',
+				data: [13, 93, 195, 62, 9]
+			}],
+			chart: {
+				foreColor: '#000000',
+				height: 350,
+				type: 'radar',
+				dropShadow: {
+					enabled: true,
+					blur: 1,
+					left: 1,
+					top: 1
+				}
+			},
+			colors: ["#5de37d", "#0c49ee"],
+			title: {
+				text: '雷达图',
+				align: 'left',
+				style: {
+					fontSize: '14px'
+				}
+			},
+			stroke: {
+				width: 2
+			},
+			fill: {
+				opacity: 0.1
+			},
+			markers: {
+				size: 0
+			},
+			xaxis: {
+				categories: ['直径', '面积', '体积', '健康度', '病灶种类'],
+			},
+			tooltip: {
+				y: {
+					formatter: function (val) {
+						if((val==12.1)||(val==12)){
+							return val+'cm'
+						}else if((val==96.3)||(val==92)){
+							return val+'cm^2'
+						}else if((val==200.2)||(val==195)){
+							return val+'cm^3'
+						}else if((val==75)||(val==60)){
+							return val+'%'
+						}else{
+							return val
+						}
+					}
+				}
+			}
+		};
+		var chart = new ApexCharts(document.querySelector("#chart10"), options);
+		chart.render();
+	</script>
+</body>
+
+</html>

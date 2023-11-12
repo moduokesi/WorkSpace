@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<script src="assets/js/storage.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<title>MED-AI</title>
+	<style type="text/css">
+		#mochu{
+	position: absolute;
+	top: auto;
+	left: auto;
+	display: flex;
+	flex-direction: column;
+	width: 640px;
+	min-height: 407px;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 0 solid transparent;
+	border-radius: .25rem;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page-layout"></div>
+	<!--start page wrapper -->
+	<div class="page-wrapper">
+		<div class="page-content">
+			<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				<div class="breadcrumb-title pe-3">个人信息</div>
+				<div class="ps-3">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb mb-0 p-0">
+							<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+							</li>
+							<li class="breadcrumb-item active" aria-current="page">个人信息</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col-12 col-lg-10 mx-auto">
+				<div class="card">
+					<div class="row g-0">
+						<div class="col-lg-5 border-end">
+							<div class="card-body">
+								<div class="p-5">
+									<div class="d-flex flex-column align-items-center text-center">
+										<img src="assets/images/avatars/match.jpg" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+										<div class="mt-3">
+											<h4 id="userNameHeading"></h4>
+										</div>
+									</div>
+									<h6 class="mb-0 text-uppercase">个人信息</h6>
+									<hr/>
+									<div class="row mb-3">
+										<div class="col-sm-3">
+											<h6 class="mb-0" style="white-space: nowrap;">用户名：</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="text" class="form-control" id="userName" readonly/>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<div class="col-sm-3">
+											<h6 class="mb-0" style="white-space: nowrap;">账号：</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="text" class="form-control" id="userAccount" readonly/>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<div class="col-sm-3">
+											<h6 class="mb-0" style="white-space: nowrap;">手机号：</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="text" class="form-control" id="userPhone" readonly/>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<div class="col-sm-3">
+											<h6 class="mb-0" style="white-space: nowrap;">邮箱：</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="text" class="form-control" id="userEmail" readonly/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<img src="assets/images/screen-1.png" class="card-img login-img h-100" alt="...">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<!--end page wrapper -->
+	<script src="assets/js/jquery.min.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	</div>
+</body>
+	<!-- 加载边栏资源 -->
+	<script>
+		$(function() {
+			$("#page-layout").load("index.html");
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				url: storage.baseURL+'/personInfo',
+				type: 'GET',
+				contentType: "application/json",
+				beforeSend: function(xhr) {
+					// 获取 JWT 字符串
+					const jwtToken = storage.getToken();
+					// 设置 "token" 键名
+					xhr.setRequestHeader("token", jwtToken);
+				},
+				success: function(res) {
+					$('#userName').val(res.data.userName);
+					$('#userAccount').val(res.data.userAccount);
+					$('#userPhone').val(res.data.userPhone);
+					$('#userEmail').val(res.data.userEmail);
+				},
+				error: function(res) {
+					alert("请求发送失败，请检查网络连接或服务器状态。");
+				}
+			});
+		})
+	</script>
+</html>
