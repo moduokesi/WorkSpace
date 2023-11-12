@@ -5,6 +5,7 @@
     "cornerstone-tools": "^6.0.8",
     "cornerstone-wado-image-loader": "^4.1.5",
     "dicom-parser": "^1.8.13",
+    "docxtemplater-image-module-free": "^1.1.1",
     "jquery": "^3.6.3",
     "sweetalert2": "^11.9.0",
     "three": "^0.121.0",

@@ -280,4 +280,99 @@ $(function () {
 		sessionStorage.setItem('ad', 8)
 		document.querySelector('.a1').checked = false; document.querySelector('.a2').checked = false; document.querySelector('.a3').checked = false; document.querySelector('.a4').checked = false
 	}
+	//	if ($('.a1111').length) {
+	//		$('.toggle-icon').click()
+	//	}
+	if ($('.a4444').length) {
+		$('.tap').css('display', 'block')
+		$('.tap1').css('display', 'none')
+		$('.tap2').css('display', 'none')
+	}
+	if ($('.a2222').length) {
+		$('.tap').css('display', 'none')
+		$('.tap1').css('display', 'block')
+		$('.tap2').css('display', 'none')
+	}
+	if ($('.a3333').length) {
+		$('.tap').css('display', 'none')
+		$('.tap1').css('display', 'none')
+		$('.tap2').css('display', 'block')
+	}
+	$('.tap').on('click', 'li', function (e) {
+		$(e.target).addClass('active').siblings().removeClass('active')
+		if ($(`.b${$('.tap .active').data('xl')}`).siblings().hasClass('abc')) {
+			if ($(`.b1`).css('display') === 'none') {
+				$(`.b1`).animate({ 'opacity': 'toggle' })
+				$('.b2,.b3,.b4').css({ 'display': 'none' })
+			}
+		} else if ($(`.b${$('.tap .active').data('xl')}`).parent().hasClass('abc')) {
+			if ($(`.b${$('.tap .active').data('xl')}`).css('display') === 'none') {
+				$(`.b${$('.tap .active').data('xl')}`).animate({ 'opacity': 'toggle' }).siblings().css({ 'display': 'none' })
+				$(`.b1`).css({ 'display': 'none' })
+			}
+		} else {
+			if ($(`.b${$('.tap .active').data('xl')}`).css('display') === 'none') {
+				$(`.b${$('.tap .active').data('xl')}`).animate({ 'opacity': 'toggle' }).siblings().css({ 'display': 'none' })
+			}
+		}
+		$('.p-0 .active').html($(e.target).html())
+		//		console.log(1);
+	})
+	$('.tap1').on('click', 'li', function (e) {
+		$(e.target).addClass('active').siblings().removeClass('active')
+		if ($(`.b${$('.tap1 .active').data('xl')}`).css('display') === 'none') {
+			$(`.b${$('.tap1 .active').data('xl')}`).animate({ 'opacity': 'toggle' }).siblings().css({ 'display': 'none' })
+		}
+		$('.p-0 .active').html($(e.target).html())
+	})
+	$('.tap2').on('click', 'li', function (e) {
+		$(e.target).addClass('active').siblings().removeClass('active')
+		if ($(`.b${$('.tap2 .active').data('xl')}`).css('display') === 'none') {
+			$(`.b${$('.tap2 .active').data('xl')}`).animate({ 'opacity': 'toggle' }).siblings().css({ 'display': 'none' })
+		}
+		$('.p-0 .active').html($(e.target).html())
+	})
+	//	$('.sidebar-wrapper').mouseenter(() => {
+	//		$('.tap').css('opacity', 0)
+	//	})
+	//	$('.sidebar-wrapper').mouseleave(() => {
+	//		$('.tap').css('opacity', 1)
+	//	})
+	const list1 = ['上传文件', '文件管理', '器官分割']
+	const list2 = ['文件标注与测量', '标签管理']
+	const list3 = ['虚拟展示', '文件渲染', '器官分离', '器官文件']
+	const list4 = ['测量直径', '测量面积', '测量体积', '计数']
+	const list5 = ['后处理脚本分析', '自定义数据分析']
+	const list6 = ['模型列表', '添加模型']
+	const list7 = ['标签列表', '添加标签']
+	if ($('.c1').length) {
+		$.each(list1, (index, item) => {
+			$(`.tap2 li:nth-child(${index + 1})`).html(item)
+		})
+	} else if ($('.c2').length) {
+		$.each(list2, (index, item) => {
+			$(`.tap1 li:nth-child(${index + 1})`).html(item)
+		})
+	} else if ($('.c3').length) {
+		$.each(list3, (index, item) => {
+			$(`.tap li:nth-child(${index + 1})`).html(item)
+		})
+	} else if ($('.c4').length) {
+		$.each(list4, (index, item) => {
+			$(`.tap li:nth-child(${index + 1})`).html(item)
+		})
+	} else if ($('.c5').length) {
+		$.each(list5, (index, item) => {
+			$(`.tap1 li:nth-child(${index + 1})`).html(item)
+		})
+	} else if ($('.c6').length) {
+		$.each(list6, (index, item) => {
+			$(`.tap1 li:nth-child(${index + 1})`).html(item)
+		})
+	} else if ($('.c7').length) {
+		$.each(list7, (index, item) => {
+			$(`.tap1 li:nth-child(${index + 1})`).html(item)
+		})
+	}
+	//$('.b1,.b2,.b3,.b4').css('display', 'none')
 });

@@ -126,4 +126,16 @@ public class FilesServiceImpl extends ServiceImpl<FilesMapper, InFiles> implemen
 
         return Result.ok();
     }
+
+    @Override
+    public Result getInfo(String fileId) {
+        InFiles file = filesService.getById(fileId);
+
+        if (fileId == null || fileId.equals("") || file == null) {
+            return Result.fail("未查询到该文件！");
+        }
+
+//        String url = file.getFileUrl() + file.getFileName() + "." + file.getFileType();
+        return Result.ok(file);
+    }
 }

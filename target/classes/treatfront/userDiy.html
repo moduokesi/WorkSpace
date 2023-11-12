@@ -66,167 +66,172 @@
 </head>
 
 <body>
-     <div id="page-layout"></div>
-		<!--start page wrapper -->
-		<div class="page-wrapper">
-			<div class="page-content">
-				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">数据分析</div>
-					<div class="ps-3">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">自定义数据分析</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-				<!--end breadcrumb-->
-				<div class="row">
-					<div class="col-xl-9 mx-auto">
-						<h6 class="mb-0 text-uppercase">后处理脚本分析</h6>
-						<hr/>
-						<div class="card" id="mochu">
-							<div class="card-body">
-								<!--页面内容-->
-								<label class="form-label">上传后处理脚本</label>
-								<div style="margin-top: 0vh; text-align: center; border: 2px dashed #999; padding: 20px;">
-									<p style="font-size: 24px; color: #333;">点击按钮，上传文件</p>
-									<button id='btnPost' style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 18px; border-radius: 5px; cursor: pointer;">点击上传</button>
-								</div>
-								<hr/>
-								<label class="form-label">脚本文件信息</label>
-								<div class="table-responsive">
-									<table id="example" class="table table-striped table-bordered" style="width:100%">
-										<thead>
-										<tr>
-											<th>文件名</th>
-											<th>操作</th>
-										</tr>
-										</thead>
-										<tbody id="tableBody">
-										<!-- JavaScript将动态生成的表格行插入此处 -->
-										</tbody>
-									</table>
-								</div>
+<div class="a1111 a2222 c5"></div>
+<div id="page-layout"></div>
+<!--start page wrapper -->
+<div class="page-wrapper">
+	<div class="page-content">
+		<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+			<div class="breadcrumb-title pe-3">数据分析</div>
+			<div class="ps-3">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb mb-0 p-0">
+						<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">后处理脚本分析</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<!--end breadcrumb-->
+		<div>
+			<div class="row b1">
+				<div class="col-xl-9 mx-auto">
+					<h6 class="mb-0 text-uppercase">后处理脚本分析</h6>
+					<hr />
+					<div class="card" id="mochu">
+						<div class="card-body">
+							<!--页面内容-->
+							<label class="form-label">上传后处理脚本</label>
+							<div style="margin-top: 0vh; text-align: center; border: 2px dashed #999; padding: 20px;">
+								<p style="font-size: 24px; color: #333;">点击按钮，上传文件</p>
+								<button id='btnPost'
+										style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 18px; border-radius: 5px; cursor: pointer;">点击上传</button>
+							</div>
+							<hr />
+							<label class="form-label">脚本文件信息</label>
+							<div class="table-responsive">
+								<table id="example" class="table table-striped table-bordered" style="width:100%">
+									<thead>
+									<tr>
+										<th>文件名</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tbody id="tableBody">
+									<!-- JavaScript将动态生成的表格行插入此处 -->
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="row">
-					<div class="col-xl-9 mx-auto">
-						<h6 class="mb-0 text-uppercase">自定义数据分析</h6>
-						<hr/>
-						<div class="card">
-							<div class="card-body">
-								<div class="border p-3 rounded">
-									<div class="mb-3">
-										<label class="form-label">请选择需要分析的文件</label>
-										<select id="fileSelect" class="single-select">
-											<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
-										</select>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">选择器官序号</label>
-										<select class="single-select">
-											<option value="United States">1号：脾脏</option>
-											<option value="United Kingdom">2号：右肾</option>
-											<option value="Afghanistan">3号：左肾</option>
-											<option value="Aland Islands">4号：胆囊</option>
-											<option value="Albania">5号：食道</option>
-											<option value="Algeria">6号：肝</option>
-											<option value="American Samoa">7号：胃</option>
-											<option value="Andorra">8号：主动脉</option>
-											<option value="Angola">9号：下腔静脉</option>
-											<option value="Anguilla">10号：胰腺</option>
-											<option value="Antarctica">11号：右肾上腺</option>
-											<option value="Antigua and Barbuda">12号：左肾上腺</option>
-											<option value="Argentina">13号：十二指肠</option>
-											<option value="Armenia">14号：膀胱</option>
-											<option value="Aruba">15号：子宫</option>
-										</select>
-									</div>
+			<div class="row b2">
+				<div class="col-xl-9 mx-auto">
+					<h6 class="mb-0 text-uppercase">自定义数据分析</h6>
+					<hr />
+					<div class="card">
+						<div class="card-body">
+							<div class="border p-3 rounded">
+								<div class="mb-3">
+									<label class="form-label">请选择需要分析的文件</label>
+									<select id="fileSelect" class="single-select">
+										<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">选择器官序号</label>
+									<select class="single-select">
+										<option value="United States">1号：脾脏</option>
+										<option value="United Kingdom">2号：右肾</option>
+										<option value="Afghanistan">3号：左肾</option>
+										<option value="Aland Islands">4号：胆囊</option>
+										<option value="Albania">5号：食道</option>
+										<option value="Algeria">6号：肝</option>
+										<option value="American Samoa">7号：胃</option>
+										<option value="Andorra">8号：主动脉</option>
+										<option value="Angola">9号：下腔静脉</option>
+										<option value="Anguilla">10号：胰腺</option>
+										<option value="Antarctica">11号：右肾上腺</option>
+										<option value="Antigua and Barbuda">12号：左肾上腺</option>
+										<option value="Argentina">13号：十二指肠</option>
+										<option value="Armenia">14号：膀胱</option>
+										<option value="Aruba">15号：子宫</option>
+									</select>
+								</div>
 
-									<div class="mb-3">
-										<label class="form-label">选择输出内容</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>直径</option>
-											<option value="United Kingdom" selected>面积</option>
-											<option value="Afghanistan" selected>体积</option>
-											<option value="Aland Islands">健康度</option>
-											<option value="Albania">病灶种类</option>
+								<div class="mb-3">
+									<label class="form-label">选择输出内容</label>
+									<select class="multiple-select" data-placeholder="Choose anything"
+											multiple="multiple">
+										<option value="United States" selected>直径</option>
+										<option value="United Kingdom" selected>面积</option>
+										<option value="Afghanistan" selected>体积</option>
+										<option value="Aland Islands">健康度</option>
+										<option value="Albania">病灶种类</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">选择输出图表</label>
+									<div class="input-group">
+										<select class="single-select form-select" id="selct">
+											<option selected value="1">柱形图</option>
+											<option value="2">折线图</option>
+											<option value="3">雷达图</option>
 										</select>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">选择输出图表</label>
-										<div class="input-group">
-											<select class="single-select form-select" id="selct">
-												<option selected value="1">柱形图</option>
-												<option value="2">折线图</option>
-												<option value="3">雷达图</option>
-											</select>
-											<button class="btn btn-outline-secondary" type="button" id="anachart">数据分析</i>
-											</button>
-										</div>
+										<button class="btn btn-outline-secondary" type="button" id="anachart">数据分析</i>
+										</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-					<div class="row">
-					<div class="col-xl-9 mx-auto">
-						<h6 class="mb-0 text-uppercase" id="h11" hidden="hidden">柱形图</h6>
-						<hr id="hr11" hidden="hidden">
-						<div class="card" id="chart1111" hidden="hidden">
-							<div class="card-body">
-								<div id="chart4"></div>
-							</div>
-						</div>
-						<h6 class="mb-0 text-uppercase" id="h22" hidden="hidden">折线图</h6>
-						<hr id="hr22" hidden="hidden">
-						<div class="card" id="chart2222" hidden="hidden">
-							<div class="card-body">
-								<div id="chart2"></div>
-							</div>
-						</div>
-						<h6 class="mb-0 text-uppercase" id="h33" hidden="hidden">雷达图</h6>
-						<hr id="hr33" hidden="hidden">
-						<div class="card" id="chart3333" hidden="hidden">
-							<div class="card-body">
-								<div id="chart10"></div>
-							</div>
-						</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xl-9 mx-auto">
+				<h6 class="mb-0 text-uppercase" id="h11" hidden="hidden">柱形图</h6>
+				<hr id="hr11" hidden="hidden">
+				<div class="card" id="chart1111" hidden="hidden">
+					<div class="card-body">
+						<div id="chart4"></div>
 					</div>
 				</div>
+				<h6 class="mb-0 text-uppercase" id="h22" hidden="hidden">折线图</h6>
+				<hr id="hr22" hidden="hidden">
+				<div class="card" id="chart2222" hidden="hidden">
+					<div class="card-body">
+						<div id="chart2"></div>
+					</div>
+				</div>
+				<h6 class="mb-0 text-uppercase" id="h33" hidden="hidden">雷达图</h6>
+				<hr id="hr33" hidden="hidden">
+				<div class="card" id="chart3333" hidden="hidden">
+					<div class="card-body">
+						<div id="chart10"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--end switcher-->
-	 <script src="assets/js/jquery.min.js"></script>
-	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
-	<script src="assets/plugins/select2/js/select2.min.js"></script>
-	<script>
-		$('.single-select').select2({
-			theme: 'bootstrap4',
-			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-			placeholder: $(this).data('placeholder'),
-			allowClear: Boolean($(this).data('allow-clear')),
-		});
-		$('.multiple-select').select2({
-			theme: 'bootstrap4',
-			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-			placeholder: $(this).data('placeholder'),
-			allowClear: Boolean($(this).data('allow-clear')),
-		});
-	</script>
-	<!--app JS-->
-	<script src="assets/js/app.js"></script>
-	<script src="assets/js/jquery.min.js"></script>
+</div>
+</div>
+</div>
+</div>
+<!--end switcher-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+<script>
+	$('.single-select').select2({
+		theme: 'bootstrap4',
+		width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+		placeholder: $(this).data('placeholder'),
+		allowClear: Boolean($(this).data('allow-clear')),
+	});
+	$('.multiple-select').select2({
+		theme: 'bootstrap4',
+		width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+		placeholder: $(this).data('placeholder'),
+		allowClear: Boolean($(this).data('allow-clear')),
+	});
+</script>
+<!--app JS-->
+<script src="assets/js/app.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 
 
 	<!-- 加载边栏资源 -->

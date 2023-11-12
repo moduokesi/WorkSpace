@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -55,6 +55,16 @@
 		.centered-cell {
 			text-align: center;
 		}
+		.form-container {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 10px;
+		}
+
+		/* 单个表单项的样式 */
+		.form-item {
+			margin-bottom: 10px;
+		}
 	</style>
 </head>
 
@@ -108,23 +118,46 @@
 								<div class="main">
 									<div class="article">
 										<div class="content">
-											<h2>诊断报告</h2>
-											</br>
+											<h2 style="text-align: center;">MED-AI 诊断报告书</h2>
+											<hr>
+											<div class="form-container">
+												<div class="form-item">
+													<label for="nameInput">姓名：</label>
+													<input type="text" id="nameInput">
+												</div>
 
-											<!--            <p style="text-align: center;">-->
-											<!--                <img src="assets/images/密码图片.png" />-->
-											<!--            </p>-->
-											<p>患者信息：</p>
-											<p>姓名：<input type="text" id="nameInput"></p>
-											<p>年龄：<input type="text" id="ageInput"></p>
-											<p>性别：
-												<input type="radio" name="sex" value="男">男
-												<input type="radio" name="sex" value="女">女
+												<div class="form-item">
+													<label for="ageInput">年龄：</label>
+													<input type="text" id="ageInput">
+												</div>
+
+												<div class="form-item">
+													<label>性别：</label>
+													<input type="radio" name="sex" value="男">男
+													<input type="radio" name="sex" value="女">女
+												</div>
+
+												<div class="form-item">
+													<label for="number">门诊号：</label>
+													<input type="text" id="number" style="width: 156px;">
+												</div>
+											</div>
+											<p>检查日期：
+												<span id="checkDate"></span>
 											</p>
-											<p>检查日期：<span id="checkDate"></span></p>
 											<p>出自医疗数据文件：<span id="fileInfo"></span></p>
+											<hr>
 
-											</br>
+											<div id="imageContainer" style="text-align: center;">
+												<img id="reportImage" style="max-width: 100%; max-height: 400px; margin-bottom: 10px;">
+											</div>
+
+											<p>临床诊断：</p>
+											<div class="input-group">
+												<textarea class="form-control" id="diagnose1"></textarea>
+											</div>
+											<hr>
+
 											<p>器官信息：</p>
 											<table id="example" class="table table-striped table-bordered" style="width:100%">
 												<thead>
@@ -139,22 +172,17 @@
 												<!-- JavaScript将动态生成的表格行插入此处 -->
 												</tbody>
 											</table>
-											</br>
+											<hr>
 
 											<p>诊断结果：</p>
-											<p>根据测量得到的数据，发现患者的各个器官显示 [正常/异常] 结果。各器官的最大直径、表面积和体积如上所示。</p>
-											</br>
-
-											<p>结论：</p>
-											<p>根据测量数据和临床标准，患者的各个器官 [可能存在异常/显示正常]。建议进一步分析和评估，如果有任何症状或不适，请咨询专业医生进行详细诊断和治疗。</p>
-											</br>
-
-											<p>备注：</p>
-											<p>本诊断报告仅供参考，不作为最终诊断结果。具体的诊断和治疗建议，请咨询专业医生。</p>
-											</br>
+											<div class="input-group">
+												<textarea class="form-control" id="diagnose2"></textarea>
+											</div>
+											<hr>
 
 											<p>签名：</p>
 										</div>
+
 									</div>
 								</div>
 							</div>
@@ -203,8 +231,8 @@
 					 // 设置 "token" 键名
 					 xhr.setRequestHeader("token", jwtToken);
 				 },
-				 success: function(response) {
-					 const fileAttributes = response.data;
+				 success: function(res) {
+					 const fileAttributes = res.data;
 					 const selectBox = $("#selectmx");
 					 fileAttributes.forEach(function(file) {
 						 const option = $("<option></option>");
@@ -221,15 +249,15 @@
 	 </script>
 
 </body>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.37.12/docxtemplater.js"></script>
-	<script src="https://unpkg.com/pizzip@3.1.4/dist/pizzip.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
-	<script src="https://unpkg.com/pizzip@3.1.4/dist/pizzip-utils.js"></script>
+	<script src="assets/plugins/docxtemplater/docxtemplater.js"></script>
+	<script src="assets/plugins/docxtemplater/pizzip.js"></script>
+	<script src="assets/plugins/docxtemplater/FileSaver.js"></script>
+	<script src="assets/plugins/docxtemplater/pizzip-utils.js"></script>
 
 	<!--[if IE]>
 	<script
 			type="text/javascript"
-			src="https://unpkg.com/pizzip@3.1.4/dist/pizzip-utils-ie.js"
+			src="assets/plugins/docxtemplater/pizzip-utils-ie.js"
 	></script>
 	<![endif]-->
 	<script>
@@ -286,6 +314,9 @@
 				var age = document.getElementById("ageInput").value;
 				var sexInput = document.querySelector('input[name="sex"]:checked');
 				var sex = sexInput ? sexInput.value : "";
+				var number = document.getElementById("number").value;
+				var diagnose1 = document.getElementById("diagnose1").value;
+				var diagnose2 = document.getElementById("diagnose2").value;
 
 				if (name === "" || age === "" || sex === "") {
 					Swal.fire({
@@ -295,15 +326,6 @@
 					return;
 				}
 
-				Swal.fire({
-					title: '正在生成诊断报告!',
-					footer: '请耐心等待',
-					timerProgressBar: true,
-					didOpen: () => {
-						Swal.showLoading();
-						const b = Swal.getHtmlContainer().querySelector('b');
-					},
-				});
 				$.ajax({
 					url: storage.baseURL+'/orgInfo',
 					type: 'GET',
@@ -316,11 +338,14 @@
 						xhr.setRequestHeader("token", jwtToken);
 					},
 					success: function(res) {
-						Swal.close();
-						Swal.fire({
-							icon: 'success',
-							title: '报告生成完毕！'
-						})
+						const file = fileName.match(/([^\/]+)\.nii\.gz$/)[1];
+
+						var imgUrl = "..\\treatdata\\"+ res.data[0].orgAccount
+								+ "\\imgfile\\" + file + ".png"
+						var imgElement = $('#reportImage');
+
+						imgElement.attr('src', imgUrl);  // 替换成您图片的URL
+
 						var tableBody = document.getElementById('tableBody');
 						tableBody.innerText = '';
 
@@ -378,12 +403,16 @@
 									// 定义一个空的对象数组
 									var parts = res.data;
 
-									// 渲染文档（将 {first_name} 替换为 John，{last_name} 替换为 Doe，...）
+									// 渲染文档
 									doc.render({
 										name: name,
 										age: age,
 										sex: sex,
+										number: number,
+										diagnose1: diagnose1,
+										diagnose2: diagnose2,
 										datetime: datetime,
+										imgUrl: imgUrl,
 										parts: parts,
 										file: $("#selectmx option:selected").text(),
 										result: "正常",
@@ -400,6 +429,11 @@
 									});
 									// 使用 Data-URI 输出文档
 									saveAs(blob, "output.docx");
+									Swal.close();
+									Swal.fire({
+										icon: 'success',
+										title: '报告生成完毕！'
+									})
 								}
 						);
 					},

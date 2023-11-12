@@ -1,5 +1,6 @@
 package com.treat.controller;
 
+import com.treat.dto.ImageDTO;
 import com.treat.dto.Result;
 import com.treat.entity.OutFiles;
 import com.treat.service.IOrgansService;
@@ -58,5 +59,11 @@ public class OutFilesController {
     public Result barShow(@RequestBody OutFiles outFiles) {
         return outFilesService.barShow(outFiles.getFileName(),
                 UserHolder.getUser().getAccount());
+    }
+
+    @PostMapping("/uploadImg")
+    public Result uploadImage(@RequestBody ImageDTO imageData) {
+
+        return outFilesService.uploadImage(imageData);
     }
 }

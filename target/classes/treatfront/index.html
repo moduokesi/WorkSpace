@@ -25,6 +25,170 @@
 	<title>MED-AI</title>
 </head>
 
+<style>
+	.tap {
+		/*			width: 200px;*/
+		white-space: nowrap;
+		height: 34px;
+		background-color: #F7F7FF;
+		position: absolute;
+		right: 4%;
+		top: 50px;
+		float: left;
+		border-radius: 17px;
+		display: none;
+		transition: 1s;
+		box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+	}
+
+	.tap ul {
+		height: 100%;
+		/*			width: 100%;*/
+		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.tap ul li {
+		flex:1;
+		height:100%;
+		padding:0 15px;
+		line-height:34px;
+		color:#5F5F5F;
+		/* padding: 10px 10px; */
+		text-align: center;
+		/*			border-radius: 5px;*/
+	}
+
+	.tap ul .active {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+	}
+
+	.tap ul li:hover {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+		cursor: pointer;
+	}
+
+	.tap ul li:first-child{
+		border-radius:17px 0 0 17px;
+	}
+	.tap ul li:last-child{
+		border-radius:0 17px 17px 0;
+	}
+
+	.tap1 {
+		/*			width: 200px;*/
+		white-space: nowrap;
+		height: 34px;
+		background-color: #F7F7FF;
+		position: absolute;
+		right: 4%;
+		top: 50px;
+		float: left;
+		border-radius: 17px;
+		display: none;
+		transition: 1s;
+		box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+	}
+
+	.tap1 ul {
+		height: 100%;
+		/*			width: 100%;*/
+		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.tap1 ul li {
+		flex:1;
+		height:100%;
+		padding:0 15px;
+		line-height:34px;
+		color:#5F5F5F;
+		/* padding: 10px 10px; */
+		text-align: center;
+		/*			border-radius: 5px;*/
+	}
+
+	.tap1 ul .active {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+	}
+
+	.tap1 ul li:hover {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+		cursor: pointer;
+	}
+
+	.tap1 ul li:first-child{
+		border-radius:17px 0 0 17px;
+	}
+	.tap1 ul li:last-child{
+		border-radius:0 17px 17px 0;
+	}
+
+	.tap2 {
+		/*			width: 200px;*/
+		white-space: nowrap;
+		height: 34px;
+		background-color: #F7F7FF;
+		position: absolute;
+		right: 4%;
+		top: 50px;
+		float: left;
+		border-radius: 17px;
+		display: none;
+		transition: 1s;
+		box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+	}
+
+	.tap2 ul {
+		height: 100%;
+		/*			width: 100%;*/
+		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.tap2 ul li {
+		flex:1;
+		height:100%;
+		padding:0 15px;
+		line-height:34px;
+		color:#5F5F5F;
+		/* padding: 10px 10px; */
+		text-align: center;
+		/*			border-radius: 5px;*/
+	}
+
+	.tap2 ul .active {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+	}
+
+	.tap2 ul li:hover {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+		cursor: pointer;
+	}
+
+	.tap2 ul li:first-child{
+		border-radius:17px 0 0 17px;
+	}
+	.tap2 ul li:last-child{
+		border-radius:0 17px 17px 0;
+	}
+</style>
+
 <body>
 <!--wrapper-->
 <div class="wrapper">
@@ -49,13 +213,23 @@
 					<div class="menu-title">主页</div>
 				</a>
 			</li>
+
 			<li>
-				<a href="segmentation.html">
+				<a href="javascript:;" class="has-arrow">
 					<div class="parent-icon"><i class='bx bx-devices'></i>
 					</div>
 					<div class="menu-title">器官分割</div>
 				</a>
+				<ul>
+					<li> <a href="model.html"><i class="bx bx-right-arrow-alt"></i>模型配置</a>
+					</li>
+					<li> <a href="label_make.html"><i class="bx bx-right-arrow-alt"></i>标签配置</a>
+					</li>
+					<li> <a href="segmentation.html"><i class="bx bx-right-arrow-alt"></i>模型推理</a>
+					</li>
+				</ul>
 			</li>
+
 			<li>
 				<a href="label_manage.html">
 					<div class="parent-icon"><i class="bx bx-label"></i>
@@ -87,6 +261,14 @@
 				</ul>
 			</li>
 
+			<li>
+				<a href="diagnose.html">
+					<div class="parent-icon"><i class="bx bx-brain"></i>
+					</div>
+					<div class="menu-title">智能诊断</div>
+				</a>
+			</li>
+
 			<li class="menu-label">账户和个人信息</li>
 			<li>
 				<a class="has-arrow" href="javascript:;">
@@ -112,7 +294,27 @@
 		<!--end navigation-->
 	</div>
 	<!--end sidebar wrapper -->
-
+	<div class="tap">
+		<ul>
+			<li class="active" data-xl="1"></li>
+			<li data-xl="2"></li>
+			<li data-xl="3"></li>
+			<li data-xl="4"></li>
+		</ul>
+	</div>
+	<div class="tap1">
+		<ul>
+			<li class="active" data-xl="1"></li>
+			<li data-xl="2"></li>
+		</ul>
+	</div>
+	<div class="tap2">
+		<ul>
+			<li class="active" data-xl="1"></li>
+			<li data-xl="2"></li>
+			<li data-xl="3"></li>
+		</ul>
+	</div>
 
 	<!--start header -->
 	<div class="switcher-wrapper">
@@ -392,7 +594,7 @@
 					   role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<div class="user-info ps-3">
 							<p class="user-name mb-0" align="center">MED-AI</p>
-							<p class="designattion mb-0">从容应队</p>
+							<p class="designattion mb-0">赛坤博队</p>
 						</div>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end">

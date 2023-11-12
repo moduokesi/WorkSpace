@@ -2,6 +2,7 @@ package com.treat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.treat.dto.ImageDTO;
 import com.treat.dto.Result;
 import com.treat.entity.InFiles;
 import com.treat.entity.Organs;
@@ -10,12 +11,14 @@ import com.treat.mapper.OutFilesMapper;
 import com.treat.service.IOrgansService;
 import com.treat.service.IOutFilesService;
 import com.treat.utils.PyUtil;
+import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -153,6 +156,53 @@ public class OutFilesServiceImpl extends ServiceImpl<OutFilesMapper, OutFiles> i
             return Result.ok();
         }
     }
+
+    @Override
+    public Result uploadImage(ImageDTO imageDTO) {
+        String account = UserHolder.getUser().getAccount();
+        // 创建目录
+        File directory = new File("..\\treatdata\\" + account + "\\imgfile\\");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        int indexOfInfile = imageDTO.getImageUrl().indexOf("infile");
+        String result = "";
+
+        if (indexOfInfile != -1) {
+            result = imageDTO.getImageUrl().substring(indexOfInfile + "infile".length() + 1);
+        }
+        String fileName = result.substring(0, result.indexOf('.'));
+        String imgFilePath = "D:\\Workspaces\\Project\\treattest\\treatdata\\"
+                + account + "\\imgfile\\" + fileName + ".png";
+
+        // 移除Base64字符串前缀
+        String base64Image = imageDTO.getImageData().replaceFirst("data:image/png;base64,", "");
+
+        // 将Base64字符串解码为字节数组
+        byte[] imageDataBytes;
+        try {
+            imageDataBytes = Base64.getDecoder().decode(base64Image);
+        } catch (IllegalArgumentException e) {
+            // 处理Base64解码异常
+            e.printStackTrace();
+            // 返回错误结果
+            return Result.fail("Base64解码失败");
+        }
+
+        // 将图像数据保存到文件
+        try (FileOutputStream fos = new FileOutputStream(imgFilePath)) {
+            fos.write(imageDataBytes);
+        } catch (IOException e) {
+            // 处理IO异常
+            e.printStackTrace();
+            // 返回错误结果
+            return Result.fail("保存图像文件失败");
+        }
+
+        return Result.ok();
+    }
+
 
     @Override
     public Result queryOutFiles(String account) {
