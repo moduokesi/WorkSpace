@@ -4,6 +4,7 @@ import com.treat.dto.Result;
 import com.treat.dto.UserDTO;
 import com.treat.entity.InFiles;
 import com.treat.service.IFilesService;
+import com.treat.service.ILabelsConfigService;
 import com.treat.utils.JwtUtil;
 import com.treat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class FilesController {
     @Autowired
     private IFilesService filesService;
+
 
     @PostMapping("/segt")
     public Result handleFileUpload(@RequestParam("files") MultipartFile[] files) throws IOException {
