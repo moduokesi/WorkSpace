@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-
 public class LabelsDTO  {
     private String id;
     private String configName;

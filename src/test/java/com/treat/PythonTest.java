@@ -9,8 +9,17 @@ import java.io.*;
 public class PythonTest {
 
     @Test
-    public void demo1() throws IOException, InterruptedException {
-        Process proc = Runtime.getRuntime().exec("python deploy/python/infer.py --config ./pp_liteseg_infer_model/deploy.yaml --image_path ./cityscapes_demo.png");
+    public void demo1() {
+        String str = "1";
+        char ch = '好';
+
+        // 获取字符串的字节数（使用 UTF-8 编码）
+        byte[] utf8Bytes = str.getBytes();
+        System.out.println("字符串 '" + str + "' 的字节数（UTF-8）: " + utf8Bytes.length);
+
+        // 获取字符的字节数（使用 UTF-8 编码）
+        byte[] chBytes = Character.toString(ch).getBytes();
+        System.out.println("字符 '" + ch + "' 的字节数（UTF-8）: " + chBytes.length);
     }
 
     @Test

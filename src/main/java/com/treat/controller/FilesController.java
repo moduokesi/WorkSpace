@@ -23,7 +23,6 @@ public class FilesController {
     @Autowired
     private IFilesService filesService;
 
-
     @PostMapping("/segt")
     public Result handleFileUpload(@RequestParam("files") MultipartFile[] files) throws IOException {
         // 处理接收到的文件

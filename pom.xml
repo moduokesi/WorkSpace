@@ -20,6 +20,14 @@
 
 
     <dependencies>
+        <!--生成pdf文档 -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId>
+            <version>7.1.16</version>
+        </dependency>
+
+
         <!--集成redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

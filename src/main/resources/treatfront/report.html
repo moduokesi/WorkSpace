@@ -180,7 +180,7 @@
 											</div>
 											<hr>
 
-											<p>签名：</p>
+											<p>医师签名：</p>
 										</div>
 
 									</div>
@@ -249,17 +249,6 @@
 	 </script>
 
 </body>
-	<script src="assets/plugins/docxtemplater/docxtemplater.js"></script>
-	<script src="assets/plugins/docxtemplater/pizzip.js"></script>
-	<script src="assets/plugins/docxtemplater/FileSaver.js"></script>
-	<script src="assets/plugins/docxtemplater/pizzip-utils.js"></script>
-
-	<!--[if IE]>
-	<script
-			type="text/javascript"
-			src="assets/plugins/docxtemplater/pizzip-utils-ie.js"
-	></script>
-	<![endif]-->
 	<script>
 		$("#selectmx").on('change', function () {
 			// 重置输入框
@@ -279,11 +268,6 @@
 			var fileInfoElement = document.getElementById("fileInfo");
 			fileInfoElement.textContent = selectedFileName === "请选择一个文件" ? '' : selectedFileName;
 		});
-
-		// 加载文件函数
-		function loadFile(url, callback) {
-			PizZipUtils.getBinaryContent(url, callback);
-		}
 
 		function getCurrentDateTime() {
 			var currentDate = new Date();
@@ -315,8 +299,13 @@
 				var sexInput = document.querySelector('input[name="sex"]:checked');
 				var sex = sexInput ? sexInput.value : "";
 				var number = document.getElementById("number").value;
+				var fileName = $("#selectmx option:selected").text();
 				var diagnose1 = document.getElementById("diagnose1").value;
 				var diagnose2 = document.getElementById("diagnose2").value;
+				var checkDate = getCurrentDateTime();
+
+				document.getElementById("checkDate").textContent = checkDate;
+
 
 				if (name === "" || age === "" || sex === "") {
 					Swal.fire({
@@ -383,64 +372,66 @@
 							tableBody.appendChild(rowElement);
 						}
 
-						// 加载文件
-						loadFile(
-								"./template/template.docx",
-								function (error, content) {
-									if (error) {
-										throw error;
-									}
-									const zip = new PizZip(content);
-									const doc = new window.docxtemplater(zip, {
-										paragraphLoop: true,
-										linebreaks: true,
-									});
+						var pdfData = {
+							name: name,
+							gender: sex,
+							age: age,
+							number: number,
+							checkDate: checkDate,
+							fileName: fileName,
+							diagnose1: diagnose1,
+							diagnose2: diagnose2,
+							list: []
+						};
 
-									// 获取当前日期和时间
-									var datetime = getCurrentDateTime();
-									document.getElementById("checkDate").textContent = datetime;
+						res.data.forEach(function(orgInfo) {
+							// 提取OrgInfo对象的相关字段值
+							var orgOrgan = orgInfo.orgOrgan;
+							var orgDiameter = orgInfo.orgDiameter;
+							var orgSurface = orgInfo.orgSurface;
+							var orgVolume = orgInfo.orgVolume;
 
-									// 定义一个空的对象数组
-									var parts = res.data;
-
-									// 渲染文档
-									doc.render({
-										name: name,
-										age: age,
-										sex: sex,
-										number: number,
-										diagnose1: diagnose1,
-										diagnose2: diagnose2,
-										datetime: datetime,
-										imgUrl: imgUrl,
-										parts: parts,
-										file: $("#selectmx option:selected").text(),
-										result: "正常",
-										show: "显示正常"
-									});
-
-									const blob = doc.getZip().generate({
-										type: "blob",
-										mimeType:
-												"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-										// 压缩：DEFLATE 添加了压缩步骤。
-										// 对于 50MB 的输出文档，预计额外耗时 500ms 的 CPU 时间。
-										compression: "DEFLATE",
-									});
-									// 使用 Data-URI 输出文档
-									saveAs(blob, "output.docx");
-									Swal.close();
-									Swal.fire({
-										icon: 'success',
-										title: '报告生成完毕！'
-									})
-								}
-						);
+							pdfData.list.push([orgOrgan, orgDiameter, orgSurface, orgVolume]);
+						});
+						// 在GET请求成功后，调用POST请求
+						postDataToServer(pdfData);
 					},
 					error: function() {
 						console.log("请求失败");
 					}
 				});
+
+			function postDataToServer(pdfData) {
+				$.ajax({
+					url: storage.baseURL + '/getPdfInfo',
+					type: 'POST',
+					data: JSON.stringify(pdfData),
+					contentType: "application/json",
+					beforeSend: function(xhr) {
+						// 获取 JWT 字符串
+						const jwtToken = storage.getToken();
+						// 设置 "token" 键名
+						xhr.setRequestHeader("token", jwtToken);
+					},
+					success: function(res) {
+						if (res.status != 200) {
+							Swal.fire({
+								icon: 'warning',
+								title: '请先生成图片'
+							})
+							return;
+						}
+
+						Swal.fire({
+							icon: 'success',
+							title: '报告生成完毕！'
+						})
+					},
+					error: function() {
+						console.log("请求失败");
+					}
+				});
+			}
 		};
 	</script>
 </html>
