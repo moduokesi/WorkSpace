@@ -534,12 +534,13 @@
                 appendMessage(message, "message");
                 messageInput.value = "";
                 input.style.height = '56px';
-
+                var newMessage = message.replace(/<[^>]*>/g, ' ');
+                var new2Message=newMessage.replace(/[\r\n]+/g, ' ');
                 console.log("message:" + message)
                 $.ajax({
                     url: storage.baseURL + '/diagnose',
                     type: 'GET',
-                    data: {message: message},
+                    data: {message: new2Message},
                     contentType: "application/json",
                     beforeSend: function (xhr) {
                         // 获取JWT字符串
