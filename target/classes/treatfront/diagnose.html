@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--favicon-->
+    <link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+    <!--plugins-->
+    <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- loader-->
+    <script src="assets/js/storage.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/plugins/select2/js/select2.min.js"></script>
+    <script src="assets/plugins/bootstrap-material-datetimepicker/modal/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="assets/css/app.css" rel="stylesheet">
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <!-- Theme Style CSS -->
+    <link rel="stylesheet" href="assets/css/dark-theme.css" />
+    <link rel="stylesheet" href="assets/css/semi-dark.css" />
+    <link rel="stylesheet" href="assets/css/header-colors.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+    <title>MED-AI</title>
+</head>
+
+<style>
+    .row1{
+        position:relative;
+    }
+
+    .container {
+        width:130%!important;
+        margin: 0 auto;
+        padding: 0!important;
+        /*        border:1px solid #aba5a56b;*/
+        box-shadow: 0 0 5px 0px rgba(100, 100, 111, 0.2);
+        transform:translateX(-11%);
+    }
+
+    .card-body {
+        padding:0!important;
+    }
+    .chat-box {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0;
+        height: 80vh;
+        /*        background-color: #fff;*/
+        /*      border: 1px solid #ccc;*/
+    }
+
+    .message {
+        position:relative;
+        padding: 1.5rem 200px 1.5rem 230px;
+        /*        background-color: rgba(136,127,127,0.72);*/
+        border: 0 solid #d9d9e3;
+        background-color:#f7f7ff;
+        font: 16px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+    }
+
+    .message::before {
+        display:block;
+        position:absolute;
+        content:'A';
+        line-height:36px;
+        text-align:center;
+        top:18px;
+        left:175px;
+        width:36px;
+        height:36px;
+        background-color:#d586ae;
+    }
+
+    .message::after {
+        display:block;
+        position:absolute;
+        content:'';
+        top:18px;
+        right:175px;
+        width:18px;
+        height:18px;
+        background-image: url(./assets/icons/star.svg);
+        background-size: contain; /* 使用contain值确保图像适应盒子内 */
+        background-repeat: no-repeat; /* 防止图像重复显示 */
+        background-color:#f7f7ff;
+    }
+
+    .other-message {
+        position:relative;
+        padding: 1.5rem 200px 1.5rem 230px;
+        background-color:#fff;
+        font: 16px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+    }
+
+    .other-message::before {
+        display:block;
+        position:absolute;
+        content:'';
+        top:18px;
+        left:175px;
+        width:36px;
+        height:36px;
+        background-image: url(./assets/icons/ai.svg);
+        background-size: contain; /* 使用contain值确保图像适应盒子内 */
+        background-repeat: no-repeat; /* 防止图像重复显示 */
+        background-color:#E2EDFF;
+    }
+
+    .other-message::after {
+        display:block;
+        position:absolute;
+        content:'';
+        top:18px;
+        right:175px;
+        width:18px;
+        height:18px;
+        background-image: url(./assets/icons/love.svg);
+        background-size: contain; /* 使用contain值确保图像适应盒子内 */
+        background-repeat: no-repeat; /* 防止图像重复显示 */
+        /*        background-color:#f7f7ff;*/
+    }
+
+    .input-box {
+        position:fixed;
+        display: flex;
+        /*        margin:0 auto;*/
+        bottom:20px;
+        right:160px;
+        width:60%;
+        height:56px;
+        border-radius: 10px;
+        max-height:200px;
+        z-index:1;
+        transform:translateX(-5px);
+    }
+
+    textarea[class="text"] {
+        flex: 1;
+        padding: 15px 55px 15px 15px;
+        border: 1px solid rgba(100, 100, 111, 0.2);
+        border-radius: 10px;
+        outline:none;
+        resize:none;
+        box-shadow: 0 0 10px 0px rgba(100, 100, 111, 0.2);
+    }
+    textarea[class="text"]::-webkit-scrollbar {
+        width: 10px;
+        height: 7px;
+    }
+    /*滚动条的轨道*/
+    textarea[class="text"]::-webkit-scrollbar-track {
+        background-color: #ffffff;
+        border-radius:0 10px 10px 0;
+    }
+    /*滚动条里面的小方块，能向上向下移动*/
+    textarea[class="text"]::-webkit-scrollbar-thumb {
+        background-color: rgba(144, 147, 153, 0.3);
+        border-radius: 5px;
+        border: 1px solid #f1f1f1;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    textarea[class="text"]::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(144, 147, 153, 0.3);
+    }
+    textarea[class="text"]::-webkit-scrollbar-thumb:active {
+        background-color: rgba(144, 147, 153, 0.3);
+    }
+    /*边角，即两个滚动条的交汇处*/
+    textarea[class="text"]::-webkit-scrollbar-corner {
+        background-color: #ffffff;
+    }
+
+    #sendMessageButton {
+        position:absolute;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        outline:none!important;
+        width:30px;
+        height:30px;
+        right:80px;
+        bottom:13px;
+        /*        background-image: url(./assets/icons/button.svg);*/
+        /*        background-size: contain; *//* 使用contain值确保图像适应盒子内 */
+        /*        background-repeat: no-repeat; *//* 防止图像重复显示 */
+    }
+    #sendMessageButton img {
+        width:100%;
+        height:100%;
+    }
+
+    #button {
+        position:absolute;
+        height:30px;
+        width:66px;
+        right:8px;
+        bottom:13px;
+        outline:none!important;
+        border-radius: 5px;
+        border:none;
+        padding:0 5px;
+        cursor: pointer;
+        background-color:#c0c0c5;
+    }
+    #button:hover {
+        background-color:#0D6EFD;
+        color:#fff;
+    }
+    /*    #E1E1E9*/
+    .empty {
+        height:100px;
+    }
+
+    .chatBox {
+        max-height:50%;
+    }
+
+    .down {
+        height:100px;
+    }
+
+    .row1 {
+        width:107%;
+        height:62px;
+        /*        box-shadow: 0 0 10px 0px rgba(100, 100, 111, 0.2);*/
+        border:1px solid #aba5a56b;
+        border-radius:10px;
+        transform:translateX(-1.5%);
+    }
+
+    #ai {
+        text-align:center;
+    }
+
+    .page-content {
+        padding-bottom:1px!important;
+    }
+    .custom-radio {
+        margin-right: 10px; /* 调整单选按钮之间的距离 */
+    }
+    .info-value {
+        margin-right: 80px; /* 'John Doe' 和 '性别：' 之间的额外间距，可以根据需要调整 */
+    }
+</style>
+
+<body>
+    <div id="page-layout"></div>
+    <!--start page wrapper -->
+    <div class="page-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">智能诊断</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">智能诊断</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+            <!--end breadcrumb-->
+            <div class="row row1">
+                <div class="col-xl-9 mx-auto">
+                        <h5 class="mb-0 text-uppercase" id="ai">AIGC辅助诊断</h5>
+                </div>
+            </div>
+        </div>
+        <div id="chatBox"></div>
+
+        <!--        智能诊断模态框-->
+        <div class="modal fade" tabindex="-1" id="modalSmartDiagnose" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">智能诊断</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" id="closeModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <select id="selectNii" class="single-select select2">
+                                    <option selected="selected" disabled="disabled" hidden="hidden">
+                                        请选择一个文件
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                            <form id="dataForm" >
+                                <div class="form-group mt-2 row">
+                                    <div class="col-2">
+                                        <label class="col-form-label" >姓名:</label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="nameInput">
+                                    </div>
+                                </div >
+
+
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label mt-3">性别：</label>
+                                    <div class="col-4 mt-3">
+                                        <div class="form-check form-check-inline mt-1">
+                                            <input class="form-check-input" type="radio" name="sex" id="maleRadio" value="男">
+                                            <label class="form-check-label" for="maleRadio">男</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="sex" id="femaleRadio" value="女">
+                                            <label class="form-check-label" for="femaleRadio">女</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 mt-3">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label class="col-form-label">年龄:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" class="form-control" id="ageInput">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        <div class="row">
+                            <div class="col-10 mt-3">
+                                <textarea class="form-control" rows="1" id="messageArea" placeholder="Type a message..."></textarea>
+                            </div>
+                            <div class="col-2 mt-3">
+                                <button type="button" class="btn-sm btn-secondary" id="confirm" data-dismiss="modal">确定</button>
+                            </div>
+                        </div>
+
+                        <table>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="down">
+            <div class="input-box">
+                <textarea id="messageInput" placeholder="Type a message..." class="text"></textarea>
+                    <div id="sendMessageButton">
+                        <img src="./assets/icons/button.svg" alt="">
+                    </div>
+                    <button type="button" id="button" data-toggle='modal' data-target='#modalSmartDiagnose'>智能诊断</button>
+            </div>
+        </div>
+
+
+    </div>
+
+<!--    <div class="empty"></div>-->
+<!--end page wrapper -->
+    <script>
+        $('.single-select').select2({
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        });
+    </script>
+<!-- 加载边栏资源 -->
+<script>
+    $(function() {
+        $("#page-layout").load("index.html");
+    });
+</script>
+    <script>
+        var thumb = document.querySelector("::-webkit-scrollbar-thumb");
+        thumb.addEventListener("mouseenter", function() {
+            thumb.style.cursor = "pointer";
+        });
+        thumb.addEventListener("mouseleave", function() {
+            thumb.style.cursor = "default";
+        });
+    </script>
+
+    <script type="text/javascript">
+        $.ajax({
+            url: storage.baseURL + '/filesInfo',
+            type: 'GET',
+            data: { userAccount: localStorage.getItem('userAccount') },
+            contentType: "application/json",
+            beforeSend: function(xhr) {
+                // 获取JWT字符串
+                const jwtToken = storage.getToken();
+                // 设置 "token" 键名
+                xhr.setRequestHeader("token", jwtToken);
+            },
+            success: function(res) {
+                if (res.status != 200) {
+                    alert(res.msg);
+                }
+                const fileAttributes = res.data;
+                const selectBox = $("#selectNii");
+                fileAttributes.forEach(function(file) {
+                    const option = $("<option></option>");
+                    option.attr('id', 'seg-' + file.fileId); // 使用 attr 方法设置 id 属性
+                    option.text(file.fileName + "." + file.fileType);
+                    //设置路径
+                    option.val(file.fileUrl.replace("\\infile\\", "\\outfile\\dataset\\"));
+                    selectBox.append(option);
+                });
+
+            },
+            error: function(res) {
+                // 错误处理代码
+            }
+        });
+    </script>
+
+    <script>
+        var confirmButton = document.getElementById('confirm');
+        // 添加单击事件
+        confirmButton.addEventListener('click', function () {
+            var name = document.getElementById('nameInput').value;
+            var age=document.getElementById('ageInput').value;
+            var sexInput = document.querySelector('input[name="sex"]:checked');
+            var sex = sexInput ? sexInput.value : "";
+            var messageArea=document.getElementById('messageArea').value;
+            console.log(messageArea);
+            var fileName = $("#selectNii option:selected").text();
+            console.log(fileName);
+
+            $.ajax({
+                async: true,
+                url: storage.baseURL + '/orgInfo',
+                type: 'GET',
+                data: {fileName: fileName},
+                contentType: "application/json",
+                beforeSend: function (xhr) {
+                    // 获取 JWT 字符串
+                    const jwtToken = storage.getToken();
+                    // 设置 "token" 键名
+                    xhr.setRequestHeader("token", jwtToken);
+                },
+                success: function (res) {
+                    var basicInfo= `<div class="info-row">
+        <span class="info-label"><strong>姓名：</strong></span>
+        <span class="info-value">`+name+`</span>
+        <span class="info-label"><strong>性别：</strong></span>
+        <span class="info-value">`+sex+`</span>
+        <span class="info-label"><strong>年龄：</strong></span>
+        <span class="info-value">`+age+`</span></div>`;
+
+                    var org='<table id="example" class="table table-striped table-bordered" style="width:100%">\n' +
+                        '<thead>' +
+                        '<tr>' +
+                        '<th style="text-align: center; vertical-align: middle;">器官</th>\n' +
+                        '<th style="text-align: center;">最大直径<br>（单位：mm）</th>\n' +
+                        '<th style="text-align: center;">表面积<br>（单位：cm^2）</th>\n' +
+                        '<th style="text-align: center;">体积<br>（单位：cm^3）</th>\n' +
+                        '</tr>' +
+                        '</thead>'
+                    for (var i = 0; i < res.data.length; i++) {
+                        org =org+ '<tr>' +
+                            '<td class="text-center">' + res.data[i].orgOrgan + '</td>' +
+                            '<td class="text-center">' + res.data[i].orgSurface + '</td>' +
+                            '<td class="text-center">' + res.data[i].orgVolume + '</td>' +
+                            '<td class="text-center">' + res.data[i].orgDiameter + '</td>' +
+                            '</tr>';
+                    }
+                    org=org+'</<table>'+'<p>'+messageArea+'</p>';
+                    sendMessage(basicInfo+org);
+
+                    console.log(org);
+
+                },
+                error: function () {
+                    console.log("请求失败");
+                }
+            });
+
+
+        });
+
+        const input = document.querySelector('.input-box')
+        const textarea = document.querySelector('#messageInput')
+        const text = document.querySelector('.text')
+
+        //动态改变输入框的高度
+        textarea.addEventListener('input', (e) => {
+            input.style.height = '56px';
+            input.style.height = e.target.scrollHeight + 'px';
+        });
+
+        function inputWidth() {
+            const a = window.getComputedStyle(document.querySelector('.mx-auto'));
+            input.style.width = a.width;
+            input.style.right = a.marginRight;
+        }
+
+        window.addEventListener('resize', inputWidth);
+
+        const chatBox = document.getElementById("chatBox");
+        const messageInput = document.getElementById("messageInput");
+        const sendMessageButton = document.getElementById("sendMessageButton");
+
+        document.documentElement.scrollTop = 87;
+        // sendMessageButton.addEventListener("click", sendMessage);
+        sendMessageButton.addEventListener("click", () => {
+            const message = messageInput.value;
+            sendMessage(message);
+        });
+        text.addEventListener("keyup", function (e) {
+//        console.log(e);
+            if (e.shiftKey && e.keyCode === 13) {
+                return;
+            }
+            if (e.keyCode === 13) {
+                sendMessage();
+            }
+        });
+
+        setTimeout(() => {
+            appendMessage('请说明您的病况', 'other-message');
+        }, 300);
+
+        function sendMessage(message) {
+            // const message = messageInput.value;
+            if (message.trim() !== "") {
+                appendMessage(message, "message");
+                messageInput.value = "";
+                input.style.height = '56px';
+
+                console.log("message:" + message)
+                $.ajax({
+                    url: storage.baseURL + '/diagnose',
+                    type: 'GET',
+                    data: {message: message},
+                    contentType: "application/json",
+                    beforeSend: function (xhr) {
+                        // 获取JWT字符串
+                        const jwtToken = storage.getToken();
+                        // 设置 "token" 键名
+                        xhr.setRequestHeader("token", jwtToken);
+                    },
+                    success: function (res) {
+                        if (res.status != 200) {
+                            alert(res.msg);
+                        }
+
+                        setTimeout(() => {
+                            console.log(res.data)
+                            appendMessage(res.data, "other-message");
+                        }, 1000);
+                    },
+                    error: function (res) {
+                        // 错误处理代码
+                    }
+                });
+
+            }
+        }
+
+        function appendMessage(text, className) {
+            const messageElement = document.createElement("div");
+            messageElement.innerHTML = text;
+
+            messageElement.classList.add(className);
+            chatBox.appendChild(messageElement);
+            document.documentElement.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

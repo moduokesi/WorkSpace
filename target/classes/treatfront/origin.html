@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MED-AI</title>
+    <style>
+        .btn-55,
+        .btn-55 *,
+        .btn-55 :after,
+        .btn-55 :before,
+        .btn-55:after,
+        .btn-55:before {
+            border: 0 solid;
+            box-sizing: border-box;
+        }
+        .btn-55 {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-appearance: button;
+            background-color: #000;
+            background-image: none;
+            color: #fff;
+            cursor: pointer;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+            Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+            Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            font-size: 100%;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+        .btn-55:disabled {
+            cursor: default;
+        }
+        .btn-55:-moz-focusring {
+            outline: auto;
+        }
+        .btn-55 svg {
+            display: block;
+            vertical-align: middle;
+        }
+        .btn-55 [hidden] {
+            display: none;
+        }
+        .btn-55 {
+            background: linear-gradient(90deg, blue, red);
+            border-radius: 999px;
+            box-sizing: border-box;
+            color: #000;
+            display: block;
+            font-weight: 900;
+            overflow: hidden;
+            padding: 1.8rem 5rem;
+            position: relative;
+            text-transform: uppercase;
+        }
+        .btn-55 span {
+            background: #1e293b;
+            border-radius: 999px;
+            color: #fff;
+            display: grid;
+            inset: 5px;
+            place-items: center;
+            position: absolute;
+            transition: background 0.3s;
+        }
+        .btn-55:hover span {
+            background: none;
+        }
+        .btn-55 {
+            position: absolute;
+            top: 300%;
+            left: 10%;
+        }
+
+
+        html{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .box {
+            font-size: 40px;
+            color: #ffffff;
+            position: absolute;
+            top: 200%;
+            left: 5%;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+        main{
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        main.animated {
+            opacity: 0;
+            filter: blur(10px);
+            transition: opacity 1s ease-in-out, filter 1s ease-in-out;
+        }
+        header{
+            text-align: center;
+            padding-top: 2em;
+            margin-left: 2em;
+        }
+        header > img{
+            cursor: pointer;
+            width: 120px;
+            height: 120px;
+            border: 1px solid #333333;
+            border-radius: 100%;
+            box-shadow: 2px 3px 6px #333333;
+            z-index: 10;
+        }
+        header > h1{
+            padding-top: 2em;
+            color: #fff;
+            font-size: 14px;
+            border: 1px solid gray;
+            padding: 5px 10px;
+            border-radius: 100px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        ul{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul > li{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            width: 300px;
+            margin-top: 2em;
+            padding: 10px;
+            border-radius: 100px;
+            border: 1px solid gray;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        ul > li:hover{
+            border: 1px solid #333;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+        li > a{
+            padding-left: 10px;
+        }
+        #mybg{
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 5px);
+        }
+    </style>
+    <script src="assets/js/storage.js"></script>
+    <script src="vanta/three.min.js"></script>
+    <script src="vanta/vanta.birds.min.js"></script>
+    <script src="vanta/typed.js"></script>
+
+    <script>
+        window.addEventListener('DOMContentLoaded',()=>{
+            VANTA.BIRDS({
+                el: "#mybg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                color1: 0x2d014d,
+                color2: 0xa400ff,
+                birdSize: 1.00,
+                speedLimit: 4.00,
+                separation: 20.00,
+                alignment: 20,
+                cohesion: 100.00,
+                wingSpan: 30.00,
+                quantity: 4.20,
+            })
+            setTimeout(() => {
+                const main = document.querySelector('main')
+                main.style.opacity = 1
+                main.style.filter = 'blur(0px)'
+            }, 200)
+        })
+    </script>
+</head>
+<body>
+    <div id="mybg"></div>
+    <main>
+        <div class="container inner">
+            <div class="eight columns">
+                <span class="box"></span>
+            </div>
+            <button id= 'origin' class="btn-55">
+                <span>开始</span>
+            </button>
+        </div>
+    </main>
+    <script>
+        var typed = new Typed(".box", {
+            strings: ["腹部多器官智能分割解析平台"],//输出的文字
+            typeSpeed: 150,//打字的速度
+            cursorChar: '_',
+        });
+    </script>
+    <script>
+        var originButton = document.getElementById('origin');
+        originButton.addEventListener('click', function() {
+            window.location.href = storage.baseURL+'/treatfront/login.html'; // 将URL替换为您想要跳转的页面的URL
+        });
+    </script>
+</body>
+</html>

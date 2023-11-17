@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<script src="assets/js/storage.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<title>MED-AI</title>
+</head>
+
+<style>
+	.tap {
+		/*			width: 200px;*/
+		white-space: nowrap;
+		height: 34px;
+		background-color: #F7F7FF;
+		position: absolute;
+		right: 4%;
+		top: 50px;
+		float: left;
+		border-radius: 17px;
+		display: none;
+		transition: 1s;
+		box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+	}
+
+	.tap ul {
+		height: 100%;
+		/*			width: 100%;*/
+		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.tap ul li {
+		flex:1;
+		height:100%;
+		padding:0 15px;
+		line-height:34px;
+		color:#5F5F5F;
+		/* padding: 10px 10px; */
+		text-align: center;
+		/*			border-radius: 5px;*/
+	}
+
+	.tap ul .active {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+	}
+
+	.tap ul li:hover {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+		cursor: pointer;
+	}
+
+	.tap ul li:first-child{
+		border-radius:17px 0 0 17px;
+	}
+	.tap ul li:last-child{
+		border-radius:0 17px 17px 0;
+	}
+
+	.tap1 {
+		/*			width: 200px;*/
+		white-space: nowrap;
+		height: 34px;
+		background-color: #F7F7FF;
+		position: absolute;
+		right: 4%;
+		top: 50px;
+		float: left;
+		border-radius: 17px;
+		display: none;
+		transition: 1s;
+		box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+	}
+
+	.tap1 ul {
+		height: 100%;
+		/*			width: 100%;*/
+		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.tap1 ul li {
+		flex:1;
+		height:100%;
+		padding:0 15px;
+		line-height:34px;
+		color:#5F5F5F;
+		/* padding: 10px 10px; */
+		text-align: center;
+		/*			border-radius: 5px;*/
+	}
+
+	.tap1 ul .active {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+	}
+
+	.tap1 ul li:hover {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+		cursor: pointer;
+	}
+
+	.tap1 ul li:first-child{
+		border-radius:17px 0 0 17px;
+	}
+	.tap1 ul li:last-child{
+		border-radius:0 17px 17px 0;
+	}
+
+	.tap2 {
+		/*			width: 200px;*/
+		white-space: nowrap;
+		height: 34px;
+		background-color: #F7F7FF;
+		position: absolute;
+		right: 4%;
+		top: 50px;
+		float: left;
+		border-radius: 17px;
+		display: none;
+		transition: 1s;
+		box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+	}
+
+	.tap2 ul {
+		height: 100%;
+		/*			width: 100%;*/
+		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.tap2 ul li {
+		flex:1;
+		height:100%;
+		padding:0 15px;
+		line-height:34px;
+		color:#5F5F5F;
+		/* padding: 10px 10px; */
+		text-align: center;
+		/*			border-radius: 5px;*/
+	}
+
+	.tap2 ul .active {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+	}
+
+	.tap2 ul li:hover {
+		background-color: #E2EDFF;
+		color: #0D6EFD;
+		cursor: pointer;
+	}
+
+	.tap2 ul li:first-child{
+		border-radius:17px 0 0 17px;
+	}
+	.tap2 ul li:last-child{
+		border-radius:0 17px 17px 0;
+	}
+</style>
+
+<body>
+<!--wrapper-->
+<div class="wrapper">
+	<!--sidebar wrapper -->
+	<div class="sidebar-wrapper" data-simplebar="true">
+		<div class="sidebar-header">
+			<div>
+				<img src="assets/images/3D医疗图标.svg" class="logo-icon" alt="logo icon">
+			</div>
+			<div>
+				<h4 class="logo-text">MED-AI</h4>
+			</div>
+			<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+			</div>
+		</div>
+		<!--navigation-->
+		<ul class="metismenu" id="menu">
+			<li>
+				<a href="home.html">
+					<div class="parent-icon"><i class='bx bx-home'></i>
+					</div>
+					<div class="menu-title">主页</div>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:;" class="has-arrow">
+					<div class="parent-icon"><i class='bx bx-devices'></i>
+					</div>
+					<div class="menu-title">器官分割</div>
+				</a>
+				<ul>
+					<li> <a href="model.html"><i class="bx bx-right-arrow-alt"></i>模型配置</a>
+					</li>
+					<li> <a href="label_make.html"><i class="bx bx-right-arrow-alt"></i>标签配置</a>
+					</li>
+					<li> <a href="segmentation.html"><i class="bx bx-right-arrow-alt"></i>模型推理</a>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				<a href="label_manage.html">
+					<div class="parent-icon"><i class="bx bx-label"></i>
+					</div>
+					<div class="menu-title">标签管理</div>
+				</a>
+			</li>
+			<li>
+				<a href="seg_show.html">
+					<div class="parent-icon"><i class="bx bx-adjust"></i>
+					</div>
+					<div class="menu-title">分割结果渲染</div>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:;" class="has-arrow">
+					<div class="parent-icon"><i class="bx bx-line-chart"></i>
+					</div>
+					<div class="menu-title">数据分析</div>
+				</a>
+				<ul>
+					<li> <a href="measurement.html"><i class="bx bx-right-arrow-alt"></i>测量和计数</a>
+					</li>
+					<li> <a href="userDiy.html"><i class="bx bx-right-arrow-alt"></i>自定义数据分析</a>
+					</li>
+					<li> <a href="report.html"><i class="bx bx-right-arrow-alt"></i>诊断报告</a>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				<a href="diagnose.html">
+					<div class="parent-icon"><i class="bx bx-brain"></i>
+					</div>
+					<div class="menu-title">智能诊断</div>
+				</a>
+			</li>
+
+			<li class="menu-label">账户和个人信息</li>
+			<li>
+				<a class="has-arrow" href="javascript:;">
+					<div class="parent-icon"><i class="bx bx-lock"></i>
+					</div>
+					<div class="menu-title">账号管理</div>
+				</a>
+				<ul>
+					<li> <a href="home_change.html"><i class="bx bx-right-arrow-alt"></i>更改密码</a>
+					</li>
+					<li> <a href="home_confirm.html"><i class="bx bx-right-arrow-alt"></i>更改密保</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="personInfo.html">
+					<div class="parent-icon"><i class="bx bx-user-circle"></i>
+					</div>
+					<div class="menu-title">个人信息</div>
+				</a>
+			</li>
+		</ul>
+		<!--end navigation-->
+	</div>
+	<!--end sidebar wrapper -->
+	<div class="tap">
+		<ul>
+			<li class="active" data-xl="1"></li>
+			<li data-xl="2"></li>
+			<li data-xl="3"></li>
+			<li data-xl="4"></li>
+		</ul>
+	</div>
+	<div class="tap1">
+		<ul>
+			<li class="active" data-xl="1"></li>
+			<li data-xl="2"></li>
+		</ul>
+	</div>
+	<div class="tap2">
+		<ul>
+			<li class="active" data-xl="1"></li>
+			<li data-xl="2"></li>
+			<li data-xl="3"></li>
+		</ul>
+	</div>
+
+	<!--start header -->
+	<div class="switcher-wrapper">
+		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
+		</div>
+		<div class="switcher-body">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 text-uppercase">自定义</h5>
+				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
+			</div>
+			<hr />
+			<h6 class="mb-0">主题样式</h6>
+			<hr />
+			<div class="d-flex align-items-center justify-content-between">
+				<div class="form-check">
+					<input class="form-check-input a1" type="radio" name="flexRadioDefault" id="lightmode" checked>
+					<label class="form-check-label" for="lightmode">白天</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input a2" type="radio" name="flexRadioDefault" id="darkmode" checked>
+					<label class="form-check-label" for="darkmode">黑夜</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input a3" type="radio" name="flexRadioDefault" id="semidark" checked>
+					<label class="form-check-label" for="semidark">突出</label>
+				</div>
+			</div>
+			<hr />
+			<div class="form-check">
+				<input class="form-check-input a4" type="radio" id="minimaltheme" name="flexRadioDefault" checked>
+				<label class="form-check-label" for="minimaltheme">统一色</label>
+			</div>
+			<hr />
+			<h6 class="mb-0">顶部颜色</h6>
+			<hr />
+			<div class="header-colors-indigators">
+				<div class="row row-cols-auto g-3">
+					<div class="col">
+						<div class="indigator headercolor1" id="headercolor1"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor2" id="headercolor2"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor3" id="headercolor3"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor4" id="headercolor4"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor5" id="headercolor5"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor6" id="headercolor6"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor7" id="headercolor7"></div>
+					</div>
+					<div class="col">
+						<div class="indigator headercolor8" id="headercolor8"></div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<h6 class="mb-0">菜单颜色</h6>
+			<hr />
+			<div class="header-colors-indigators">
+				<div class="row row-cols-auto g-3">
+					<div class="col">
+						<div class="indigator sidebarcolor1" id="sidebarcolor1"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor2" id="sidebarcolor2"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor3" id="sidebarcolor3"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor4" id="sidebarcolor4"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor5" id="sidebarcolor5"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor6" id="sidebarcolor6"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor7" id="sidebarcolor7"></div>
+					</div>
+					<div class="col">
+						<div class="indigator sidebarcolor8" id="sidebarcolor8"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="topbar d-flex align-items-center">
+			<nav class="navbar navbar-expand">
+				<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+				</div>
+				<div class="search-bar flex-grow-1">
+					<div class="position-relative search-bar-box">
+						<input type="text" class="form-control search-control" placeholder="搜索">
+						<span class="position-absolute top-50 search-show translate-middle-y"><i
+								class='bx bx-search'></i></span>
+						<span class="position-absolute top-50 search-close translate-middle-y"><i
+								class='bx bx-x'></i></span>
+					</div>
+				</div>
+				<div class="top-menu ms-auto">
+					<ul class="navbar-nav align-items-center">
+						<li class="nav-item mobile-search-icon">
+							<a class="nav-link" href="#"> <i class='bx bx-search'></i>
+							</a>
+						</li>
+						<li class="nav-item dropdown dropdown-large">
+							<div class="dropdown-menu dropdown-menu-end">
+								<div class="header-notifications-list">
+								</div>
+							</div>
+						</li>
+						<li class="nav-item dropdown dropdown-large">
+							<!--<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">8</span>
+                                <i class='bx bx-comment'></i>
+                            </a>-->
+							<div class="dropdown-menu dropdown-menu-end">
+								<a href="javascript:;">
+									<div class="msg-header">
+										<p class="msg-header-title">Messages</p>
+										<p class="msg-header-clear ms-auto">Marks all as read</p>
+									</div>
+								</a>
+								<div class="header-message-list">
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Daisy Anderson <span
+														class="msg-time float-end">5 sec
+															ago</span></h6>
+												<p class="msg-info">The standard chunk of lorem</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Althea Cabardo <span
+														class="msg-time float-end">14
+															sec ago</span></h6>
+												<p class="msg-info">Many desktop publishing packages</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Oscar Garner <span class="msg-time float-end">8
+															min
+															ago</span></h6>
+												<p class="msg-info">Various versions have evolved over</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Katherine Pechon <span
+														class="msg-time float-end">15
+															min ago</span></h6>
+												<p class="msg-info">Making this the first true generator</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Amelia Doe <span class="msg-time float-end">22
+															min
+															ago</span></h6>
+												<p class="msg-info">Duis aute irure dolor in reprehenderit</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Cristina Jhons <span
+														class="msg-time float-end">2 hrs
+															ago</span></h6>
+												<p class="msg-info">The passage is attributed to an unknown</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">James Caviness <span
+														class="msg-time float-end">4 hrs
+															ago</span></h6>
+												<p class="msg-info">The point of using Lorem</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Peter Costanzo <span
+														class="msg-time float-end">6 hrs
+															ago</span></h6>
+												<p class="msg-info">It was popularised in the 1960s</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">David Buckley <span
+														class="msg-time float-end">2 hrs
+															ago</span></h6>
+												<p class="msg-info">Various versions have evolved over</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Thomas Wheeler <span
+														class="msg-time float-end">2 days
+															ago</span></h6>
+												<p class="msg-info">If you are going to use a passage</p>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item" href="javascript:;">
+										<div class="d-flex align-items-center">
+											<div class="user-online">
+											</div>
+											<div class="flex-grow-1">
+												<h6 class="msg-name">Johnny Seitz <span class="msg-time float-end">5
+															days
+															ago</span></h6>
+												<p class="msg-info">All the Lorem Ipsum generators</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<a href="javascript:;">
+									<div class="text-center msg-footer">View All Messages</div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="user-box dropdown">
+					<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+					   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<div class="user-info ps-3">
+							<p class="user-name mb-0" align="center">MED-AI</p>
+							<p class="designattion mb-0">赛坤博队</p>
+						</div>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end">
+						<li><a class="dropdown-item" href="personInfo.html"><i
+								class="bx bx-user"></i><span>个人信息</span></a></li>
+						<li><a class="dropdown-item" href="home_change.html"><i
+								class="bx bx-cog"></i><span>更改密码</span></a></li>
+						<li>
+							<div class="dropdown-divider mb-0"></div>
+						</li>
+						<li><a class="dropdown-item" href="login.html" onclick="logout()"><i
+								class='bx bx-log-out-circle'></i><span>退出登录</span></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!--end wrapper-->
+	<!--start switcher-->
+
+	<!--end switcher-->
+
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+</div>
+
+<script>
+	// 校验用户是否携带token访问主页
+	// if (!storage.getToken()) {
+	//   location.href = 'login.html';
+	// }
+
+	function logout() {
+		// 执行清除token的操作
+		storage.clear();
+	}
+
+</script>
+
+</body>
+
+</html>

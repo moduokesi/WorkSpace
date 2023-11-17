@@ -1,0 +1,471 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/3D医疗图标.svg" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet" />
+	<link href="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<script src="assets/js/storage.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<!--数据可视化 -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<!-- iOS meta tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
+	<title>MED-AI</title>
+	<style>
+		.down_load{
+			width: 90px;
+			height: 36px;
+			background-color: red;
+			text-align: center;
+			line-height: 36px;
+			color: white;
+			position: fixed;
+			right: 50px;
+			top: 100px;
+			z-index: 1999;
+		}
+
+		/* 根据类名或ID选择对应的单元格，并设置内容居中对齐 */
+		.centered-cell {
+			text-align: center;
+		}
+		.form-container {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 10px;
+		}
+
+		/* 单个表单项的样式 */
+		.form-item {
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<body>
+     <div id="page-layout"></div>
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">诊断报告</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">诊断报告</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<!--end breadcrumb-->
+
+				<div class="row">
+					<div class="col-xl-9 mx-auto">
+						<h6 class="mb-0 text-uppercase">文件选择</h6>
+						<hr/>
+						<div class="card">
+							<div class="card-body">
+								<div class="border p-3 rounded">
+									<div class="mb-2">
+										<label class="form-label">请选择文件生成诊断报告</label>
+										<div class="row">
+											<div class="col-10">
+												<select id="selectmx" class="single-select">
+													<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
+												</select>
+											</div>
+											<div class="col-2">
+												<button class="btn btn-outline-secondary" type="button" id="submit1" onClick="generate()">开始生成</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="border p-3 rounded">
+								<div class="main">
+									<div class="article">
+										<div class="content">
+											<h2 style="text-align: center;">MED-AI 诊断报告书</h2>
+											<hr>
+											<div class="form-container">
+												<div class="form-item">
+													<label for="nameInput">姓名：</label>
+													<input type="text" id="nameInput">
+												</div>
+
+												<div class="form-item">
+													<label for="ageInput">年龄：</label>
+													<input type="text" id="ageInput">
+												</div>
+
+												<div class="form-item">
+													<label>性别：</label>
+													<input type="radio" name="sex" value="男">男
+													<input type="radio" name="sex" value="女">女
+												</div>
+
+												<div class="form-item">
+													<label for="number">门诊号：</label>
+													<input type="text" id="number" style="width: 156px;">
+												</div>
+											</div>
+											<p>检查日期：
+												<span id="checkDate"></span>
+											</p>
+											<p>出自医疗数据文件：<span id="fileInfo"></span></p>
+											<hr>
+											<div id="imageContainer" style="text-align: center;">
+												<img id="reportImage" style="max-width: 100%; max-height: 400px; margin-bottom: 10px;">
+											</div>
+
+											<p>临床诊断：</p>
+											<div class="input-group">
+												<textarea class="form-control" id="diagnose1"></textarea>
+											</div>
+											<hr>
+
+											<p>器官信息：</p>
+											<table id="example" class="table table-striped table-bordered" style="width:100%">
+												<thead>
+												<tr>
+													<th style="text-align: center; vertical-align: middle;">器官</th>
+													<th style="text-align: center;">最大直径<br>（单位：mm）</th>
+													<th style="text-align: center;">表面积<br>（单位：cm^2）</th>
+													<th style="text-align: center;">体积<br>（单位：cm^3）</th>
+												</tr>
+												</thead>
+												<tbody id="tableBody">
+												<!-- JavaScript将动态生成的表格行插入此处 -->
+												</tbody>
+											</table>
+											<hr>
+
+											<p>诊断结果：</p>
+											<div class="input-group">
+												<textarea class="form-control" id="diagnose2"></textarea>
+											</div>
+											<hr>
+
+											<p>签名：</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end switcher-->
+	 <button id="change102" hidden="hidden"></button>
+	 <script src="assets/js/jquery.min.js"></script>
+	 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
+	 <script src="assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js"></script>
+	 <script src="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>
+	 <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	 <script src="assets/plugins/select2/js/select2.min.js"></script>
+
+	 <script>
+		 $('#selectmx').select2({
+			 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+		 });
+	 </script>
+	 <!--app JS-->
+	 <script src="assets/js/app.js"></script>
+	 <!-- 加载边栏资源 -->
+	 <script>
+		 $(function() {
+			 $("#page-layout").load("index.html");
+		 });
+	 </script>
+
+
+	 <script>
+
+		 $(document).ready(function() {
+			 $.ajax({
+				 url: storage.baseURL+'/queryOutFiles',
+				 type: 'GET',
+				 contentType: "application/json",
+				 beforeSend: function(xhr) {
+					 // 获取 JWT 字符串
+					 const jwtToken = storage.getToken();
+					 // 设置 "token" 键名
+					 xhr.setRequestHeader("token", jwtToken);
+				 },
+				 success: function(res) {
+					 const fileAttributes = res.data;
+					 const selectBox = $("#selectmx");
+					 fileAttributes.forEach(function(file) {
+						 console.log("file="+file.fileId);
+						 const option = $("<option></option>");
+						 option.text(file.fileName + ".nii.gz");
+						 option.val(file.fileUrl);
+						 selectBox.append(option);
+					 });
+				 },
+				 error: function() {
+					 console.log("请求失败");
+				 }
+			 });
+		 });
+	 </script>
+
+</body>
+	<script src="assets/plugins/docxtemplater/docxtemplater.js"></script>
+	<script src="assets/plugins/docxtemplater/pizzip.js"></script>
+	<script src="assets/plugins/docxtemplater/FileSaver.js"></script>
+	<script src="assets/plugins/docxtemplater/pizzip-utils.js"></script>
+
+	<!--[if IE]>
+	<script
+			type="text/javascript"
+			src="assets/plugins/docxtemplater/pizzip-utils-ie.js"
+	></script>
+	<![endif]-->
+	<script>
+		$("#selectmx").on('change', function () {
+			// 重置输入框
+			document.getElementById("nameInput").value = '';
+			document.getElementById("ageInput").value = '';
+			document.querySelector('input[name="sex"]').checked = false;
+			document.getElementById("checkDate").textContent = '';
+
+			// 清空表格内容
+			var tableBody = document.getElementById('tableBody');
+			tableBody.innerHTML = '';
+
+			// 获取下拉框中选择的文件名
+			var selectedFileName = $("#selectmx option:selected").text();
+
+			// 如果选择的选项是"请选择一个文件"，则将文件信息置为空字符串
+			var fileInfoElement = document.getElementById("fileInfo");
+			fileInfoElement.textContent = selectedFileName === "请选择一个文件" ? '' : selectedFileName;
+		});
+
+		// 加载文件函数
+		function loadFile(url, callback) {
+			PizZipUtils.getBinaryContent(url, callback);
+		}
+
+		function getCurrentDateTime() {
+			var currentDate = new Date();
+			var year = currentDate.getFullYear();
+			var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+			var day = String(currentDate.getDate()).padStart(2, '0');
+			var hours = String(currentDate.getHours()).padStart(2, '0');
+			var minutes = String(currentDate.getMinutes()).padStart(2, '0');
+
+			return year + '年' + month + '月' + day + '日 ' + hours + ':' + minutes;
+		}
+
+		// 窗口中的生成函数
+		window.generate = function generate() {
+				// 绑定下拉框的change事件处理函数
+				var fileName = $("#selectmx option:selected").text();
+				if (fileName === "请选择一个文件") {
+					Swal.fire({
+						icon: 'warning',
+						title: '请选择文件！'
+					})
+					return;
+				}
+
+				// 获取输入框的值
+				var name = document.getElementById("nameInput").value;
+				var age = document.getElementById("ageInput").value;
+				var sexInput = document.querySelector('input[name="sex"]:checked');
+				var sex = sexInput ? sexInput.value : "";
+				var number = document.getElementById("number").value;
+				var diagnose1 = document.getElementById("diagnose1").value;
+				var diagnose2 = document.getElementById("diagnose2").value;
+
+
+				if (name === "" || age === "" || sex === "") {
+					Swal.fire({
+						icon: 'warning',
+						title: '请补全相关信息！'
+					})
+					return;
+				}
+
+				var addData={
+					repFileName: fileName,
+					repName: name,
+					repAge: age,
+					repSex: sex
+				}
+				$.ajax({
+					url: storage.baseURL+'/addReportInfo',
+					type: 'post',
+					data: JSON.stringify(addData),
+					contentType: "application/json",
+					beforeSend: function(xhr) {
+						// 获取 JWT 字符串
+						const jwtToken = storage.getToken();
+						// 设置 "token" 键名
+						xhr.setRequestHeader("token", jwtToken);
+					},
+					success: function(res) {
+
+					},
+					error: function (){
+
+					}
+				});
+				$.ajax({
+					url: storage.baseURL+'/orgInfo',
+					type: 'GET',
+					data: {fileName : fileName},
+					contentType: "application/json",
+					beforeSend: function(xhr) {
+						// 获取 JWT 字符串
+						const jwtToken = storage.getToken();
+						// 设置 "token" 键名
+						xhr.setRequestHeader("token", jwtToken);
+					},
+					success: function(res) {
+						const file = fileName.match(/([^\/]+)\.nii\.gz$/)[1];
+
+						var imgUrl = "..\\treatdata\\"+ res.data[0].orgAccount
+								+ "\\imgfile\\" + file + ".png"
+						var imgElement = $('#reportImage');
+
+						imgElement.attr('src', imgUrl);  // 替换成您图片的URL
+
+						var tableBody = document.getElementById('tableBody');
+						tableBody.innerText = '';
+
+						// 根据数据生成每一行的内容
+						for (var i = 0; i < res.data.length; i++) {
+							// 创建表格行
+							var rowElement = document.createElement('tr');
+							rowElement.setAttribute('id', 'row-' + i);
+
+							// 创建器官单元格并添加数据
+							var fileNameCell = document.createElement('td');
+							fileNameCell.textContent = res.data[i].orgOrgan;
+							fileNameCell.classList.add('centered-cell'); // 添加一个类名用于样式选择
+							rowElement.appendChild(fileNameCell);
+
+							// 创建直径单元格并添加数据
+							var fileTypeCell = document.createElement('td');
+							fileTypeCell.textContent = res.data[i].orgDiameter;
+							fileTypeCell.classList.add('centered-cell'); // 添加一个类名用于样式选择
+							rowElement.appendChild(fileTypeCell);
+
+							// 创建表面积并添加数据
+							var fileOrganCell = document.createElement('td');
+							fileOrganCell.textContent = res.data[i].orgSurface;
+							fileOrganCell.classList.add('centered-cell'); // 添加一个类名用于样式选择
+							rowElement.appendChild(fileOrganCell);
+
+							// 创建体积并添加按钮
+							var actionCell = document.createElement('td');
+							actionCell.textContent = res.data[i].orgVolume;
+							actionCell.classList.add('centered-cell'); // 添加一个类名用于样式选择
+							rowElement.appendChild(actionCell);
+
+							// 将行元素添加到表格主体中
+							tableBody.appendChild(rowElement);
+						}
+
+						// 加载文件
+						loadFile(
+								"./template/template.docx",
+								function (error, content) {
+									if (error) {
+										throw error;
+									}
+									const zip = new PizZip(content);
+									const doc = new window.docxtemplater(zip, {
+										paragraphLoop: true,
+										linebreaks: true,
+									});
+
+									// 获取当前日期和时间
+									var datetime = getCurrentDateTime();
+									document.getElementById("checkDate").textContent = datetime;
+
+									// 定义一个空的对象数组
+									var parts = res.data;
+
+									// 渲染文档
+									doc.render({
+										name: name,
+										age: age,
+										sex: sex,
+										number: number,
+										diagnose1: diagnose1,
+										diagnose2: diagnose2,
+										datetime: datetime,
+										imgUrl: imgUrl,
+										parts: parts,
+										file: $("#selectmx option:selected").text(),
+										result: "正常",
+										show: "显示正常"
+									});
+
+									const blob = doc.getZip().generate({
+										type: "blob",
+										mimeType:
+												"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+										// 压缩：DEFLATE 添加了压缩步骤。
+										// 对于 50MB 的输出文档，预计额外耗时 500ms 的 CPU 时间。
+										compression: "DEFLATE",
+									});
+									// 使用 Data-URI 输出文档
+									saveAs(blob, "output.docx");
+									Swal.close();
+									Swal.fire({
+										icon: 'success',
+										title: '报告生成完毕！'
+									})
+								}
+						);
+					},
+					error: function() {
+						console.log("请求失败");
+					}
+				});
+		};
+	</script>
+</html>
