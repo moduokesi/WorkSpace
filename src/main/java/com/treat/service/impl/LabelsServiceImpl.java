@@ -52,10 +52,22 @@ public class LabelsServiceImpl extends ServiceImpl<LabelsMapper, Labels> impleme
     public boolean deleteByConfigId(String configId) {
         QueryWrapper<Labels> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("config_id",configId);
+        int count = this.count(queryWrapper);
         boolean flag = this.remove(queryWrapper);
-        if(flag)
+        if(count==0||flag)
             return true;
         else
             return false;
+    }
+
+    @Override
+    public boolean updateLabelsByConfigId(LabelsDTO labelsDTO) {
+        boolean deleteFlag = this.deleteByConfigId(labelsDTO.getId());
+        if(deleteFlag){
+            this.add(labelsDTO);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

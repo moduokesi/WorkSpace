@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label for="configDescription">配置简介</label>
                                 <small class="form-text text-danger">*</small>
-                                <textarea class="form-control" id="configDescription" rows="3" placeholder="输入配置简介"
+                                <textarea class="form-control" id="configDescription" rows="2" placeholder="输入配置简介"
                                           required></textarea>
                             </div>
                             <br/>
@@ -122,6 +122,7 @@
     </div>
 </div>
 <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
 <script src="assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
@@ -202,9 +203,6 @@
     $(document).ready(function () {
         document.getElementById("subButton").addEventListener("click", function (event) {
             event.preventDefault(); // 阻止表单的默认提交行为
-
-            var formData = $("#labelForm").serialize();  // 获取表单数据
-
             var configName = document.getElementById("configName").value;
             var configDescription = document.getElementById("configDescription").value;
 

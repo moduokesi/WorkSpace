@@ -147,7 +147,6 @@
 											</p>
 											<p>出自医疗数据文件：<span id="fileInfo"></span></p>
 											<hr>
-
 											<div id="imageContainer" style="text-align: center;">
 												<img id="reportImage" style="max-width: 100%; max-height: 400px; margin-bottom: 10px;">
 											</div>
@@ -220,6 +219,7 @@
 
 
 	 <script>
+
 		 $(document).ready(function() {
 			 $.ajax({
 				 url: storage.baseURL+'/queryOutFiles',
@@ -235,6 +235,7 @@
 					 const fileAttributes = res.data;
 					 const selectBox = $("#selectmx");
 					 fileAttributes.forEach(function(file) {
+						 console.log("file="+file.fileId);
 						 const option = $("<option></option>");
 						 option.text(file.fileName + ".nii.gz");
 						 option.val(file.fileUrl);
@@ -300,7 +301,6 @@
 		window.generate = function generate() {
 				// 绑定下拉框的change事件处理函数
 				var fileName = $("#selectmx option:selected").text();
-
 				if (fileName === "请选择一个文件") {
 					Swal.fire({
 						icon: 'warning',
@@ -318,6 +318,7 @@
 				var diagnose1 = document.getElementById("diagnose1").value;
 				var diagnose2 = document.getElementById("diagnose2").value;
 
+
 				if (name === "" || age === "" || sex === "") {
 					Swal.fire({
 						icon: 'warning',
@@ -326,6 +327,30 @@
 					return;
 				}
 
+				var addData={
+					repFileName: fileName,
+					repName: name,
+					repAge: age,
+					repSex: sex
+				}
+				$.ajax({
+					url: storage.baseURL+'/addReportInfo',
+					type: 'post',
+					data: JSON.stringify(addData),
+					contentType: "application/json",
+					beforeSend: function(xhr) {
+						// 获取 JWT 字符串
+						const jwtToken = storage.getToken();
+						// 设置 "token" 键名
+						xhr.setRequestHeader("token", jwtToken);
+					},
+					success: function(res) {
+
+					},
+					error: function (){
+
+					}
+				});
 				$.ajax({
 					url: storage.baseURL+'/orgInfo',
 					type: 'GET',

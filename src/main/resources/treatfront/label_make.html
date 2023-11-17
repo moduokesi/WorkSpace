@@ -122,7 +122,6 @@
                 </table>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -231,9 +230,9 @@
             success: function (res) {
                 // 成功获取数据后，渲染到表格中
                 var element = document.getElementById('textFirst');
-                if (res.data.length > 0) {
+                if (res.data===null) {
                     element.style.display = 'block';
-                }
+                }else
                 {
                     element.style.display = 'none';
                 }
@@ -523,6 +522,13 @@
                 var row = document.getElementById(configId); // 假设每行的ID为 "row-fileId"
                 // 3. 从表格中移除被删除的行
                 row.remove();
+                var tbody = $("#tagDetailsBody");
+                var textFrist = document.getElementById("textFirst");
+                if (tbody.children().length===0){
+                  textFrist.style.display="block";
+                }else{
+                  textFrist.style.display="none";
+                }
 
                 // 处理响应数据，根据需要刷新页面或其他操作
                 console.log('Config deleted successfully:', data);

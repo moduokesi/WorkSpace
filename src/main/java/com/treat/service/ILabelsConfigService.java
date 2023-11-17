@@ -13,4 +13,5 @@ public interface ILabelsConfigService extends IService<LabelsConfig> {
     Result deleteById(String configId);
 
 
+    Result updateLabelsConfig(LabelsDTO labelsDTO);
 }

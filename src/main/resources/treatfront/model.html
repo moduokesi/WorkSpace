@@ -243,7 +243,7 @@
 <body>
 <div class="a1111 a2222 c6"></div>
 
-<div id="page-layout"></div>
+<div id="page-layout"></div>x
 <!--start page wrapper -->
 <div class="page-wrapper">
   <div class="page-content">
@@ -292,7 +292,7 @@
               <div class="form-child">
                 <h7>模型文件</h7>
                 <div class="form-file">
-                  <form action="#" class="fileForm">
+                  <form action="http://localhost:8080/treatment/addModel" class="fileForm">
                     <input class="file-input" type="file" name="file" hidden onchange="handleFileChange(this)">
                     <i class="fa fa-cloud-upload"></i>
                     <p>Browse File to Upload</p>
@@ -344,7 +344,10 @@
     </div>
   </div>
 </div>
+
 <!-- 加载边栏资源 -->
+<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -396,7 +399,7 @@
         var content = `
                 <div class="mb-2">
                     <div class="svgIcon">
-                        <img src="./assets/icons/models/model${index + 1}.svg" />
+                        <img src="./assets/icons/models/model${(index + 1)%8}.svg" />
                     </div>
                     <label class="form-label">${data.label}</label>
                     <div class="button-container">
@@ -419,11 +422,59 @@
 
 <script>
   function getInputValues() {
-    var modalNameValue = document.querySelector('.modal-name').value;
-    var modalIntroValue = document.querySelector('.modal-intro').value;
+    var nameInput = document.querySelector('.modal-name');
+    var introTextarea = document.querySelector('.modal-intro');
+    var uploadedArea = document.querySelector(".uploaded-area");
+    var modalNameValue =nameInput.value.trim();
+    var modalIntroValue = introTextarea.value.trim();
 
     console.log('模型名称:', modalNameValue);
     console.log('模型简介:', modalIntroValue);
+    var modelForm = {
+      modelName: modalNameValue.trim(),
+      modelDescription: modalIntroValue.trim(),
+    };
+    $.ajax({
+      type: "POST",
+      url: storage.baseURL + "/addModel",
+      data: JSON.stringify(modelForm),
+      contentType: "application/json",
+      beforeSend: function (xhr) {
+        // 获取JWT字符串
+        const jwtToken = storage.getToken();
+        // 设置 "token" 键名
+        xhr.setRequestHeader("token", jwtToken);
+      },
+      success: function (res) {
+        if (res.status === 200) {
+          Swal.fire({
+            title: '添加成功',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonText: '确定',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              nameInput.value="";
+              introTextarea.value ="";
+              uploadedArea.innerHTML="";
+            }
+          });
+        } else {
+          Swal.fire({
+            title: '添加失败',
+            text: res.msg,
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: '确定',
+          })
+        }
+      },
+      error: function (error) {
+        // alert(error.msg);
+      }
+    });
+
+
   }
 
   function handleFileChange(input) {
