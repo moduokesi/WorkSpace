@@ -21,6 +21,8 @@
     <link href="assets/css/app.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
     <!-- Theme Style CSS -->
+    <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="assets/css/dark-theme.css" />
     <link rel="stylesheet" href="assets/css/semi-dark.css" />
     <link rel="stylesheet" href="assets/css/header-colors.css" />
@@ -434,6 +436,20 @@
             var fileName = $("#selectNii option:selected").text();
             console.log(fileName);
 
+            if (name === "" || age === "" || sex === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '请补全相关信息！'
+                })
+                return;
+            }
+            if (fileName === "请选择一个文件") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '请选择文件！'
+                })
+                return;
+            }
             $.ajax({
                 async: true,
                 url: storage.baseURL + '/orgInfo',
@@ -474,6 +490,12 @@
                     }
                     org=org+'</<table>'+'<p>'+messageArea+'</p>';
                     sendMessage(basicInfo+org);
+
+                    document.getElementById('nameInput').value = '';
+                    document.getElementById('ageInput').value = '';
+                    document.querySelector('input[name="sex"]:checked').checked = false;
+                    document.getElementById('messageArea').value = '';
+
 
                     console.log(org);
 
