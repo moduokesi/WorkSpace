@@ -1,5 +1,6 @@
 package com.treat.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.treat.dto.Result;
@@ -41,4 +42,29 @@ public class ModelsServiceImpl extends ServiceImpl<ModelsMapper, Models> impleme
         Models model = modelsService.getById(modelId);
         return Result.ok(model);
     }
+
+    @Override
+    public Result addModel(Models model, String account) {
+        boolean exist = this.isExist(model, account);
+        if(!exist){
+            model.setModelAccount(account);
+            model.setModelUrl("./usr/local/treatdata/models/");
+            model.setModelTime(new DateTime());
+            this.save(model);
+            return Result.ok("操作成功");
+        }
+        return Result.fail("此文件名已存在");
+    }
+
+    public boolean isExist(Models model, String account){
+        QueryWrapper<Models> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("model_name",model.getModelName())
+                .eq("model_account",account);
+        int count = this.count(queryWrapper);
+        if(count>0)
+            return true;
+        else
+            return false;
+    }
+
 }

@@ -12,4 +12,6 @@ public interface ILabelsService extends IService<Labels> {
     List<Labels> queryLabelsByConfigId(String configId);
 
     boolean deleteByConfigId(String configId);
+
+    boolean updateLabelsByConfigId(LabelsDTO labelsDTO);
 }

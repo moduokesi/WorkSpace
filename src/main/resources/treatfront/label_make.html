@@ -105,7 +105,7 @@
           </div>
           <div id="textFirst" class="text-center mt-4 mb-4" style="display: none;">
             <!-- 使用Bootstrap类使文字居中并添加顶部间距 -->
-            <p class="fs-1 fw-bold" style="opacity: 0.7;">暂未配置标签，请添加</p> <!-- 使用Bootstrap类设置文字颜色 -->
+<!--            <p class="fs-1 fw-bold" style="opacity: 0.7;">暂未配置标签，请添加</p> &lt;!&ndash; 使用Bootstrap类设置文字颜色 &ndash;&gt;-->
           </div>
         </div>
         <!--                详情模态框-->
@@ -122,7 +122,6 @@
                 </table>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -231,9 +230,9 @@
             success: function (res) {
                 // 成功获取数据后，渲染到表格中
                 var element = document.getElementById('textFirst');
-                if (res.data.length > 0) {
+                if (res.data===null) {
                     element.style.display = 'block';
-                }
+                }else
                 {
                     element.style.display = 'none';
                 }
@@ -523,8 +522,17 @@
                 var row = document.getElementById(configId); // 假设每行的ID为 "row-fileId"
                 // 3. 从表格中移除被删除的行
                 row.remove();
+                var tbody = $("#tagDetailsBody");
+                var textFrist = $("#textFirst");
 
-                // 处理响应数据，根据需要刷新页面或其他操作
+                if ($("#tagDetailsBody tr").length === 0) {
+                  textFrist.hide();
+                } else {
+                  textFrist.show();
+                }
+
+
+              // 处理响应数据，根据需要刷新页面或其他操作
                 console.log('Config deleted successfully:', data);
             },
             error: function (error) {

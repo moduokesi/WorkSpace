@@ -10,8 +10,6 @@ import com.treat.utils.PyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-
 
 @RestController
 public class DiagnoseController {
@@ -20,8 +18,9 @@ public class DiagnoseController {
 
     @GetMapping("/diagnose")
     public Result sendMessage(@RequestParam("message") String message) {
+        System.out.println(message);
+//        return Result.ok();
         JSONObject json = JSONUtil.parseObj(PyUtil.Diagnose(message));
-
         return Result.ok(json.get("result"));
     }
 

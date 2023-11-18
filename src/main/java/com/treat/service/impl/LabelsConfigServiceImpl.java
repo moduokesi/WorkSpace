@@ -64,6 +64,21 @@ public class LabelsConfigServiceImpl extends ServiceImpl<LabelsConfigMapper, Lab
         }
         return Result.ok();
     }
+
+    @Override
+    public Result updateLabelsConfig(LabelsDTO labelsDTO) {
+        String configId = labelsDTO.getId();
+        QueryWrapper<LabelsConfig> queryWrapper=new QueryWrapper<>();
+        LabelsConfig labelsConfig = this.getById(configId);
+        boolean configFlag = this.updateById(labelsConfig);
+        boolean labelsFlag = labelsService.updateLabelsByConfigId(labelsDTO);
+        if(configFlag&&labelsFlag){
+            return Result.ok("修改成功");
+        }else{
+            return Result.fail("修改失败");
+        }
+    }
+
     public boolean isExist(LabelsDTO labelsDTO, String account){
         QueryWrapper<LabelsConfig> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("config_name",labelsDTO.getConfigName())

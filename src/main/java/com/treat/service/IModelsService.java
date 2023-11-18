@@ -10,4 +10,6 @@ public interface IModelsService extends IService<Models> {
     Result deleteModel(String modelId);
 
     Result getModelDetail(String modelId);
+
+    Result addModel(Models model, String account);
 }

@@ -52,16 +52,7 @@ public class LabelsController {
 
     @PostMapping("/updateLabels")
     public Result updateLabels(@RequestBody LabelsDTO labelsDTO){
-        Result resultDelete = this.deleteConfig(labelsDTO);
-        Result resultAdd = this.addLabels(labelsDTO);
-        if(resultDelete.getStatus()==200&&resultAdd.getStatus()==200){
-            return Result.ok("操作成功");
-        }else{
-            if(resultDelete.getStatus()!=200)
-                return Result.fail(resultDelete.getStatus(),resultDelete.getMsg());
-            else
-                return Result.fail(resultAdd.getStatus(),resultAdd.getMsg());
-        }
+        return labelsConfigService.updateLabelsConfig(labelsDTO);
     }
 
 

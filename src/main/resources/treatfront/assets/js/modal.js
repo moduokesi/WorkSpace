@@ -1,14 +1,15 @@
-const form = document.querySelector("form"),
+const form = document.querySelector(".fileForm"),
 fileInput = document.querySelector(".file-input"),
 progressArea = document.querySelector(".progress-area"),
 uploadedArea = document.querySelector(".uploaded-area");
-
+var data = new FormData();
 // form click event
 form.addEventListener("click", () =>{
     fileInput.click();
 });
 
 fileInput.onchange = ({target})=>{
+    data.append("file",target.files[0]);
     let file = target.files[0]; //getting file [0] this means if user has selected multiple files then get first one only
     if(file){
         let fileName = file.name; //getting file name
@@ -21,15 +22,17 @@ fileInput.onchange = ({target})=>{
 }
 
 // file upload function
-function uploadFile(name){
+function uploadFile(name) {
     let xhr = new XMLHttpRequest(); //creating new xhr object (AJAX)
-    xhr.open("POST", "php/upload.php"); //sending post request to the specified URL
-    xhr.upload.addEventListener("progress", ({loaded, total}) =>{ //file uploading progress event
+    xhr.open("POST", $(this).attr("action"),true); //sending post request to the specified URL
+    const jwtToken = storage.getToken();
+    xhr.setRequestHeader("token", jwtToken);
+    xhr.upload.addEventListener("progress", ({loaded, total}) => { //file uploading progress event
         let fileLoaded = Math.floor((loaded / total) * 100);  //getting percentage of loaded file size
         let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
         let fileSize;
         // if file size is less than 1024 then add only KB else convert this KB into MB
-        (fileTotal < 1024) ? fileSize = fileTotal + " KB" : fileSize = (loaded / (1024*1024)).toFixed(2) + " MB";
+        (fileTotal < 1024) ? fileSize = fileTotal + " KB" : fileSize = (loaded / (1024 * 1024)).toFixed(2) + " MB";
         let progressHTML = `<li class="row">
                           <i class="fas fa-file-alt"></i>
                           <div class="content">
@@ -45,7 +48,7 @@ function uploadFile(name){
         // uploadedArea.innerHTML = ""; //uncomment this line if you don't want to show upload history
         uploadedArea.classList.add("onprogress");
         progressArea.innerHTML = progressHTML;
-        if(loaded == total){
+        if (loaded == total) {
             progressArea.innerHTML = "";
             let uploadedHTML = `<li class="row">
                             <div class="content upload">
@@ -62,6 +65,6 @@ function uploadFile(name){
             uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML); //remove this line if you don't want to show upload history
         }
     });
-    let data = new FormData(form); //FormData is an object to easily send form data
+     //FormData is an object to easily send form data
     xhr.send(data); //sending form data
 }
