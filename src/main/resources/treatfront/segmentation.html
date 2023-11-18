@@ -218,11 +218,8 @@
 						<hr />
 
 						<label class="form-label">选择分割模型</label>
-						<select class="single-select">
+						<select class="single-select" id="modelSelect">
 							<option selected="selected" disabled="disabled" hidden="hidden">请选择一个模型</option>
-							<option value="United States">高精度模型：nnU-Net</option>
-							<option value="United Kingdom">快速分割模型：V-net</option>
-							<option value="Afghanistan">高效模型：nnFormer</option>
 						</select>
 						<hr />
 						<div class="card">
@@ -316,10 +313,37 @@
 					//设置路径
 					selectBox.append(option);
 				});
-
 			},
 			error: function(res) {
 				// 错误处理代码
+			}
+		});
+
+		$.ajax({
+			url: storage.baseURL + '/getModelInfo',
+			type: 'GET',
+			contentType: "application/json",
+			beforeSend: function (xhr) {
+				// 获取JWT字符串
+				const jwtToken = storage.getToken();
+				// 设置 "token" 键名
+				xhr.setRequestHeader("token", jwtToken);
+			},
+			success: function (res) {
+				if (res.status != 200) {
+					alert(res.msg)
+				}
+				const fileAttributes = res.data;
+				const selectBox = $("#modelSelect");
+				fileAttributes.forEach(function(file) {
+					const option = $("<option></option>");
+					option.text(file.modelName);
+					//设置路径
+					selectBox.append(option);
+				});
+			},
+			error: function (res) {
+				alert("请求发送失败，请检查网络连接或服务器状态。");
 			}
 		});
 	</script>
