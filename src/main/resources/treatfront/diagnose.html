@@ -181,19 +181,17 @@
     }
 
     #sendMessageButton {
-        position:absolute;
+        position: absolute;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        outline:none!important;
-        width:30px;
-        height:30px;
-        right:80px;
-        bottom:13px;
-        /*        background-image: url(./assets/icons/button.svg);*/
-        /*        background-size: contain; *//* 使用contain值确保图像适应盒子内 */
-        /*        background-repeat: no-repeat; *//* 防止图像重复显示 */
+        outline: none !important;
+        width: 100px; /* 调整按钮的宽度 */
+        height: 30px;
+        right: 35px;
+        bottom: 13px;
     }
+
     #sendMessageButton img {
         width:100%;
         height:100%;
@@ -251,6 +249,7 @@
     .info-value {
         margin-right: 80px; /* 'John Doe' 和 '性别：' 之间的额外间距，可以根据需要调整 */
     }
+
 </style>
 
 <body>
@@ -357,7 +356,7 @@
             <div class="input-box">
                 <textarea id="messageInput" placeholder="Type a message..." class="text"></textarea>
                     <div id="sendMessageButton">
-                        <img src="./assets/icons/button.svg" alt="">
+                        <button type="button" class="btn btn-primary btn-sm">发送</button>
                     </div>
                     <button type="button" id="button" data-toggle='modal' data-target='#modalSmartDiagnose'>智能诊断</button>
             </div>

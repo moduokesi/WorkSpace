@@ -4,22 +4,55 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 public class PythonTest {
 
     @Test
-    public void demo1() {
-        String str = "1";
-        char ch = '好';
+    public String Diagnose(String message) {
+        message = "你好";
+        String pythonScript = "D:\\Workspaces\\Project\\treatpython\\diagnose.py";
 
-        // 获取字符串的字节数（使用 UTF-8 编码）
-        byte[] utf8Bytes = str.getBytes();
-        System.out.println("字符串 '" + str + "' 的字节数（UTF-8）: " + utf8Bytes.length);
+        // 构建命令行参数
+        ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScript);
+        processBuilder.redirectErrorStream(true); // 重定向错误流到输入流
 
-        // 获取字符的字节数（使用 UTF-8 编码）
-        byte[] chBytes = Character.toString(ch).getBytes();
-        System.out.println("字符 '" + ch + "' 的字节数（UTF-8）: " + chBytes.length);
+        try {
+            Process process = processBuilder.start();
+
+            // 获取输出结果
+            OutputStream outputStream = process.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
+
+            // 将参数作为JSON字符串写入标准输入
+            String inputJson = message;
+            // 将消息文本编码为UTF-8并写入
+
+            byte[] inputBytes = inputJson.getBytes(StandardCharsets.UTF_8);
+            outputStream.write(inputBytes);
+            outputStream.close();
+
+            int exitCode = process.waitFor();
+            System.out.println("Python脚本执行完毕，退出码：" + exitCode);
+
+            InputStream inputStream = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line);
+            }
+
+            String result = output.toString();
+            System.out.println(result);
+
+            return result;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Test

@@ -264,6 +264,10 @@
 			// 获取下拉框中选择的文件名
 			var selectedFileName = $("#selectmx option:selected").text();
 
+			// 获取图片元素
+			var imgElement = $('#reportImage');
+			imgElement.attr('src', '');
+
 			// 如果选择的选项是"请选择一个文件"，则将文件信息置为空字符串
 			var fileInfoElement = document.getElementById("fileInfo");
 			fileInfoElement.textContent = selectedFileName === "请选择一个文件" ? '' : selectedFileName;
