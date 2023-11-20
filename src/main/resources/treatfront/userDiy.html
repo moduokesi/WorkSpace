@@ -126,6 +126,12 @@
 						<div class="card-body">
 							<div class="border p-3 rounded">
 								<div class="mb-3">
+									<label class="form-label">请选择自定义脚本文件</label>
+									<select id="scriptSelect" class="single-select">
+										<option selected="selected" disabled="disabled" hidden="hidden">请选择一个脚本</option>
+									</select>
+								</div>
+								<div class="mb-3">
 									<label class="form-label">请选择需要分析的文件</label>
 									<select id="fileSelect" class="single-select">
 										<option selected="selected" disabled="disabled" hidden="hidden">请选择一个文件</option>
@@ -364,37 +370,46 @@
 			 success: function (res) {
 				 if (res.status != 200) {
 					 alert(res.msg);
-				 } else {
-					 var tableBody = document.getElementById('tableBody');
-					 tableBody.innerText = '';
+				 }
+				 const fileAttributes = res.data;
+				 const selectBox = $("#scriptSelect");
+				 fileAttributes.forEach(function(file) {
+					 const option = $("<option></option>");
+					 option.text(file.scpName);
+					 //设置路径
+					 selectBox.append(option);
+				 });
 
-					 // 根据数据生成每一行的内容
-					 for (var i = 0; i < res.data.length; i++) {
-						 // 创建表格行
-						 var rowElement = document.createElement('tr');
-						 rowElement.setAttribute('id', 'row-' + res.data[i].scpId);
+				 var tableBody = document.getElementById('tableBody');
+				 tableBody.innerText = '';
 
-						 // 创建文件名单元格并添加数据
-						 var fileNameCell = document.createElement('td');
-						 var fileNameSpan = document.createElement('span');
-						 fileNameSpan.textContent = res.data[i].scpName;
-						 fileNameSpan.classList.add('scp-name');
-						 fileNameCell.appendChild(fileNameSpan);
-						 rowElement.appendChild(fileNameCell);
+				 // 根据数据生成每一行的内容
+				 for (var i = 0; i < res.data.length; i++) {
+					 // 创建表格行
+					 var rowElement = document.createElement('tr');
+					 rowElement.setAttribute('id', 'row-' + res.data[i].scpId);
 
-						 // 创建操作单元格并添加按钮
-						 var actionCell = document.createElement('td');
-						 var actionButton = document.createElement('button');
-						 actionButton.textContent = '删除'; // 按钮文本
-						 actionButton.classList.add('delete-button'); // 按钮样式类
-						 actionButton.dataset.fileId = res.data[i].scpId; // 按钮自定义属性，例如文件ID
-						 actionButton.addEventListener('click', handleButtonClick); // 按钮点击事件处理程序
-						 actionCell.appendChild(actionButton);
-						 rowElement.appendChild(actionCell);
+					 // 创建文件名单元格并添加数据
+					 var fileNameCell = document.createElement('td');
+					 var fileNameSpan = document.createElement('span');
+					 fileNameSpan.textContent = res.data[i].scpName;
+					 fileNameSpan.classList.add('scp-name');
+					 fileNameCell.appendChild(fileNameSpan);
+					 rowElement.appendChild(fileNameCell);
 
-						 // 将行元素添加到表格主体中
-						 tableBody.appendChild(rowElement);
-					 }
+					 // 创建操作单元格并添加按钮
+					 var actionCell = document.createElement('td');
+					 var actionButton = document.createElement('button');
+					 actionButton.textContent = '删除'; // 按钮文本
+					 actionButton.classList.add('delete-button'); // 按钮样式类
+					 actionButton.dataset.fileId = res.data[i].scpId; // 按钮自定义属性，例如文件ID
+					 actionButton.addEventListener('click', handleButtonClick); // 按钮点击事件处理程序
+					 actionCell.appendChild(actionButton);
+					 rowElement.appendChild(actionCell);
+
+					 // 将行元素添加到表格主体中
+					 tableBody.appendChild(rowElement);
+
 				 }
 			 },
 			 error: function (res) {

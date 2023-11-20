@@ -355,46 +355,51 @@
 </script>
 <script src="assets/js/modal.js"></script>
 <script>
-  var modelData = [];
 
-  $.ajax({
-    url: storage.baseURL + '/getModelInfo',
-    type: 'GET',
-    contentType: "application/json",
-    beforeSend: function (xhr) {
-      // 获取JWT字符串
-      const jwtToken = storage.getToken();
-      // 设置 "token" 键名
-      xhr.setRequestHeader("token", jwtToken);
-    },
-    success: function (res) {
-      if (res.status != 200) {
-        alert(res.msg)
-      }
-      var list = res.data;
 
-      list.forEach(function (element) {
-        modelData.push({
-          label: element.modelName,
-          modelId: element.modelId // 添加modelId
-        });
-      });
-
-      console.log(modelData)
-      var modelListContainer = document.getElementById("modelList");
-      var maxModulesPerRow = 3;
-      var currentRow;
-
-      modelData.forEach(function (data, index) {
-        if (index % maxModulesPerRow === 0) {
-          currentRow = document.createElement("div");
-          currentRow.className = "d-flex justify-content-flex-start"; // 创建新行
+  function render(){
+    var modelData = [];
+    $.ajax({
+      url: storage.baseURL + '/getModelInfo',
+      type: 'GET',
+      contentType: "application/json",
+      beforeSend: function (xhr) {
+        // 获取JWT字符串
+        const jwtToken = storage.getToken();
+        // 设置 "token" 键名
+        xhr.setRequestHeader("token", jwtToken);
+      },
+      success: function (res) {
+        if (res.status != 200) {
+          alert(res.msg)
         }
+        var list = res.data;
+        document.getElementById("modelList").innerHTML='';
+        // $("#modelList").empty();
 
-        var modelModule = document.createElement("div");
-        modelModule.className = "border p-3 rounded model-card";
+        list.forEach(function (element) {
+          modelData.push({
+            label: element.modelName,
+            modelId: element.modelId // 添加modelId
+          });
+        });
 
-        var content = `
+        console.log(modelData)
+        var modelListContainer = document.getElementById("modelList");
+        var maxModulesPerRow = 3;
+        var currentRow;
+
+        modelData.forEach(function (data, index) {
+          console.log("index", index);
+          if (index % maxModulesPerRow === 0) {
+            currentRow = document.createElement("div");
+            currentRow.className = "d-flex justify-content-flex-start"; // 创建新行
+          }
+
+          var modelModule = document.createElement("div");
+          modelModule.className = "border p-3 rounded model-card";
+
+          var content = `
                 <div class="mb-2">
                     <div class="svgIcon">
                         <img src="./assets/icons/models/model${(index + 1)%8}.svg" />
@@ -407,15 +412,17 @@
                 </div>
             `;
 
-        modelModule.innerHTML = content;
-        currentRow.appendChild(modelModule);
-        modelListContainer.appendChild(currentRow);
-      });
-    },
-    error: function (res) {
-      alert("请求发送失败，请检查网络连接或服务器状态。");
-    }
-  });
+          modelModule.innerHTML = content;
+          currentRow.appendChild(modelModule);
+          modelListContainer.appendChild(currentRow);
+        });
+      },
+      error: function (res) {
+        alert("请求发送失败，请检查网络连接或服务器状态。");
+      }
+    });
+  }
+  render()
 </script>
 
 <script>
@@ -605,7 +612,10 @@
           if (deletedModelElement) {
             // 如果找到了对应的模块元素，则从DOM中移除
             deletedModelElement.closest('.model-card').remove(); // 移除整个模块容器
+
           }
+          //重新请求并更新页面
+          render();
         },
         error: function (res) {
           alert("请求发送失败，请检查网络连接或服务器状态。");

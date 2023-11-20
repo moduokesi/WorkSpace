@@ -19,10 +19,16 @@ public class DiagnoseController {
     @GetMapping("/diagnose")
     public Result sendMessage(@RequestParam("message") String message) {
         System.out.println(message);
-//        return Result.ok();
-        JSONObject json = JSONUtil.parseObj(PyUtil.Diagnose(message));
+        String result = PyUtil.Diagnose(message);
+
+        String cleanResult = result.replace("*", "");
+
+        // 将清理后的结果解析为 JSONObject
+        JSONObject json = JSONUtil.parseObj(cleanResult);
+
         return Result.ok(json.get("result"));
     }
+
 
     @PostMapping("/getPdfInfo")
     public Result getPdfInto(@RequestBody PdfDTO pdfDTO) {
