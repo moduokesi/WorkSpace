@@ -1,39 +1,26 @@
-# WorkSpace
+## 腹部多器官智能分割解析平台
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+### 资源位置
 
-#### 软件架构
-软件架构说明
+**sql文件**放在`src\main\resources\`下
 
+### 路径配置
 
-#### 安装教程
+1. 将项目文件treatment放置在文件路径`D:\Workspaces\Project\treattest`\下。
+2. 将数据集文件dataset与项目文件也放在同级目录`D:\Workspaces\Project\treattest\`。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+3. 将项目脚本文件treatpython放置在下一级文件路径`D:\Workspaces\Project\`。
 
-#### 使用说明
+### 基础配置
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+sql文件：创建数据库treatment，将文件导入进去即可。
 
-#### 参与贡献
+### 登录页面
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+项目导航页：http://localhost:8080/treatment/treatfront/origin.html
 
+账号和密码在**trt_user**表中
 
-#### 特技
+### 使用说明
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+对于本项目中的所有功能，除功能模块**器官分割**下的模型配置和标签配置功能外，其他功能**基本依赖**于器官分割下的模型推理中的**上传文件**子功能。
