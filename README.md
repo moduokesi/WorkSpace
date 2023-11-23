@@ -2,7 +2,7 @@
 
 ### 资源位置
 
-**sql文件**放在`src\main\resources\`下
+**数据文件**、**项目脚本文件**、**sql文件**都放在`src\main\resources\`下
 
 ### 路径配置
 
