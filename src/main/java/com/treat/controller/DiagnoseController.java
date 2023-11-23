@@ -31,7 +31,7 @@ public class DiagnoseController {
 
 
     @PostMapping("/getPdfInfo")
-    public Result getPdfInto(@RequestBody PdfDTO pdfDTO) {
+    public Result getPdfInfo(@RequestBody PdfDTO pdfDTO) {
 
         return orgInfoService.getPdfInfo(pdfDTO);
     }
