@@ -8,7 +8,7 @@
 *.ctxt
 
 # 忽略yml文件
-*.yml
+**/*.yml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
