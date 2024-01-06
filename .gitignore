@@ -7,6 +7,9 @@
 # BlueJ files
 *.ctxt
 
+# 忽略yml文件
+*.yml
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
