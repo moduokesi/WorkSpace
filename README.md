@@ -80,7 +80,7 @@
 
 2. 诊断报告
 
-![](https://modox.oss-cn-hangzhou.aliyuncs.com/img/202311251330919.png)
+![](../../../../QQ_Files/Tencent Files/2484792357/nt_qq/nt_data/Pic/2024-02/Ori/71e80170d5664363e47e2deb9cdcae7c.png)
 
 #### AIGC智能问诊界面
 
